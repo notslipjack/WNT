@@ -1,1 +1,72 @@
+# Lives on a PUBLIC repo such as OWNER/wnt-updates.
+# Private source repo is a separate thing and can stay private.
+#
+# Each release:
+#   - attach a file named exactly WNT.apk
+#   - put a line in the release body: versionCode: 3
+#   - optional first line is the notes
+# The job writes /update.json on the default branch.
+# Wrapper default URL:
+#   https://raw.githubusercontent.com/OWNER/wnt-updates/main/update.json
+name: Publish update.json
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  write-manifest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Write update.json from the latest release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          SERVER: ${{ github.server_url }}
+        run: |
+          python3 << 'PY'
+          import json, os, subprocess, re
+          repo = os.environ["REPO"]
+          server = os.environ["SERVER"]
+          raw = subprocess.check_output(["gh", "api", f"repos/{repo}/releases/latest"], text=True)
+          rel = json.loads(raw)
+          tag = rel.get("tag_name") or ""
+          name = rel.get("name") or tag
+          body = rel.get("body") or ""
+          code = None
+          m = re.search(r"versionCode:\s*(\d+)", body)
+          if m:
+              code = int(m.group(1))
+          else:
+              m = re.search(r"\+(\d+)$", tag)
+              if m:
+                  code = int(m.group(1))
+          if code is None:
+              raise SystemExit("Add 'versionCode: N' to the release body or tag like v3.0.2+3")
+          notes = body.strip().splitlines()[0] if body.strip() else ""
+          notes = re.sub(r"versionCode:\s*\d+", "", notes).strip()
+          doc = {
+              "versionName": name,
+              "versionCode": code,
+              "apkUrl": f"{server}/{repo}/releases/download/{tag}/WNT.apk",
+              "notes": notes
+          }
+          with open("update.json", "w", encoding="utf-8") as f:
+              json.dump(doc, f, indent=2)
+              f.write("\n")
+          print(json.dumps(doc, indent=2))
+          PY
+      - name: Commit update.json
+        run: |
+          git config user.name "wnt-update-bot"
+          git config user.email "wnt-update-bot@users.noreply.github.com"
+          git add update.json
+          git diff --cached --quiet && echo "No change" && exit 0
+          git commit -m "refresh update.json"
+          git push
 

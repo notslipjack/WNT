@@ -1,7 +1,7 @@
 {
-  "versionName": "3.0.5",
-  "versionCode": 6,
-  "apkUrl": "https://github.com/notslipjack/WNT/releases/download/v3.0.5/WNT.apk",
+  "versionName": "3.0.6",
+  "versionCode": 7,
+  "apkUrl": "https://github.com/notslipjack/WNT/releases/download/v3.0.6/WNT.apk",
   "htmUrl": "https://raw.githubusercontent.com/notslipjack/WNT/main/WNT.htm",
-  "notes": "Opens WNT.htm from main. Falls back to bundled if missing."
+  "notes": "No launch popup. APK button only for a new wrapper. GitHub reloads WNT.htm."
 }

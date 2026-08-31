@@ -2,7 +2,7 @@
 
 Single-file vanilla JS toolkit for TSM / TSE work. Open the `.htm` in a browser. No server required.
 
-Current file: `WNT-TSM-3.0_31AUG2026-29.htm`
+Current file: `WNT-TSM-3.0_31AUG2026-32.htm`
 
 Older dated copies in this folder are snapshots. Use the highest generation number.
 
@@ -44,8 +44,8 @@ There is no prebuilt APK in this tree (no Android SDK on the machine that packed
 | --- | --- |
 | App name | WNT |
 | Package | `com.nocarbon.wnt` |
-| versionName | 3.0.1 |
-| versionCode | 2 |
+| versionName | 3.0.2 |
+| versionCode | 3 |
 
 Toolbar: Open WNT file (SAF picker), Load bundled copy (`assets/wnt.htm`), Update.
 
@@ -57,26 +57,32 @@ html2app.dev wants a zip with `index.html` at the root. Use `wnt-html2app.zip`, 
 
 The phone cannot read a private GitHub repo. Source can be private. The update feed must be public.
 
-1. Create a **public** repo, example `YOURUSER/wnt-updates`.
-2. Copy `.github/workflows/publish-update.yml` from the wrapper onto that repo.
+Public repo in use: https://github.com/notslipjack/WNT/
+
+If that repo is private, raw update.json and release APKs 404 for everyone else. Make it public, or keep source private and publish only the JSON plus WNT.apk on a public repo.
+
+1. Put update.json on the default branch (main or master).
+2. Copy .github/workflows/publish-update.yml from the wrapper onto that repo.
 3. Settings > Actions > General > Workflow permissions > Read and write.
-4. Put this raw URL in **APK update manager** (or bake it into `app/src/main/res/values/strings.xml` as `update_manifest_url` before you compile):
+4. Wrapper is baked to check:
 
 ```
-https://raw.githubusercontent.com/YOURUSER/wnt-updates/main/update.json
+https://raw.githubusercontent.com/notslipjack/WNT/main/update.json
 ```
 
-5. Each ship: bump `versionCode` in `app/build.gradle`, build `WNT.apk`, create a Release on `wnt-updates`, attach that file as `WNT.apk`, put `versionCode: 3` in the release body.
-6. The workflow rewrites `update.json` on `main`. The wrapper checks that URL a couple seconds after launch and prompts **Update WNT?**
+If the default branch is master, change main to master.
 
-`update.json` shape:
+5. Each ship: bump versionCode in app/build.gradle, build WNT.apk, create a Release on notslipjack/WNT, attach that file as WNT.apk, put versionCode: 3 in the release body.
+6. The workflow rewrites update.json. The wrapper checks a couple seconds after launch and prompts Update WNT?
+
+update.json for this account:
 
 ```json
 {
-  "versionName": "3.0.2",
-  "versionCode": 3,
-  "apkUrl": "https://github.com/YOURUSER/wnt-updates/releases/download/v3.0.2/WNT.apk",
-  "htmUrl": "https://github.com/YOURUSER/wnt-updates/releases/download/v3.0.2/WNT.htm",
+  "versionName": "3.0.1",
+  "versionCode": 2,
+  "apkUrl": "https://github.com/notslipjack/WNT/releases/download/v3.0.1/WNT.apk",
+  "htmUrl": "https://github.com/notslipjack/WNT/releases/download/v3.0.1/WNT-TSM-3.0.htm",
   "notes": "what changed"
 }
 ```
@@ -96,7 +102,7 @@ Optional private repo (`wnt-source` or similar) is only for you. The APK never f
 
 | File | What it is |
 | --- | --- |
-| `WNT-TSM-3.0_31AUG2026-29.htm` | Current toolkit |
+| `WNT-TSM-3.0_31AUG2026-32.htm` | Current toolkit |
 | `WNT-TSM-3.0_31AUG2026-13.htm` … `-28.htm` | Prior snapshots |
 | `WNT-Android-Wrapper/` | Android Studio project |
 | `WNT-Android-Wrapper.zip` | Same project, zipped |

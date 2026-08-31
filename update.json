@@ -1,7 +1,7 @@
 {
-  "versionName": "3.0.2",
-  "versionCode": 3,
-  "apkUrl": "https://github.com/notslipjack/WNT/releases/download/v3.0.2/WNT.apk",
-  "htmUrl": "https://github.com/notslipjack/WNT/releases/download/v3.0.2/WNT-TSM-3.0.htm",
-  "notes": "Studio wrapper with auto-prompt. Uninstall the html2app build first if install is blocked."
+  "versionName": "3.0.3",
+  "versionCode": 4,
+  "apkUrl": "https://github.com/notslipjack/WNT/releases/download/v3.0.3/WNT.apk",
+  "htmUrl": "https://raw.githubusercontent.com/notslipjack/WNT/main/WNT-TSM-3.0_31AUG2026-34.htm",
+  "notes": "No cyan WNT title. Tools strip opens Open / Bundled / Update."
 }

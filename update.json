@@ -1,7 +1,7 @@
 {
-  "versionName": "3.0.0",
-  "versionCode": 1,
-  "apkUrl": "https://github.com/notslipjack/WNT/releases/download/v3.0.1/WNT.apk",
-  "htmUrl": "https://github.com/notslipjack/WNT/releases/download/v3.0.1/WNT-TSM-3.0.htm",
-  "notes": "html2app first build"
+  "versionName": "3.0.2",
+  "versionCode": 3,
+  "apkUrl": "https://github.com/notslipjack/WNT/releases/download/v3.0.2/WNT.apk",
+  "htmUrl": "https://github.com/notslipjack/WNT/releases/download/v3.0.2/WNT-TSM-3.0.htm",
+  "notes": "Studio wrapper with auto-prompt. Uninstall the html2app build first if install is blocked."
 }

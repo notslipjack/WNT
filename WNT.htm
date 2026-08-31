@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -3776,7 +3777,7 @@ html += statRow("Holiday override", loadHolidayOverride() ? "on (seasonal themes
 html += statRow("Tooltips", loadTooltipsDisabled() ? "disabled, a quiet office" : "enabled, hover away");
 html += statRow("Auto-backup New Hire", (typeof isAutoBackupEnabled === "function" && isAutoBackupEnabled()) ? "on" : "off");
 html += statRow("JSON envelope religion", "v2. kind + data. Claude can read it. so can you.");
-html += statRow("This file generation", "34 (31AUG2026)");
+html += statRow("This file generation", "35 (31AUG2026)");
 html += statRow("Lines of personality", "too many. that is the point.");
 
 html += '<div id="stats-footer-joke">You have now spent time reading stats that measure absolutely nothing important.</div>' +
@@ -3895,6 +3896,11 @@ var RELEASE_NOTES_HTML =
 
 '<div class="rn-version" style="font-size:14px;margin-top:18px;color:var(--accent-gold);">Changelog</div>' +
 '<p class="mod-note" style="font-size:11px;color:var(--text-mid);">Newest entries added here going forward, on top - the fuller numbered history below stays as a standing snapshot and isn\'t rewritten each time.</p>' +
+
+'<div class="rn-version" style="font-size:12px;margin-top:10px;">31 Aug 2026 (file generation 35)</div>' +
+'<ul>' +
+'<li><strong style="color:var(--accent-gold);">New file:</strong> WNT-TSM-3.0_31AUG2026-35.htm. Calendar module documents Google Calendar import and export through the same .ics files Outlook uses. No live Google API from file://.</li>' +
+'</ul>' +
 
 '<div class="rn-version" style="font-size:12px;margin-top:10px;">31 Aug 2026 (file generation 34)</div>' +
 '<ul>' +
@@ -11244,7 +11250,7 @@ var as = a.allDay ? a.startDate : a.start;
 var bs = b.allDay ? b.startDate : b.start;
 return String(as || "").localeCompare(String(bs || ""));
 });
-var html = '<p class="mod-note" style="margin-top:0;">Local event list. Microsoft will not two-way sync this page. You move data with files.</p>' +
+var html = '<p class="mod-note" style="margin-top:0;">Local event list. Neither Outlook nor Google two-way sync this page from file://. You move data with .ics files.</p>' +
 '<p class="mod-note" id="cal-tz-line"></p>' +
 '<div id="cal-virtual">' +
 '<div id="cal-virtual-head">' +
@@ -11276,6 +11282,15 @@ var html = '<p class="mod-note" style="margin-top:0;">Local event list. Microsof
 '<p class="mod-note"><strong style="color:var(--accent-gold);">Subscribe vs import</strong><br>' +
 'Subscribe from web needs a public https:// URL that ends in .ics and keeps updating. This file on a laptop cannot be that URL. Importing a downloaded .ics copies events once.</p>' +
 
+'<p class="mod-note" style="color:var(--text-white);font-weight:700;margin-top:10px;">Google Calendar</p>' +
+'<p class="mod-note">Same .ics file Outlook uses. Google will not keep this page in sync after you import. Snapshot only.</p>' +
+'<p class="mod-note"><strong style="color:var(--accent-gold);">WNT into Google</strong><br>' +
+'Download .ics below. In a real browser open Google Calendar. Gear, Settings, Import &amp; export, Import. Choose the .ics. Pick which Google calendar to drop events into. Import. Phone app has no Import screen; use calendar.google.com.</p>' +
+'<p class="mod-note"><strong style="color:var(--accent-gold);">Google into WNT</strong><br>' +
+'On calendar.google.com: Gear, Settings, Import &amp; export, Export. Google gives a .zip. Unzip it. Each calendar is an .ics. Import that .ics below. Or open one event, three dots, Publish event / Download .ics if your account shows it.</p>' +
+'<p class="mod-note"><strong style="color:var(--accent-gold);">Subscribe by URL</strong><br>' +
+'Google can Add calendar by URL if you host a public https:// .ics that stays updated. This .htm on a laptop or inside the APK cannot be that URL. Use import.</p>' +
+
 '<p class="mod-note" style="color:var(--text-white);font-weight:700;margin-top:10px;">Teammates on WNT</p>' +
 '<p class="mod-note">Download WNT JSON and Import WNT JSON. That is the backup format. Outlook will ignore it. Settings export also carries these events under wnt_calendar_events.</p>' +
 
@@ -11303,11 +11318,11 @@ var html = '<p class="mod-note" style="margin-top:0;">Local event list. Microsof
 '</div>' +
 '<p class="mod-note" id="cal-status" style="min-height:14px;"></p>' +
 '<div class="mod-row" style="margin-top:10px;flex-wrap:wrap;gap:8px;">' +
-'<button class="mod-btn secondary" id="cal-ics" style="margin:0;">Download .ics for Outlook</button>' +
+'<button class="mod-btn secondary" id="cal-ics" style="margin:0;">Download .ics (Outlook or Google)</button>' +
 '<button class="mod-btn secondary" id="cal-csv" style="margin:0;">Download Outlook CSV</button>' +
 '<button class="mod-btn secondary" id="cal-json" style="margin:0;">Download WNT JSON</button>' +
 '<label class="mod-btn secondary" style="margin:0;cursor:pointer;">Import WNT JSON<input type="file" id="cal-import" accept=".json" style="display:none;"></label>' +
-'<label class="mod-btn secondary" style="margin:0;cursor:pointer;">Import Outlook .ics<input type="file" id="cal-import-ics" accept=".ics,.ical,.vcs" style="display:none;"></label>' +
+'<label class="mod-btn secondary" style="margin:0;cursor:pointer;">Import .ics (Outlook or Google)<input type="file" id="cal-import-ics" accept=".ics,.ical,.vcs" style="display:none;"></label>' +'<button class="mod-btn secondary" id="cal-gcal" type="button" style="margin:0;">Open Google Calendar</button>' +'<button class="mod-btn secondary" id="cal-gcal-import" type="button" style="margin:0;">Open Google Import / Export</button>' +
 '</div>';
 body.innerHTML = html;
 function renderVirtualMonth() {
@@ -11467,6 +11482,12 @@ var status = body.querySelector("#cal-status");
 status.textContent = added ? ("Added " + added + " start date(s) from the roster.") : "No new start dates to add.";
 status.style.color = "var(--accent-gold)";
 if (added) paint();
+});
+body.querySelector("#cal-gcal").addEventListener("click", function () {
+window.open("https://calendar.google.com/calendar/u/0/r", "_blank", "noopener");
+});
+body.querySelector("#cal-gcal-import").addEventListener("click", function () {
+window.open("https://calendar.google.com/calendar/u/0/r/settings/export", "_blank", "noopener");
 });
 body.querySelector("#cal-ics").addEventListener("click", function () {
 if (!events.length) { body.querySelector("#cal-status").textContent = "Nothing to export."; return; }

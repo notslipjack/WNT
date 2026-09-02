@@ -535,6 +535,15 @@ padding-bottom: 12px;
 border-bottom: 1px solid var(--border-subtle);
 }
 #settings-io-row .mod-btn { margin: 0 4px; }
+html.is-mobile-device #settings-io-row {
+display: flex;
+flex-direction: column;
+gap: 8px;
+}
+html.is-mobile-device #settings-io-row .mod-btn {
+margin: 0;
+width: 100%;
+}
 #settings-io-status {
 font-size: 11px;
 color: var(--accent-gold);
@@ -606,6 +615,18 @@ gap: 8px;
 font-size: 13px;
 margin: 0;
 font-weight: 700;
+}
+.output-title-short { display: none; }
+html.is-mobile-device .output-title-full { display: none; }
+html.is-mobile-device .output-title-short { display: inline; }
+html.is-mobile-device #output-header {
+flex-direction: column;
+align-items: flex-start;
+gap: 8px;
+}
+html.is-mobile-device #mode-toggle {
+flex-wrap: wrap;
+width: 100%;
 }
 #collapse-caret {
 font-size: 10px;
@@ -2327,7 +2348,7 @@ Apply plasma? <span style="color:var(--text-mid);">(4rknova plasma. Colors below
 <div id="output-header">
 <div class="title-group">
 <span id="collapse-caret">&#9660;</span>
-<h2>Output / Scratch Pad</h2>
+<h2><span class="output-title-full">Output / Scratch Pad</span><span class="output-title-short">Output/Scratch</span></h2>
 </div>
 <div id="mode-toggle">
 <button class="mode-btn" id="output-copy-btn" type="button">Copy</button>
@@ -3929,6 +3950,16 @@ var RELEASE_NOTES_HTML =
 
 '<div class="rn-version" style="font-size:14px;margin-top:18px;color:var(--accent-gold);">Changelog</div>' +
 '<p class="mod-note" style="font-size:11px;color:var(--text-mid);">Newest entries added here going forward, on top - the fuller numbered history below stays as a standing snapshot and isn\'t rewritten each time.</p>' +
+
+'<div class="rn-version" style="font-size:12px;margin-top:10px;">31 Aug 2026 (file generation 42)</div>' +
+'<ul>' +
+'<li><strong style="color:var(--accent-gold);">New file:</strong> WNT-TSM-3.0_31AUG2026-42.htm. Output/Scratch Pad header and the Options settings buttons no longer squish on mobile.</li>' +
+'</ul>' +
+'<div class="rn-version" style="font-size:12px;margin-top:10px;">31 Aug 2026 (mobile squish fixes: output header, settings row)</div>' +
+'<p class="mod-note">Reported from a real device (ocarbon.ddns.net, a self-hosted test instance): the Output/Scratch Pad header wrapped "Output / Scratch Pad" across three separate lines while its five buttons (Copy, ctxt.io, Append, Replace, ?) got squeezed off the right edge - #output-header used justify-content: space-between with title and buttons sharing one row, which only works when there\'s enough width for both. Same underlying problem in Options: #settings-io-row let its three buttons (Export settings, Import settings, Stats for nerds) wrap via plain inline flow with no defined breakpoints, so "Import settings" wrapped mid-button-label instead of the whole button moving to its own line.</p>' +
+'<p class="mod-note"><strong style="color:var(--text-white);">Output header:</strong> the h2 now contains two spans - .output-title-full ("Output / Scratch Pad") and .output-title-short ("Output/Scratch") - with html.is-mobile-device toggling which one shows. On mobile, #output-header switches to flex-direction: column (title stacks above the button row instead of beside it) and #mode-toggle gets flex-wrap: wrap and width: 100%, so five buttons can flow onto two rows cleanly instead of overflowing one. Desktop is completely unchanged - full title, single row, no wrap.</p>' +
+'<p class="mod-note"><strong style="color:var(--text-white);">Settings row:</strong> html.is-mobile-device #settings-io-row switches to flex-direction: column with each .mod-btn (Export settings, the Import settings label, Stats for nerds) at width: 100% - one full-width button per row instead of letting inline wrapping break mid-label. Desktop keeps its original text-align: center inline layout untouched.</p>' +
+'<p class="mod-note">Touch points: #output-header\'s h2 markup (two title spans) and its CSS block; #mode-toggle\'s mobile rule right after; #settings-io-row\'s mobile rule directly below its base rule.</p>' +
 
 '<div class="rn-version" style="font-size:12px;margin-top:10px;">31 Aug 2026 (file generation 41)</div>' +
 '<ul>' +

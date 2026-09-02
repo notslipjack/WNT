@@ -1,7 +1,7 @@
 {
-  "versionName": "3.0.7",
-  "versionCode": 8,
-  "apkUrl": "https://github.com/notslipjack/WNT/releases/download/v3.0.7/WNT.apk",
+  "versionName": "3.0.8",
+  "versionCode": 9,
+  "apkUrl": "https://github.com/notslipjack/WNT/releases/download/v3.0.8/WNT.apk",
   "htmUrl": "https://raw.githubusercontent.com/notslipjack/WNT/main/WNT.htm",
-  "notes": "Downloads WNT.htm from GitHub and opens it as a local file."
+  "notes": "WebView uses device-width at 1x."
 }

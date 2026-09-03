@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en" class="theme-builder-slate"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script>if(/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent))document.documentElement.classList.add("is-mobile-device");</script>
@@ -1121,6 +1120,28 @@ cursor: pointer;
 }
 #recomb-info-close:hover { color: var(--accent-cyan); }
 
+#deeplink-overlay {
+display: none;
+position: fixed;
+top: 0; left: 0;
+width: 100%; height: 100%;
+background: rgba(0,0,0,0.7);
+z-index: 1300;
+align-items: center;
+justify-content: center;
+padding: 20px;
+}
+#deeplink-overlay.open { display: flex; }
+#deeplink-popup {
+background: var(--bg-panel);
+border: 1px solid var(--accent-cyan);
+border-radius: 8px;
+max-width: 380px;
+width: 100%;
+padding: 18px 20px;
+}
+#deeplink-popup h3 { margin: 0 0 10px; font-size: 15px; color: var(--accent-cyan); }
+
 #tse-coverage-grid-standalone {
 overflow-x: auto;
 border: 1px solid var(--border-subtle);
@@ -1461,7 +1482,7 @@ changes, from a horizontal chip row to a persistent sidebar. */
 .wnt-cat-count { margin-left: auto; color: var(--text-mid); font-size: 10px; }
 
 .wnt-tooltip { visibility: hidden; opacity: 0; position: absolute; left: 100%; top: 50%; transform: translateY(-50%); margin-left: 8px; background: var(--bg-panel-2); border: 1px solid var(--accent-cyan); color: var(--text-white); font-size: 11px; padding: 5px 8px; border-radius: 4px; white-space: nowrap; z-index: 20; pointer-events: none; }
-#wnt-sidebar.collapsed .wnt-cat-link:hover .wnt-tooltip { visibility: visible; opacity: 1; }
+.wnt-cat-link:hover .wnt-tooltip { visibility: visible; opacity: 1; }
 
 #wnt-options-link { border-top: 1px solid var(--border-subtle); margin-top: 8px; }
 
@@ -1525,8 +1546,8 @@ display: inline-block;
 margin-top: 6px;
 font-size: 10px;
 letter-spacing: 0.4px;
-color: var(--accent-gold);
-font-weight: 700;
+color: var(--text-dim);
+font-weight: 400;
 }
 .tile-added-new {
 display: inline-block;
@@ -2025,7 +2046,7 @@ html.theme-toasters {
 
 <div id="theme-guide-overlay">
 <div id="theme-guide-popup">
-<button id="theme-guide-close" type="button" aria-label="Close">&times;</button>
+<button id="theme-guide-close" type="button" aria-label="Close">×</button>
 <h3>Theme color reference</h3>
 <p class="guide-sub">Every theme is just these 9 variables. Set all 9 and you've made a new theme.</p>
 
@@ -2041,11 +2062,11 @@ That's it - everything on the page reads from these variables, nothing else need
 
 <hr style="border-color:var(--border-subtle);margin:14px 0;">
 
-<button class="link-toggle" id="theme-builder-toggle" style="margin:0;">&#127912; Build Your Own Theme</button>
+<button class="link-toggle" id="theme-builder-toggle" style="margin:0;">🎨 Build Your Own Theme</button>
 
 <div id="theme-builder-panel" style="display:none;margin-top:10px;">
 <label class="mod-label" style="margin-top:0;">Start from</label>
-<select id="theme-builder-start" class="mod-input"></select>
+<select id="theme-builder-start" class="mod-input"><option value="__current__">Current theme</option><option value="dark">BeyondTrust Dark</option><option value="christmas">Christmas</option><option value="matrix">Matrix</option><option value="starfield">Starfield</option><option value="light">Light</option><option value="highcontrast">High Contrast</option><option value="plain">Plain Text</option><option value="ctp-macchiato-maroon">Catppuccin Macchiato (Maroon)</option><option value="ctp-macchiato-blue">Catppuccin Macchiato (Blue)</option><option value="ctp-mocha-peach">Catppuccin Mocha (Peach)</option><option value="ctp-mocha-mauve">Catppuccin Mocha (Mauve)</option><option value="ctp-frappe-teal">Catppuccin Frappe (Teal)</option><option value="builder-classic">Builder Classic</option><option value="builder-dark">Builder Dark</option><option value="builder-slate">Builder Slate</option><option value="builder-ezi">Builder Ezi</option><option value="halloween">Halloween / Autumn</option></select>
 
 <div id="theme-builder-fields" style="margin-top:10px;"></div>
 
@@ -2068,7 +2089,7 @@ That's it - everything on the page reads from these variables, nothing else need
 
 <div id="mode-info-overlay">
 <div id="mode-info-popup">
-<button id="mode-info-close" type="button" aria-label="Close">&times;</button>
+<button id="mode-info-close" type="button" aria-label="Close">×</button>
 <h3>Append vs. Replace</h3>
 <p><strong>Append</strong> - each time you hit Generate, the new output gets added to the <em>top</em> of the box, so the newest thing you ran is always the first thing you see. Older entries stay below it. Good for building up notes across several generators in one case.</p>
 <p><strong>Replace</strong> - each Generate click clears the box first, so it only ever shows the most recent output. Good when you only care about the last thing you ran.</p>
@@ -2080,7 +2101,7 @@ That's it - everything on the page reads from these variables, nothing else need
 <div id="tile-hidden-popup">
 <h3 id="tile-hidden-title">Module hidden</h3>
 <p id="tile-hidden-message"></p>
-<p class="tile-hidden-note">You can save your current setup anytime from <strong>Options &rarr; Export settings</strong>.</p>
+<p class="tile-hidden-note">You can save your current setup anytime from <strong>Options → Export settings</strong>.</p>
 <p class="tile-hidden-note">This isn't permanent - use <strong>Reset order to default</strong> at the top of this list to bring everything back.</p>
 <button class="mod-btn" id="tile-hidden-ok" style="margin-top:12px;">Got it</button>
 </div>
@@ -2100,7 +2121,7 @@ That's it - everything on the page reads from these variables, nothing else need
 
 <div id="stats-overlay">
 <div id="stats-popup">
-<button id="stats-close" type="button" aria-label="Close">&times;</button>
+<button id="stats-close" type="button" aria-label="Close">×</button>
 <h3>Stats for nerds</h3>
 <div id="stats-content"></div>
 </div>
@@ -2108,7 +2129,7 @@ That's it - everything on the page reads from these variables, nothing else need
 
 <div id="release-notes-overlay">
 <div id="release-notes-popup">
-<button id="release-notes-close" type="button" aria-label="Close">&times;</button>
+<button id="release-notes-close" type="button" aria-label="Close">×</button>
 <h3>WNT 3.0 - Release Notes</h3>
 <div id="release-notes-content"></div>
 </div>
@@ -2118,7 +2139,7 @@ That's it - everything on the page reads from these variables, nothing else need
 <div id="panic-reset-popup">
 <h3>Reset everything?</h3>
 <p id="panic-reset-lead">This clears your theme, tile order, hidden modules, custom selection, tooltip preference, and any imported New Hire content - back to exactly how the tool looked the first time you opened it.</p>
-<p class="panic-reset-note" id="panic-reset-note">Nothing here is permanent. Restore later from Options &rarr; Import settings if you keep a JSON backup.</p>
+<p class="panic-reset-note" id="panic-reset-note">Nothing here is permanent. Restore later from Options → Import settings if you keep a JSON backup.</p>
 <div class="mod-row" style="justify-content:center;margin-top:12px;flex-wrap:wrap;gap:8px;" id="panic-reset-actions">
 <button class="mod-btn secondary" id="panic-reset-cancel">Cancel</button>
 <button class="mod-btn" id="panic-reset-confirm" style="background:#ff3b3b;border-color:#ff3b3b;">Yes, reset everything</button>
@@ -2126,12 +2147,12 @@ That's it - everything on the page reads from these variables, nothing else need
 </div>
 </div>
 
-<div id="module-overlay">
+<div id="module-overlay" class="open">
 <div id="module-popup">
-<button id="module-close" type="button" aria-label="Close">&times;</button>
-<h3 id="module-title"></h3>
-<div id="module-body"></div>
-<div id="options-content" style="display:none;padding:20px;">
+<button id="module-close" type="button" aria-label="Close">×</button>
+<h3 id="module-title">Options</h3>
+<div id="module-body" style="display: none;"></div>
+<div id="options-content" style="display: block; padding: 20px;">
 <div id="advanced-panel" class="open">
 
 <div id="theme-row">
@@ -2187,7 +2208,7 @@ Override for holidays <span style="color:var(--text-mid);">(disable automatic se
 Disable tooltips <span style="color:var(--text-mid);">(hides the hover explanations throughout the tool)</span>
 </label>
 <label style="display:flex;align-items:center;gap:8px;font-size:12px;cursor:pointer;margin-top:8px;">
-<input type="checkbox" id="autobackup-checkbox" checked>
+<input type="checkbox" id="autobackup-checkbox" checked="">
 Auto-backup New Hire data <span style="color:var(--text-mid);">(on by default - see below)</span>
 </label>
 <label style="display:flex;align-items:center;gap:8px;font-size:12px;cursor:pointer;margin-top:8px;">
@@ -2248,12 +2269,12 @@ Apply plasma? <span style="color:var(--text-mid);">(4rknova plasma. Colors below
 <div id="save-local-copy-row" style="margin-top:14px;">
 <button class="mod-btn secondary" id="save-local-copy-link" type="button">Save a local copy to this device</button>
 <p class="mod-note" style="font-size:11px;color:var(--text-mid);margin-top:6px;">If you got here via a link like <code style="color:var(--accent-cyan);">hostname/download/...</code>, "Add to Home Screen" from THIS page will just bookmark that link - and if that link only works once or expires, the shortcut ends up 404ing. This button saves an exact copy of the file straight to your device's Downloads. Open <strong style="color:var(--text-white);">that</strong> downloaded file (from your Downloads/Files app, not this browser tab) once, and add <strong style="color:var(--text-white);">that</strong> to your Home Screen instead - it has no dependency on this hostname at all after that.</p>
-<p class="mod-note" id="save-local-copy-status" style="font-size:11px;min-height:14px;"></p>
+<p class="mod-note" id="save-local-copy-status" style="font-size: 11px; min-height: 14px; color: var(--text-mid);">Saving...</p>
 </div>
 
 <p class="adv-sub">Pick any mix of modules, regardless of role. Common items are on by default.</p>
 
-<div id="advanced-modules-list"></div>
+<div id="advanced-modules-list"><div class="adv-group"><div class="adv-group-label">Common</div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="ServiceNow URL Shortener"><label>ServiceNow URL Shortener</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="ServiceNow Email Mailto"><label>ServiceNow Email Mailto</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Manual Update (Download Key)"><label>Manual Update (Download Key)</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Important Emails"><label>Important Emails</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Character Counter"><label>Character Counter</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="CAPITAL → lowercase"><label>CAPITAL → lowercase</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Full Admin Authorization"><label>Full Admin Authorization</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Update Paths (Consolidated)"><label>Update Paths (Consolidated)</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Recombobulator"><label>Update Path Recombobulator</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="AAAAAAAAAAAAA (panic!!)"><label>AAAAAAAAAAAAA (panic!!)</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Misc Notes"><label>Misc Notes</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Links"><label>Links</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Scratch Pad"><label>Scratch Pad</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Shared Knowledge"><label>Shared Knowledge</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="ctxt.io Share"><label>ctxt.io Share</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Calendar (Outlook)"><label>Calendar (Outlook)</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Android wrapper (WebView)"><label>Android wrapper (WebView)</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="APK update manager"><label>APK update manager</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="SSL Certificates Explained"><label>SSL Certificates Explained</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="PERSONAL"><label>PERSONAL</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Timezone Conversion"><label>Timezone Conversion</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="BIPS Support Escalation Process"><label>BIPS Support Escalation Process</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Vault Basics: Check Out, Rotate, Inject"><label>Vault Basics: Check Out, Rotate, Inject</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="SSO / Kerberos Troubleshooting"><label>SSO / Kerberos Troubleshooting</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Atlas Cluster &amp; Failover in Plain English"><label>Atlas Cluster &amp; Failover in Plain English</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="TSE Coverage Grid"><label>TSE Coverage Grid</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Pathfinder SAML Claims"><label>Pathfinder SAML Claims</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Pathfinder Troubleshooting"><label>Pathfinder Troubleshooting</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Subnet Calculator"><label>Subnet Calculator</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="SSL Cert Decrypter"><label>SSL Cert Decrypter</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Pathfinder SCIM Provisioning"><label>Pathfinder SCIM Provisioning</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Pathfinder Site &amp; Product Access"><label>Pathfinder Site &amp; Product Access</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Pathfinder API Configuration"><label>Pathfinder API Configuration</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Legacy /login vs Pathfinder"><label>Legacy /login vs Pathfinder</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Pathfinder Custom Domain (CNAME)"><label>Pathfinder Custom Domain (CNAME)</label></div></div><div class="adv-group"><div class="adv-group-label">TSA + TSE (pick what you want via Custom Selection)</div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Hunt Group Numbers"><label>Hunt Group Numbers</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Internal IT"><label>Internal IT</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="SRA Update Request"><label>SRA Update Request</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="SRA Logging"><label>SRA Logging</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Process for Changing the PF Org/Site Admin"><label>Process for Changing the PF Org/Site Admin</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Updating SRA Failover"><label>Updating SRA Failover</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Jump Client Info"><label>Jump Client Info</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Helpful KB Articles"><label>Helpful KB Articles</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Browsers &amp; Approved Extensions"><label>Browsers &amp; Approved Extensions</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Jump Client Statuses"><label>Jump Client Statuses</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="New Jump Terminology"><label>New Jump Terminology</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="SRA VA License and Sizing"><label>SRA VA License and Sizing</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Common Failover Error Codes"><label>Common Failover Error Codes</label></div></div><div class="adv-group"><div class="adv-group-label">TSA</div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Appliance Details"><label>Appliance Details</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Partners and the Customer Portal (CXP)"><label>Partners and the Customer Portal (CXP)</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Customer Admin/Partners with Cases flags (CXP)"><label>Customer Admin/Partners with Cases flags (CXP)</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Okta Reset"><label>Okta Reset</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="More Info"><label>More Info</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="PWS Cloud Custom Hostname"><label>PWS Cloud Custom Hostname</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="PWS Cloud Upgrade"><label>PWS Cloud Upgrade</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Cloud Infrastructure Post Helper"><label>Cloud Infrastructure Post Helper</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="SRA Pathfinder URL Change Helper"><label>SRA Pathfinder URL Change Helper</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Phone Guide"><label>Phone Guide</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Single Add User to CXP"><label>Single Add User to CXP</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Multi-add Users to CXP"><label>Multi-add Users to CXP</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="FedRAMP"><label>FedRAMP</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="BI or PWS?"><label>BI or PWS?</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Product Sorting"><label>Product Sorting (Hat)</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="SRA Renewal (Live update) process"><label>SRA Renewal (Live update) process</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="SRA Jump Client Limits"><label>SRA Jump Client Limits</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Basic TSA ServiceNow Filters"><label>Basic TSA ServiceNow Filters</label></div></div><div class="adv-group"><div class="adv-group-label">TSE</div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Decommission Process for Pathfinder Sites and Apps"><label>Decommission Process for Pathfinder Sites and Apps</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="What Logs should I get?"><label>What Logs should I get?</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Escalating Cases to TEEs"><label>Escalating Cases to TEEs</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Product Info Request How-To"><label>Product Info Request How-To</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Regional Transfer Process"><label>Regional Transfer Process</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="New Install Hypervisors"><label>New Install Hypervisors</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Network Troubleshooting Tools"><label>Network Troubleshooting Tools</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="SRA Claims/Assertions"><label>SRA Claims/Assertions</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="NSTV stats"><label>NSTV stats</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Client Log Renames"><label>Client Log Renames</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Common HTTP Errors"><label>Common HTTP Errors</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Jump Client / Rep Console MSI Reference"><label>Jump Client / Rep Console MSI Reference</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Network Layers in Plain English"><label>Network Layers in Plain English</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Where Did It Break?"><label>Where Did It Break?</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="MTU and Big Packet Symptoms"><label>MTU and Big Packet Symptoms</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="DNS Troubleshooting (Plain English)"><label>DNS Troubleshooting (Plain English)</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="TLS Proxy and Cert Decoder"><label>TLS Proxy and Cert Decoder</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Jump Connectivity Decision Tree"><label>Jump Connectivity Decision Tree</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Linux Field Guide"><label>Linux Field Guide</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Deploy a Linux Jumpoint"><label>Deploy a Linux Jumpoint</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Deploy a Windows Jumpoint"><label>Deploy a Windows Jumpoint</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Windows Field Guide"><label>Windows Field Guide</label></div></div></div>
 </div>
 </div>
 
@@ -2282,7 +2303,7 @@ Apply plasma? <span style="color:var(--text-mid);">(4rknova plasma. Colors below
 
 <div id="recomb-info-overlay">
 <div id="recomb-info-popup">
-<button id="recomb-info-close" type="button" aria-label="Close">&times;</button>
+<button id="recomb-info-close" type="button" aria-label="Close">×</button>
 <h3>Keeping this data current</h3>
 <p>This dataset is <strong>shared with Update Paths (Consolidated)</strong> - the two used to be separate and could silently drift apart from each other; as of this build, refreshing one refreshes both.</p>
 <p>To verify or refresh it yourself, check the source pages directly:</p>
@@ -2290,9 +2311,22 @@ Apply plasma? <span style="color:var(--text-mid);">(4rknova plasma. Colors below
 <a href="https://beyondtrust.atlassian.net/wiki/spaces/STSE/pages/43843641/RS+Consolidated+Upgrade+Path" target="_blank">RS Consolidated Upgrade Path</a><br>
 <a href="https://beyondtrust.atlassian.net/wiki/spaces/STSE/pages/43843657/PRA+Consolidated+Upgrade+Path" target="_blank">PRA Consolidated Upgrade Path</a>
 </p>
-<p><strong>To refresh:</strong> in Confluence, click the <strong>&#8943;</strong> (three dots, top right) &rarr; <strong>Export</strong> &rarr; <strong>Export to Word</strong>, then drop the downloaded file on the import control in <strong>Update Paths (Consolidated)</strong>. It reads the table straight out of the export, recomputes the chain shown there, and updates this module's own version-lookup data at the same time - saved locally, so it's still there next time you open the tool.</p>
+<p><strong>To refresh:</strong> in Confluence, click the <strong>⋯</strong> (three dots, top right) → <strong>Export</strong> → <strong>Export to Word</strong>, then drop the downloaded file on the import control in <strong>Update Paths (Consolidated)</strong>. It reads the table straight out of the export, recomputes the chain shown there, and updates this module's own version-lookup data at the same time - saved locally, so it's still there next time you open the tool.</p>
 <p style="font-size:11px;color:var(--text-mid);margin-top:10px;">Target version field suggested by TSE Mike McCauley - thanks for the idea.</p>
 <p style="font-size:10px;color:var(--text-mid);margin-top:6px;">Recombobulator, as opposed to <a href="https://www.youtube.com/watch?v=B62ACxuq8Pw" target="_blank" style="color:var(--text-mid);">discombobulate</a>.</p>
+</div>
+</div>
+
+<div id="deeplink-overlay">
+<div id="deeplink-popup">
+<h3>Open module here?</h3>
+<p id="deeplink-module-name" class="mod-note" style="margin-top:0;color:var(--accent-cyan);font-weight:700;"></p>
+<p class="mod-note" style="margin-top:0;">This link (likely from a Stream Deck button) always opens in a new tab - it can't take over a tab you already have open.</p>
+<div style="display:flex;flex-direction:column;gap:8px;margin-top:14px;">
+<button class="mod-btn" id="deeplink-open-here" type="button">Open here, in this new tab</button>
+<button class="mod-btn secondary" id="deeplink-send-other" type="button">I already have WNT open elsewhere - send it there instead</button>
+</div>
+<p id="deeplink-sent-note" class="mod-note" style="display:none;margin-top:10px;color:var(--accent-gold);">Sent. If that other tab is still open, it should be showing the module now - you can close this one.</p>
 </div>
 </div>
 
@@ -2309,22 +2343,22 @@ Apply plasma? <span style="color:var(--text-mid);">(4rknova plasma. Colors below
 
 <div id="shell">
 
-<div id="app-header">
+<div id="app-header" class="compact">
 <div id="logo-mark"><img src="data:image/png;base64,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" alt="WNT logo"></div>
 <div id="app-title">WNT 3.0</div>
-<div id="header-links"></div>
+<div id="header-links"><a href="https://beyondtrust.atlassian.net/wiki/spaces/STSE/pages/367526225/SRA+Issue+Radar" target="_blank">SRA Issue Radar</a><br><a href="https://www.beyondtrust.com/trust-center/security-advisories" target="_blank">Current Security Advisories</a></div>
 </div>
 
 <!-- ============ VIEW 1: Role picker / greeting ============ -->
 <div class="view" id="view-picker" style="display:none;"></div>
 
 <!-- ============ VIEW 2: Dashboard (module tiles) ============ -->
-<div class="view" id="view-dashboard">
+<div class="view active" id="view-dashboard">
 
 <div id="output-section" class="collapsed">
 <div id="output-header">
 <div class="title-group">
-<span id="collapse-caret">&#9660;</span>
+<span id="collapse-caret">▼</span>
 <h2><span class="output-title-full">Output / Scratch Pad</span><span class="output-title-short">Output/Scratch</span></h2>
 </div>
 <div id="mode-toggle">
@@ -2343,10 +2377,10 @@ Apply plasma? <span style="color:var(--text-mid);">(4rknova plasma. Colors below
 </div>
 
 <div id="dash-header">
-<div id="greeting" style="font-size:16px;font-weight:600;color:var(--text-white);"></div>
-<div id="dash-role-label" style="display:none;">TSA</div>
+<div id="greeting" style="font-size:16px;font-weight:600;color:var(--text-white);">Good Afternoon.</div>
+<div id="dash-role-label" style="display:none;">All Modules</div>
 <button id="wnt-mobile-menu-btn" title="Open menu">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
 </button>
 <div class="mod-row" style="gap:6px;margin:0;">
 <button class="mod-btn secondary" id="btn-new-hire-tsa" style="margin:0;font-size:11px;padding:5px 10px;">New Hire (TSA)</button>
@@ -2355,16 +2389,16 @@ Apply plasma? <span style="color:var(--text-mid);">(4rknova plasma. Colors below
 </div>
 
 <div id="dash-body-row">
-<div id="wnt-sidebar">
-<button id="wnt-sidebar-toggle" title="Collapse/expand">&#9664;</button>
-<div id="wnt-cat-list"></div>
-</div>
+<div id="wnt-sidebar" class="collapsed">
+<button id="wnt-sidebar-toggle" title="Collapse/expand">▶</button>
+<div id="wnt-cat-list"><div class="wnt-cat-link" data-cat="Custom" draggable="true"><span class="wnt-cat-icon"><svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg></span><span class="wnt-cat-label">Custom</span><span class="wnt-cat-count">17</span><span class="wnt-tooltip">Custom (17) - drag to reorder, or drop a module here to recategorize it</span></div><div class="wnt-cat-link" data-cat="Personal &amp; Utility" draggable="true"><span class="wnt-cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></span><span class="wnt-cat-label">Personal &amp; Utility</span><span class="wnt-cat-count">13</span><span class="wnt-tooltip">Personal &amp; Utility (13) - drag to reorder, or drop a module here to recategorize it</span></div><div class="wnt-cat-link" data-cat="Guides" draggable="true"><span class="wnt-cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.8 2.8-2-2 2.8-2.8z"></path></svg></span><span class="wnt-cat-label">Guides</span><span class="wnt-cat-count">37</span><span class="wnt-tooltip">Guides (37) - drag to reorder, or drop a module here to recategorize it</span></div><div class="wnt-cat-link" data-cat="Case Handling" draggable="true"><span class="wnt-cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 0 1 18 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3M3 12v5a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3"></path></svg></span><span class="wnt-cat-label">Case Handling</span><span class="wnt-cat-count">18</span><span class="wnt-tooltip">Case Handling (18) - drag to reorder, or drop a module here to recategorize it</span></div><div class="wnt-cat-link" data-cat="Reference Tables" draggable="true"><span class="wnt-cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="9" y1="10" x2="9" y2="20"></line></svg></span><span class="wnt-cat-label">Reference Tables</span><span class="wnt-cat-count">22</span><span class="wnt-tooltip">Reference Tables (22) - drag to reorder, or drop a module here to recategorize it</span></div><div class="wnt-cat-link" data-cat="Newly Added" draggable="true"><span class="wnt-cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15 9 22 9 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9 9 9"></polygon></svg></span><span class="wnt-cat-label">Newly Added</span><span class="wnt-cat-count">42</span><span class="wnt-tooltip">Newly Added (42) - drag to reorder, or drop a module here to recategorize it</span></div><div class="wnt-cat-link" data-cat="TSM Admin" draggable="true"><span class="wnt-cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"></path></svg></span><span class="wnt-cat-label">TSM Admin</span><span class="wnt-cat-count">8</span><span class="wnt-tooltip">TSM Admin (8) - drag to reorder, or drop a module here to recategorize it</span></div><div class="wnt-cat-link active" data-cat="" style="border-top:1px solid var(--border-subtle);margin-top:8px;"><span class="wnt-cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect></svg></span><span class="wnt-cat-label">All Modules</span><span class="wnt-cat-count">104</span><span class="wnt-tooltip">All Modules (104)</span></div></div>
+<div class="wnt-cat-link" id="wnt-options-link"><span class="wnt-cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></span><span class="wnt-cat-label">Options</span><span class="wnt-tooltip">Options - Theme, Export/Import, Panic Reset, and more</span></div><div class="wnt-cat-link" id="wnt-whats-new-link"><span class="wnt-cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg></span><span class="wnt-cat-label">What's New?</span><span class="wnt-tooltip">What's New? - quick user guide, full release notes, and this project's link</span></div></div>
 <div id="wnt-sidebar-backdrop"></div>
 
 <div id="wnt-main">
 <div id="dash-search-wrap">
 <input type="text" id="dash-search" placeholder="Search..." title="Searches module names and the actual content inside each one" autocomplete="off">
-<button type="button" id="dash-search-clear" title="Clear search" aria-label="Clear search">&times;</button>
+<button type="button" id="dash-search-clear" title="Clear search" aria-label="Clear search">×</button>
 </div>
 <div style="text-align:right;margin-top:4px;">
 <a class="link-toggle" id="dash-reset-order" style="display:none;font-size:11px;margin:0;">Reset order to default</a>
@@ -2381,18 +2415,18 @@ Apply plasma? <span style="color:var(--text-mid);">(4rknova plasma. Colors below
 
 <div id="dash-category-bar" style="display:none;"></div>
 
-<div class="tile-list" id="tile-list"></div>
+<div class="tile-list" id="tile-list"><div class="tile-section">Newly Added<span class="tile-section-sub">42 since the 31AUG2026 wave</span></div><div class="tile" data-name="TSM Case Review Checklist" draggable="true" tabindex="0"><div class="tile-name">TSM Case Review Checklist</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="ServiceNow Query Builder (TSM)" draggable="true" tabindex="0"><div class="tile-name">ServiceNow Query Builder (TSM)</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="Handoff / Shift Notes Generator" draggable="true" tabindex="0"><div class="tile-name">Handoff / Shift Notes Generator</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="Escalation Quality Gate" draggable="true" tabindex="0"><div class="tile-name">Escalation Quality Gate</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="Jira Ticket Template Generator" draggable="true" tabindex="0"><div class="tile-name">Jira Ticket Template Generator</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="Team Capacity Snapshot" draggable="true" tabindex="0"><div class="tile-name">Team Capacity Snapshot</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="New Hire Progress Board" draggable="true" tabindex="0"><div class="tile-name">New Hire Progress Board</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="1:1 / Coaching Note Pad" draggable="true" tabindex="0"><div class="tile-name">1:1 / Coaching Note Pad</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="Process Change Log" draggable="true" tabindex="0"><div class="tile-name">Process Change Log</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="Weekly Team Metrics Scratchpad" draggable="true" tabindex="0"><div class="tile-name">Weekly Team Metrics Scratchpad</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="Customer Health Flags" draggable="true" tabindex="0"><div class="tile-name">Customer Health Flags</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="Approval / Exception Log" draggable="true" tabindex="0"><div class="tile-name">Approval / Exception Log</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="Confluence Quick Links + Search" draggable="true" tabindex="0"><div class="tile-name">Confluence Quick Links + Search</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="KB / SOP Freshness Checker" draggable="true" tabindex="0"><div class="tile-name">KB / SOP Freshness Checker</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="Teams Channel / Tag Cheatsheet" draggable="true" tabindex="0"><div class="tile-name">Teams Channel / Tag Cheatsheet</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="ctxt.io Share" draggable="true" tabindex="0"><div class="tile-name">ctxt.io Share</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div><button type="button" class="tile-delete-btn" aria-label="Remove from Custom">×</button></div><div class="tile" data-name="Calendar (Outlook)" draggable="true" tabindex="0"><div class="tile-name">Calendar (Outlook)</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="Android wrapper (WebView)" draggable="true" tabindex="0"><div class="tile-name">Android wrapper (WebView)</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="APK update manager" draggable="true" tabindex="0"><div class="tile-name">APK update manager</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="Network Layers in Plain English" draggable="true" tabindex="0"><div class="tile-name">Network Layers in Plain English</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="Where Did It Break?" draggable="true" tabindex="0"><div class="tile-name">Where Did It Break?</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="MTU and Big Packet Symptoms" draggable="true" tabindex="0"><div class="tile-name">MTU and Big Packet Symptoms</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="DNS Troubleshooting (Plain English)" draggable="true" tabindex="0"><div class="tile-name">DNS Troubleshooting (Plain English)</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="TLS Proxy and Cert Decoder" draggable="true" tabindex="0"><div class="tile-name">TLS Proxy and Cert Decoder</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="Jump Connectivity Decision Tree" draggable="true" tabindex="0"><div class="tile-name">Jump Connectivity Decision Tree</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="Linux Field Guide" draggable="true" tabindex="0"><div class="tile-name">Linux Field Guide</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="Deploy a Linux Jumpoint" draggable="true" tabindex="0"><div class="tile-name">Deploy a Linux Jumpoint</div><div class="tile-added"><span class="tile-added-new">NEW</span>03SEP2026</div></div><div class="tile" data-name="Deploy a Windows Jumpoint" draggable="true" tabindex="0"><div class="tile-name">Deploy a Windows Jumpoint</div><div class="tile-added"><span class="tile-added-new">NEW</span>03SEP2026</div></div><div class="tile" data-name="Windows Field Guide" draggable="true" tabindex="0"><div class="tile-name">Windows Field Guide</div><div class="tile-added"><span class="tile-added-new">NEW</span>03SEP2026</div></div><div class="tile" data-name="Vault Basics: Check Out, Rotate, Inject" draggable="true" tabindex="0"><div class="tile-name">Vault Basics: Check Out, Rotate, Inject</div><div class="tile-added"><span class="tile-added-new">NEW</span>03SEP2026</div></div><div class="tile" data-name="SSO / Kerberos Troubleshooting" draggable="true" tabindex="0"><div class="tile-name">SSO / Kerberos Troubleshooting</div><div class="tile-added"><span class="tile-added-new">NEW</span>03SEP2026</div></div><div class="tile" data-name="Atlas Cluster &amp; Failover in Plain English" draggable="true" tabindex="0"><div class="tile-name">Atlas Cluster &amp; Failover in Plain English</div><div class="tile-added"><span class="tile-added-new">NEW</span>03SEP2026</div></div><div class="tile" data-name="TSE Coverage Grid" draggable="true" tabindex="0"><div class="tile-name">TSE Coverage Grid</div><div class="tile-added"><span class="tile-added-new">NEW</span>03SEP2026</div></div><div class="tile" data-name="Pathfinder SAML Claims" draggable="true" tabindex="0"><div class="tile-name">Pathfinder SAML Claims</div><div class="tile-added"><span class="tile-added-new">NEW</span>03SEP2026</div></div><div class="tile" data-name="Pathfinder Troubleshooting" draggable="true" tabindex="0"><div class="tile-name">Pathfinder Troubleshooting</div><div class="tile-added"><span class="tile-added-new">NEW</span>03SEP2026</div></div><div class="tile" data-name="Subnet Calculator" draggable="true" tabindex="0"><div class="tile-name">Subnet Calculator</div><div class="tile-added"><span class="tile-added-new">NEW</span>03SEP2026</div></div><div class="tile" data-name="SSL Cert Decrypter" draggable="true" tabindex="0"><div class="tile-name">SSL Cert Decrypter</div><div class="tile-added"><span class="tile-added-new">NEW</span>03SEP2026</div></div><div class="tile" data-name="Pathfinder SCIM Provisioning" draggable="true" tabindex="0"><div class="tile-name">Pathfinder SCIM Provisioning</div><div class="tile-added"><span class="tile-added-new">NEW</span>03SEP2026</div></div><div class="tile" data-name="Pathfinder Site &amp; Product Access" draggable="true" tabindex="0"><div class="tile-name">Pathfinder Site &amp; Product Access</div><div class="tile-added"><span class="tile-added-new">NEW</span>03SEP2026</div></div><div class="tile" data-name="Pathfinder API Configuration" draggable="true" tabindex="0"><div class="tile-name">Pathfinder API Configuration</div><div class="tile-added"><span class="tile-added-new">NEW</span>03SEP2026</div></div><div class="tile" data-name="Legacy /login vs Pathfinder" draggable="true" tabindex="0"><div class="tile-name">Legacy /login vs Pathfinder</div><div class="tile-added"><span class="tile-added-new">NEW</span>03SEP2026</div></div><div class="tile" data-name="Pathfinder Custom Domain (CNAME)" draggable="true" tabindex="0"><div class="tile-name">Pathfinder Custom Domain (CNAME)</div><div class="tile-added"><span class="tile-added-new">NEW</span>03SEP2026</div></div><div class="tile-section">Everything else</div><div class="tile" data-name="Manage New Hire Content" draggable="true" tabindex="0"><div class="tile-name">Manage New Hire Content</div></div><div class="tile" data-name="Appliance Details" draggable="true" tabindex="0"><div class="tile-name">Appliance Details</div><button type="button" class="tile-delete-btn" aria-label="Remove from Custom">×</button></div><div class="tile" data-name="ServiceNow URL Shortener" draggable="true" tabindex="0"><div class="tile-name">ServiceNow URL Shortener</div><button type="button" class="tile-delete-btn" aria-label="Remove from Custom">×</button></div><div class="tile" data-name="ServiceNow Email Mailto" draggable="true" tabindex="0"><div class="tile-name">ServiceNow Email Mailto</div><button type="button" class="tile-delete-btn" aria-label="Remove from Custom">×</button></div><div class="tile" data-name="Manual Update (Download Key)" draggable="true" tabindex="0"><div class="tile-name">Manual Update (Download Key)</div><button type="button" class="tile-delete-btn" aria-label="Remove from Custom">×</button></div><div class="tile" data-name="Important Emails" draggable="true" tabindex="0"><div class="tile-name">Important Emails</div></div><div class="tile" data-name="Phone Guide" draggable="true" tabindex="0"><div class="tile-name">Phone Guide</div></div><div class="tile" data-name="Partners and the Customer Portal (CXP)" draggable="true" tabindex="0"><div class="tile-name">Partners and the Customer Portal (CXP)</div></div><div class="tile" data-name="Customer Admin/Partners with Cases flags (CXP)" draggable="true" tabindex="0"><div class="tile-name">Customer Admin/Partners with Cases flags (CXP)</div></div><div class="tile" data-name="Hunt Group Numbers" draggable="true" tabindex="0"><div class="tile-name">Hunt Group Numbers</div></div><div class="tile" data-name="Character Counter" draggable="true" tabindex="0"><div class="tile-name">Character Counter</div></div><div class="tile" data-name="CAPITAL → lowercase" draggable="true" tabindex="0"><div class="tile-name">CAPITAL → lowercase</div></div><div class="tile" data-name="Full Admin Authorization" draggable="true" tabindex="0"><div class="tile-name">Full Admin Authorization</div><button type="button" class="tile-delete-btn" aria-label="Remove from Custom">×</button></div><div class="tile" data-name="Okta Reset" draggable="true" tabindex="0"><div class="tile-name">Okta Reset</div></div><div class="tile" data-name="Internal IT" draggable="true" tabindex="0"><div class="tile-name">Internal IT</div></div><div class="tile" data-name="More Info" draggable="true" tabindex="0"><div class="tile-name">More Info</div></div><div class="tile" data-name="PWS Cloud Custom Hostname" draggable="true" tabindex="0"><div class="tile-name">PWS Cloud Custom Hostname</div></div><div class="tile" data-name="PWS Cloud Upgrade" draggable="true" tabindex="0"><div class="tile-name">PWS Cloud Upgrade</div></div><div class="tile" data-name="Cloud Infrastructure Post Helper" draggable="true" tabindex="0"><div class="tile-name">Cloud Infrastructure Post Helper</div></div><div class="tile" data-name="SRA Pathfinder URL Change Helper" draggable="true" tabindex="0"><div class="tile-name">SRA Pathfinder URL Change Helper</div></div><div class="tile" data-name="Process for Changing the PF Org/Site Admin" draggable="true" tabindex="0"><div class="tile-name">Process for Changing the PF Org/Site Admin</div></div><div class="tile" data-name="SRA Update Request" draggable="true" tabindex="0"><div class="tile-name">SRA Update Request</div></div><div class="tile" data-name="SRA Logging" draggable="true" tabindex="0"><div class="tile-name">SRA Logging</div></div><div class="tile" data-name="Single Add User to CXP" draggable="true" tabindex="0"><div class="tile-name">Single Add User to CXP</div></div><div class="tile" data-name="FedRAMP" draggable="true" tabindex="0"><div class="tile-name">FedRAMP</div></div><div class="tile" data-name="Multi-add Users to CXP" draggable="true" tabindex="0"><div class="tile-name">Multi-add Users to CXP</div></div><div class="tile" data-name="BI or PWS?" draggable="true" tabindex="0"><div class="tile-name">BI or PWS?</div></div><div class="tile" data-name="Helpful KB Articles" draggable="true" tabindex="0"><div class="tile-name">Helpful KB Articles</div><button type="button" class="tile-delete-btn" aria-label="Remove from Custom">×</button></div><div class="tile" data-name="Product Sorting" draggable="true" tabindex="0"><div class="tile-name">Product Sorting (Hat)</div></div><div class="tile" data-name="Update Paths (Consolidated)" draggable="true" tabindex="0"><div class="tile-name">Update Paths (Consolidated)</div></div><div class="tile" data-name="Recombobulator" draggable="true" tabindex="0"><div class="tile-name">Update Path Recombobulator</div></div><div class="tile" data-name="SRA Renewal (Live update) process" draggable="true" tabindex="0"><div class="tile-name">SRA Renewal (Live update) process</div></div><div class="tile" data-name="Updating SRA Failover" draggable="true" tabindex="0"><div class="tile-name">Updating SRA Failover</div></div><div class="tile" data-name="AAAAAAAAAAAAA (panic!!)" draggable="true" tabindex="0"><div class="tile-name">AAAAAAAAAAAAA (panic!!)</div></div><div class="tile" data-name="Jump Client Info" draggable="true" tabindex="0"><div class="tile-name">Jump Client Info</div><button type="button" class="tile-delete-btn" aria-label="Remove from Custom">×</button></div><div class="tile" data-name="SRA Jump Client Limits" draggable="true" tabindex="0"><div class="tile-name">SRA Jump Client Limits</div></div><div class="tile" data-name="Jump Client Statuses" draggable="true" tabindex="0"><div class="tile-name">Jump Client Statuses</div></div><div class="tile" data-name="New Jump Terminology" draggable="true" tabindex="0"><div class="tile-name">New Jump Terminology</div></div><div class="tile" data-name="SRA VA License and Sizing" draggable="true" tabindex="0"><div class="tile-name">SRA VA License and Sizing</div></div><div class="tile" data-name="Common Failover Error Codes" draggable="true" tabindex="0"><div class="tile-name">Common Failover Error Codes</div></div><div class="tile" data-name="Misc Notes" draggable="true" tabindex="0"><div class="tile-name">Misc Notes</div></div><div class="tile" data-name="Basic TSA ServiceNow Filters" draggable="true" tabindex="0"><div class="tile-name">Basic TSA ServiceNow Filters</div></div><div class="tile" data-name="Links" draggable="true" tabindex="0"><div class="tile-name">Links</div></div><div class="tile" data-name="Browsers &amp; Approved Extensions" draggable="true" tabindex="0"><div class="tile-name">Browsers &amp; Approved Extensions</div></div><div class="tile" data-name="Scratch Pad" draggable="true" tabindex="0"><div class="tile-name">Scratch Pad</div></div><div class="tile" data-name="Shared Knowledge" draggable="true" tabindex="0"><div class="tile-name">Shared Knowledge</div><button type="button" class="tile-delete-btn" aria-label="Remove from Custom">×</button></div><div class="tile" data-name="SSL Certificates Explained" draggable="true" tabindex="0"><div class="tile-name">SSL Certificates Explained</div><button type="button" class="tile-delete-btn" aria-label="Remove from Custom">×</button></div><div class="tile" data-name="PERSONAL" draggable="true" tabindex="0"><div class="tile-name">PERSONAL</div><button type="button" class="tile-delete-btn" aria-label="Remove from Custom">×</button></div><div class="tile" data-name="Timezone Conversion" draggable="true" tabindex="0"><div class="tile-name">Timezone Conversion</div><button type="button" class="tile-delete-btn" aria-label="Remove from Custom">×</button></div><div class="tile" data-name="Decommission Process for Pathfinder Sites and Apps" draggable="true" tabindex="0"><div class="tile-name">Decommission Process for Pathfinder Sites and Apps</div></div><div class="tile" data-name="What Logs should I get?" draggable="true" tabindex="0"><div class="tile-name">What Logs should I get?</div><button type="button" class="tile-delete-btn" aria-label="Remove from Custom">×</button></div><div class="tile" data-name="Escalating Cases to TEEs" draggable="true" tabindex="0"><div class="tile-name">Escalating Cases to TEEs</div></div><div class="tile" data-name="BIPS Support Escalation Process" draggable="true" tabindex="0"><div class="tile-name">BIPS Support Escalation Process</div></div><div class="tile" data-name="SRA Claims/Assertions" draggable="true" tabindex="0"><div class="tile-name">SRA Claims/Assertions</div><button type="button" class="tile-delete-btn" aria-label="Remove from Custom">×</button></div><div class="tile" data-name="NSTV stats" draggable="true" tabindex="0"><div class="tile-name">NSTV stats</div></div><div class="tile" data-name="Client Log Renames" draggable="true" tabindex="0"><div class="tile-name">Client Log Renames</div></div><div class="tile" data-name="Common HTTP Errors" draggable="true" tabindex="0"><div class="tile-name">Common HTTP Errors</div></div><div class="tile" data-name="Regional Transfer Process" draggable="true" tabindex="0"><div class="tile-name">Regional Transfer Process</div></div><div class="tile" data-name="New Install Hypervisors" draggable="true" tabindex="0"><div class="tile-name">New Install Hypervisors</div><button type="button" class="tile-delete-btn" aria-label="Remove from Custom">×</button></div><div class="tile" data-name="Product Info Request How-To" draggable="true" tabindex="0"><div class="tile-name">Product Info Request How-To</div></div><div class="tile" data-name="Network Troubleshooting Tools" draggable="true" tabindex="0"><div class="tile-name">Network Troubleshooting Tools</div><button type="button" class="tile-delete-btn" aria-label="Remove from Custom">×</button></div><div class="tile" data-name="Jump Client / Rep Console MSI Reference" draggable="true" tabindex="0"><div class="tile-name">Jump Client / Rep Console MSI Reference</div><button type="button" class="tile-delete-btn" aria-label="Remove from Custom">×</button></div></div>
 
 <div id="show-all-link" style="display:none;"><a class="link-toggle" id="dash-show-all">Show all modules instead</a></div>
 </div>
 </div>
 
-<div id="app-footer">theme &amp; module setup are remembered &middot; everything else resets on reload</div>
+<div id="app-footer">theme &amp; module setup are remembered · everything else resets on reload</div>
 <div id="app-credit">
 <div>(WNT v3.0 - <a id="release-notes-link" href="#" class="release-notes-label">release notes</a>)</div>
 <div>crafted with love; assisted by claude</div>
 <div>[ <a href="mailto:jowilliams@beyondtrust.com?subject=WNT%20is%20awesome%20and%20I%20love%20it">jowilliams@beyondtrust.com</a> ]</div>
-<div id="app-copyright">Copyright &copy; <span id="copyright-year"></span> BeyondTrust Corporation. All rights reserved.</div>
+<div id="app-copyright">Copyright © <span id="copyright-year">2026</span> BeyondTrust Corporation. All rights reserved.</div>
 </div>
 </div>
 
@@ -2576,31 +2610,40 @@ var MODULES = [
 { name: "Vault Basics: Check Out, Rotate, Inject", category: "Guides", tag: "common", order: 104568, added: "03SEP2026" },
 { name: "SSO / Kerberos Troubleshooting", category: "Guides", tag: "common", order: 104569, added: "03SEP2026" },
 { name: "Atlas Cluster & Failover in Plain English", category: "Guides", tag: "common", order: 104570, added: "03SEP2026" },
-{ name: "TSE Coverage Grid", category: "Reference Tables", tag: "common", order: 104571, added: "03SEP2026" }
+{ name: "TSE Coverage Grid", category: "Reference Tables", tag: "common", order: 104571, added: "03SEP2026" },
+{ name: "Pathfinder SAML Claims", category: "Guides", tag: "common", order: 104572, added: "03SEP2026" },
+{ name: "Pathfinder Troubleshooting", category: "Guides", tag: "common", order: 104573, added: "03SEP2026" },
+{ name: "Subnet Calculator", category: "Reference Tables", tag: "common", order: 104574, added: "03SEP2026" },
+{ name: "SSL Cert Decrypter", category: "Guides", tag: "common", order: 104575, added: "03SEP2026" },
+{ name: "Pathfinder SCIM Provisioning", category: "Guides", tag: "common", order: 104576, added: "03SEP2026" },
+{ name: "Pathfinder Site & Product Access", category: "Guides", tag: "common", order: 104577, added: "03SEP2026" },
+{ name: "Pathfinder API Configuration", category: "Guides", tag: "common", order: 104578, added: "03SEP2026" },
+{ name: "Legacy /login vs Pathfinder", category: "Guides", tag: "common", order: 104579, added: "03SEP2026" },
+{ name: "Pathfinder Custom Domain (CNAME)", category: "Guides", tag: "common", order: 104580, added: "03SEP2026" }
 ];
 
 var qs = function (sel) { return document.querySelector(sel); };
 var qsa = function (sel) { return Array.prototype.slice.call(document.querySelectorAll(sel)); };
 
 /* Real bug, reported from an Android WebView build: opening one "?"
-helper popup (Theme color reference, Append vs. Replace, etc.)
-without closing it first, then opening a different one, left BOTH
-with the "open" class simultaneously - nothing ever enforced that
-only one of these could be open at a time. In a normal browser this
-is invisible (position: fixed overlays just stack on top of each
-other, hiding all but the topmost), but this specific WebView
-doesn't appear to honor position: fixed the same way, so multiple
-simultaneously-open overlays rendered as separate stacked boxes in
-normal document flow instead. Fix: closing every OTHER overlay
-before opening a new one, so only one of these can ever be "open"
-at once regardless of how a given WebView renders position: fixed.
-#module-overlay is deliberately excluded - Theme color reference,
-Append vs. Replace, Recombobulator info, and TSE coverage info are
-all meant to stack above an open Options/module popup, not close it. */
+   helper popup (Theme color reference, Append vs. Replace, etc.)
+   without closing it first, then opening a different one, left BOTH
+   with the "open" class simultaneously - nothing ever enforced that
+   only one of these could be open at a time. In a normal browser this
+   is invisible (position: fixed overlays just stack on top of each
+   other, hiding all but the topmost), but this specific WebView
+   doesn't appear to honor position: fixed the same way, so multiple
+   simultaneously-open overlays rendered as separate stacked boxes in
+   normal document flow instead. Fix: closing every OTHER overlay
+   before opening a new one, so only one of these can ever be "open"
+   at once regardless of how a given WebView renders position: fixed.
+   #module-overlay is deliberately excluded - Theme color reference,
+   Append vs. Replace, Recombobulator info, and TSE coverage info are
+   all meant to stack above an open Options/module popup, not close it. */
 var MUTUALLY_EXCLUSIVE_OVERLAY_IDS = [
 "stats-overlay", "release-notes-overlay",
 "panic-reset-overlay", "theme-guide-overlay", "mode-info-overlay",
-"recomb-info-overlay", "tile-custom-overlay",
+"recomb-info-overlay", "tile-custom-overlay", "deeplink-overlay",
 "tile-hidden-overlay"
 ];
 function closeOtherOverlays(exceptId) {
@@ -2646,8 +2689,8 @@ var STORE_CTXT_HISTORY = "wnt_ctxt_history";
 var ctxtSharePrefill = "";
 
 /* Environment URL relay - user-configured bases for internal tools.
-Modules call getEnvUrl("servicenow"|"confluence"|"jira") instead of
-hard-coded placeholders. Nothing is sent anywhere; pure localStorage. */
+   Modules call getEnvUrl("servicenow"|"confluence"|"jira") instead of
+   hard-coded placeholders. Nothing is sent anywhere; pure localStorage. */
 function loadEnvUrls() {
 try {
 var raw = localStorage.getItem(STORE_ENV_URLS);
@@ -2670,8 +2713,8 @@ return { ok: false, message: "Set your " + (friendlyName || kind) + " base URL u
 return { ok: true, url: val };
 }
 /* Prefer optional SSO launch URL (Okta IdP-initiated) when opening an app
-in a tab. Link-building modules still use getEnvUrl(base) so constructed
-deep links stay on the real app host, not the Okta start URL. */
+   in a tab. Link-building modules still use getEnvUrl(base) so constructed
+   deep links stay on the real app host, not the Okta start URL. */
 function getLaunchUrl(kind) {
 var u = loadEnvUrls();
 var ssoKey = "sso_" + kind;
@@ -2770,6 +2813,18 @@ starting point - whether "PERSONAL" belongs in Case Handling or
 not is a judgment call, and that call belongs to whoever's using
 the tool, not to whoever wrote the category list. */
 function loadCategoryOrder() {
+// One-time reset: the sidebar default order was explicitly changed
+// (Custom, Personal & Utility, Guides, Case Handling, Reference
+// Tables, Newly Added, TSM Admin). Anyone who'd already drag-reordered
+// the sidebar has a saved order in localStorage that would otherwise
+// silently keep overriding the new default forever - clear it once so
+// the new order actually shows, without touching anything else stored
+// locally. Future drag-reordering saves and persists normally after
+// this runs, exactly as before.
+if (!localStorage.getItem("wnt_category_order_reset_03sep2026")) {
+localStorage.removeItem("wnt_category_order");
+localStorage.setItem("wnt_category_order_reset_03sep2026", "1");
+}
 try {
 var raw = localStorage.getItem("wnt_category_order");
 return raw ? JSON.parse(raw) : null;
@@ -2778,15 +2833,15 @@ return raw ? JSON.parse(raw) : null;
 function saveCategoryOrder(orderArray) {
 localStorage.setItem("wnt_category_order", JSON.stringify(orderArray));
 }
+var DEFAULT_CATEGORY_ORDER = ["Custom", "Personal & Utility", "Guides", "Case Handling", "Reference Tables", "Newly Added", "TSM Admin"];
 function applyCategoryOrder(categories) {
 var saved = loadCategoryOrder();
-function pinSpecials(list) {
-var specials = ["Custom", "Newly Added"];
-var rest = list.filter(function (c) { return specials.indexOf(c) === -1; });
-var front = specials.filter(function (c) { return list.indexOf(c) !== -1; });
-return front.concat(rest);
+function sortByDefault(list) {
+var known = DEFAULT_CATEGORY_ORDER.filter(function (c) { return list.indexOf(c) !== -1; });
+var unknown = list.filter(function (c) { return DEFAULT_CATEGORY_ORDER.indexOf(c) === -1; });
+return known.concat(unknown);
 }
-if (!saved) return pinSpecials(categories.slice());
+if (!saved) return sortByDefault(categories.slice());
 var sorted = saved.filter(function (c) { return categories.indexOf(c) !== -1; });
 categories.forEach(function (c) {
 if (sorted.indexOf(c) !== -1) return;
@@ -3934,6 +3989,21 @@ var RELEASE_NOTES_HTML =
 
 '<div class="rn-version" style="font-size:14px;margin-top:18px;color:var(--accent-gold);">Changelog</div>' +
 '<p class="mod-note" style="font-size:11px;color:var(--text-mid);">Newest entries added here going forward, on top - the fuller numbered history below stays as a standing snapshot and isn\'t rewritten each time.</p>' +
+
+'<div class="rn-version" style="font-size:12px;margin-top:10px;">03 Sep 2026 (cont.)</div>' +
+'<p class="mod-note">Sidebar tooltips now show on hover whether the sidebar is collapsed or expanded - previously the CSS only revealed them in the collapsed (icon-only) state, so hovering over an already-labeled item in the expanded view showed nothing at all.</p>' +
+
+'<div class="rn-version" style="font-size:12px;margin-top:10px;">03 Sep 2026 (cont.)</div>' +
+'<p class="mod-note">Sidebar default order set explicitly: Custom, Personal &amp; Utility, Guides, Case Handling, Reference Tables, Newly Added, TSM Admin, then All Modules, then Options and What\'s New below their own separator. Previously the order was whatever order categories happened to first appear in while scanning modules, which wasn\'t consistent or intentional. One-time reset included so anyone with an already-saved drag order actually sees the new default rather than it being silently overridden by old localStorage state - dragging to reorder afterward still saves and persists normally.</p>' +
+
+'<div class="rn-version" style="font-size:12px;margin-top:10px;">03 Sep 2026 (cont.)</div>' +
+'<p class="mod-note">Newly Added section now sorts newest-first instead of by order number - previously it used the same order-ascending sort as every other category, which meant the most recently built modules (always the highest order numbers) landed at the bottom instead of the top. Same-day additions break ties by order descending, so the last module built today still shows above earlier ones from the same day.</p>' +
+
+'<div class="rn-version" style="font-size:12px;margin-top:10px;">03 Sep 2026 (cont.)</div>' +
+'<p class="mod-note">Five more Pathfinder modules, all verified against BeyondTrust\'s own docs: SCIM Provisioning (the separate SCIM API toggle that trips people up, plus the duplicate-account rollout gotcha), Site &amp; Product Access (the "logs in fine but doesn\'t see the product" failure mode - distinct from the auth-focused modules), API Configuration (three independent toggles on one page, and the network-restriction rule that only applies to API accounts\' own settings, not site-wide security), Legacy /login vs Pathfinder (why per-product user management loses add/sync ability once a product moves to Pathfinder), and Custom Domain/CNAME (the short version - default subdomain vs. a customer\'s own domain and cert).</p>' +
+
+'<div class="rn-version" style="font-size:12px;margin-top:10px;">03 Sep 2026 (cont.)</div>' +
+'<p class="mod-note">Four new modules: Pathfinder SAML Claims and Pathfinder Troubleshooting (both verified against BeyondTrust\'s own docs), Subnet Calculator (real IPv4 math, tested against known-correct values including /31 and /32 edge cases), and SSL Cert Decrypter (parses a pasted PEM certificate\'s actual fields - subject, issuer, validity, key info, SANs - entirely in-browser; the ASN.1/DER parser was validated field-for-field against openssl x509 -text output on a real test certificate before shipping).</p>' +
 
 '<div class="rn-version" style="font-size:12px;margin-top:10px;">03 Sep 2026 (cont.)</div>' +
 '<p class="mod-note">New "What\'s New?" entry in the sidebar, right under Options - a quick user guide plus a link to the full release notes on Confluence (newest version always at the bottom there, opposite of the order used in here) and a link to this project.</p>' +
@@ -8902,7 +8972,7 @@ lines = [
 "ss -tulpn"
 ];
 if (port) {
-lines.push("nc -vz " + host + " " + port + " # or: timeout 3 bash -c '</dev/tcp/" + host + "/" + port + "' && echo open || echo closed");
+lines.push("nc -vz " + host + " " + port + "   # or: timeout 3 bash -c '</dev/tcp/" + host + "/" + port + "' && echo open || echo closed");
 lines.push("curl -Iv --max-time 10 https://" + host + ":" + port + "/ 2>&1 | head");
 }
 } else {
@@ -10060,10 +10130,10 @@ lines.push("Cases:");
 if (cases) {
 cases.split(/\r?\n/).forEach(function (row) {
 row = row.trim();
-if (row) lines.push(" - " + row);
+if (row) lines.push("  - " + row);
 });
 } else {
-lines.push(" (none listed)");
+lines.push("  (none listed)");
 }
 if (notes) {
 lines.push("");
@@ -10739,7 +10809,7 @@ var links = [
 { name: "Search (use box above)", url: "", needsBase: true }
 ];
 /* Path suffixes users can customize later; for now open base + /wiki.
-If you want fixed space shortcuts, add them here after setting confBase. */
+   If you want fixed space shortcuts, add them here after setting confBase. */
 var html = '<p class="mod-note" style="margin-top:0;">Uses the Confluence base from Advanced options &gt; Environment URLs. Search builds a real site-search URL against that host.</p>';
 if (!confBase) {
 html += '<p class="mod-note" style="color:#ff6b6b;">No Confluence base set yet. Open Advanced options and save one under Environment URLs.</p>';
@@ -11191,7 +11261,7 @@ wrap.innerHTML =
 '<button class="mod-btn secondary" id="apk-update-check" type="button">Check</button>' +
 '</div>' +
 '<p class="mod-note" id="apk-update-status" style="min-height:16px;"></p>' +
-'<pre class="mod-note" style="white-space:pre-wrap;border:1px solid var(--border-subtle);padding:8px;border-radius:6px;">{{\n "versionName": "3.0.1",\n "versionCode": 2,\n "apkUrl": "https://github.com/notslipjack/WNT/releases/download/v3.0.1/WNT.apk",\n "htmUrl": "https://github.com/notslipjack/WNT/releases/download/v3.0.1/WNT.htm",\n "notes": "what changed"\n}}</pre>' +
+'<pre class="mod-note" style="white-space:pre-wrap;border:1px solid var(--border-subtle);padding:8px;border-radius:6px;">{{\n  "versionName": "3.0.1",\n  "versionCode": 2,\n  "apkUrl": "https://github.com/notslipjack/WNT/releases/download/v3.0.1/WNT.apk",\n  "htmUrl": "https://github.com/notslipjack/WNT/releases/download/v3.0.1/WNT.htm",\n  "notes": "what changed"\n}}</pre>' +
 '<p class="mod-note">Put that file on GitHub (raw URL), GitHub Pages, or any HTTPS host. Bump <code style="color:var(--accent-cyan);">versionCode</code> every APK you ship. The wrapper compares it to its own build number and downloads the APK when remote is higher.</p>';
 body.appendChild(wrap);
 var input = wrap.querySelector("#apk-update-url");
@@ -11610,7 +11680,7 @@ function renderVirtualMonth() {
 var now = localNowParts();
 var title = new Date(viewYear, viewMonth, 1).toLocaleString(undefined, { month: "long", year: "numeric" });
 body.querySelector("#cal-virtual-title").textContent = title;
-body.querySelector("#cal-tz-line").textContent = "Virtual month uses this device clock: " + localTz + " | local time " + now.clock;
+body.querySelector("#cal-tz-line").textContent = "Virtual month uses this device clock: " + localTz + "  |  local time " + now.clock;
 var weekdays = body.querySelector("#cal-grid-weekdays");
 weekdays.innerHTML = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map(function (d) {
 return "<span>" + d + "</span>";
@@ -11666,7 +11736,7 @@ clockTimer = setInterval(function () {
 var line = body.querySelector("#cal-tz-line");
 if (!line) { clearInterval(clockTimer); clockTimer = null; return; }
 var now = localNowParts();
-line.textContent = "Virtual month uses this device clock: " + localTz + " | local time " + now.clock;
+line.textContent = "Virtual month uses this device clock: " + localTz + "  |  local time " + now.clock;
 }, 15000);
 body.querySelector("#cal-prev").addEventListener("click", function () {
 viewMonth -= 1;
@@ -12335,6 +12405,438 @@ body.innerHTML =
 
 renderTseCoverageGrid(body.querySelector("#tse-coverage-grid-standalone"));
 }
+},
+
+"Pathfinder SAML Claims": {
+render: function (body) {
+body.innerHTML =
+'<p class="mod-note" style="margin-top:0;">Verified against BeyondTrust\'s own <a href="https://docs.beyondtrust.com/bt-docs/docs/identity-providers" target="_blank" style="color:var(--accent-cyan);">Pathfinder Identity Providers</a> documentation. Covers default SAML claim setup for app.beyondtrust.io - not classic RS/PRA appliance SAML, which works differently.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">The claim Pathfinder actually needs</p>' +
+'<p class="mod-note">The IdP must send a SAML assertion literally called <code style="color:var(--accent-gold);">Groups</code>. BeyondTrust\'s own setup examples use the group name <code style="color:var(--accent-gold);">pws_sso</code> in that claim - it\'s just their example value, not a required literal string customers have to match. On a successful SAML login, any groups in that assertion are automatically created and populated in PRA for Group Policy management - no manual group creation needed on the BeyondTrust side once the claim is flowing correctly.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">The Domain Name field - the single most important setting</p>' +
+'<p class="mod-note">Each SAML IdP configured in Pathfinder is tied to a specific email domain. <strong style="color:#ff6b6b;">When a user logs in, their email domain is checked against this field - if it matches, SAML fires; if it doesn\'t, Pathfinder silently falls back to local authentication instead</strong>, bypassing SSO entirely with no error shown to the user. This is the most common reason "SSO isn\'t working" turns out to be a domain typo, not an IdP misconfiguration.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">Default access rules</p>' +
+'<p class="mod-note">Define baseline product/application access for a user\'s very first SAML login - applied universally across every IdP configured for the org, but <strong style="color:var(--text-white);">only triggered on that user\'s initial SAML authentication</strong>, whether they log in through the Pathfinder URL directly or through their IdP\'s own app portal. After that first login, access is managed normally through Pathfinder\'s own permission model, not through these rules.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">Fastest way to confirm the claim is actually arriving</p>' +
+'<p class="mod-note">Once a user has authenticated via SAML, hit <code style="color:var(--accent-gold);">https://app.beyondtrust.io/api/auth/UserInfo</code> while authenticated as them - the response includes a <code style="color:var(--accent-gold);">groups</code> array showing exactly what the IdP actually sent. This is the fastest way to tell "the claim isn\'t configured on the IdP side" apart from "the claim is arriving but PRA isn\'t using it," since it shows the raw assertion content independent of anything BeyondTrust did with it afterward.</p>' +
+
+'<p class="mod-note" style="color:var(--text-mid);font-size:11px;margin-top:10px;">Public product docs only. Exact admin-interface navigation can vary by version - confirm against the customer\'s actual environment if something doesn\'t match.</p>';
+}
+},
+
+"Pathfinder Troubleshooting": {
+render: function (body) {
+body.innerHTML =
+'<p class="mod-note" style="margin-top:0;">Verified against BeyondTrust\'s own <a href="https://docs.beyondtrust.com/bt-docs/docs/welcome-to-the-pathfinder-platform" target="_blank" style="color:var(--accent-cyan);">Pathfinder platform</a> overview and its authentication troubleshooting pages. Complements Pathfinder SAML Claims, which is specifically about the SAML group-claims side.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">What Pathfinder actually is</p>' +
+'<p class="mod-note">A single-pane-of-glass login layer sitting in front of every BeyondTrust SaaS product (Password Safe, PRA, RS, EPM Windows/Mac, EPM Linux, Identity Security Insights, Entitle) - one shared login, one central source of authentication. Products are grouped into <strong style="color:var(--text-white);">sites</strong> that typically mirror org structure (e.g. by department or region); a user only sees the sites they\'ve been granted access to, while a site admin sees everything.</p>' +
+'<p class="mod-note">Each site gets a default subdomain of beyondtrustcloud.com, but can use a CNAME to front it with a custom domain and its own SSL cert - worth checking early if a certificate error is actually about the CNAME\'d domain\'s own cert, not a BeyondTrust-issued one.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">"Wrong username or password" with correct credentials - AD group count</p>' +
+'<p class="mod-note">If an AD user belongs to <strong style="color:#ff6b6b;">more than 120 AD groups</strong>, Kerberos token size limits can cause login to fail with a generic "username or password is incorrect" message even though the credentials are right. Confirm by checking frontend.txt for the login attempt - look for "A local error occurred," which points specifically at token size, not bad credentials. Fix on the Password Safe server side: increase MaxTokenSize in the registry under <code style="color:var(--accent-gold);">HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\Kerberos\\Parameters</code>.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">Runtime Error / Internal Server Error (on-prem only)</p>' +
+'<p class="mod-note">Both are on-premises-only failure modes - if a customer sees either on the cloud Pathfinder portal itself, that\'s not a customer-side fix, escalate to BeyondTrust Support directly. On-prem: a <strong style="color:var(--text-white);">500 Internal Server Error</strong> usually means the web.config file is malformed - check IIS on the U-Series Appliance, browse to the SAML website, and check Default Document. A <strong style="color:var(--text-white);">Runtime Error</strong> screen can be made to show the actual underlying error by adding the appropriate debug line to web.config.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">MFA reset - the "nobody else has admin" trap</p>' +
+'<p class="mod-note">Resetting another user\'s MFA in Pathfinder requires <strong style="color:var(--text-white);">more than one Admin user</strong> in the org - if there\'s only one admin and that admin gets locked out of MFA themselves, there\'s no self-service path. That specific situation has to go to BeyondTrust Technical Support directly. Worth checking admin count before troubleshooting further if this is the actual complaint.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">SAML SSO silently not firing</p>' +
+'<p class="mod-note">See Pathfinder SAML Claims - by far the most common cause is the Domain Name field on the SAML IdP config not matching the user\'s actual email domain, which makes Pathfinder fall back to local/SCIM auth without any visible error.</p>' +
+
+'<p class="mod-note" style="color:var(--text-mid);font-size:11px;margin-top:10px;">Public product docs only. Exact error text and admin-interface navigation can vary by version - confirm against the customer\'s actual environment if something doesn\'t match.</p>';
+}
+},
+
+"Subnet Calculator": {
+render: function (body) {
+body.innerHTML =
+'<p class="mod-note" style="margin-top:0;">IPv4 only. Accepts CIDR notation directly (e.g. 192.168.1.0/24) or a separate IP and mask/prefix.</p>' +
+'<div class="mod-row">' +
+'<label class="mod-label" style="margin:0;">IP / CIDR:</label>' +
+'<input class="mod-input" id="subnet-ip" placeholder="192.168.1.10/24" style="flex:1;min-width:160px;">' +
+'</div>' +
+'<div class="mod-row">' +
+'<label class="mod-label" style="margin:0;">Mask (if not using /CIDR above):</label>' +
+'<input class="mod-input" id="subnet-mask" placeholder="255.255.255.0 or 24" style="flex:1;min-width:120px;">' +
+'</div>' +
+'<button class="mod-btn" id="subnet-calc">Calculate</button>' +
+'<button class="mod-btn secondary" id="subnet-reset">Reset</button>' +
+'<textarea class="mod-result" id="subnet-result" rows="9" readonly placeholder="Network, broadcast, usable range, host count, wildcard mask"></textarea>' +
+'<p class="mod-note" style="font-size:11px;color:var(--text-mid);">/31 and /32 are special-cased per RFC 3021 and standard convention - a /31 has no network/broadcast address (both addresses are usable, point-to-point links), and a /32 is a single host.</p>';
+
+function ipToInt(ip) {
+var parts = ip.split(".");
+if (parts.length !== 4) return null;
+var n = 0;
+for (var i = 0; i < 4; i++) {
+var octet = parseInt(parts[i], 10);
+if (isNaN(octet) || octet < 0 || octet > 255 || String(octet) !== parts[i].replace(/^0+(?=\d)/, "")) return null;
+n = (n << 8) | octet;
+}
+return n >>> 0;
+}
+function intToIp(n) {
+return [(n >>> 24) & 255, (n >>> 16) & 255, (n >>> 8) & 255, n & 255].join(".");
+}
+function maskToPrefix(maskStr) {
+var n = ipToInt(maskStr);
+if (n === null) return null;
+var binStr = (n >>> 0).toString(2).padStart(32, "0");
+if (!/^1*0*$/.test(binStr)) return null; // not a contiguous mask
+return binStr.split("0").join("").length;
+}
+
+body.querySelector("#subnet-calc").addEventListener("click", function () {
+var resultBox = body.querySelector("#subnet-result");
+var ipInput = body.querySelector("#subnet-ip").value.trim();
+var maskInput = body.querySelector("#subnet-mask").value.trim();
+
+var ipPart = ipInput, prefix = null;
+if (ipInput.indexOf("/") !== -1) {
+var pieces = ipInput.split("/");
+ipPart = pieces[0].trim();
+prefix = parseInt(pieces[1], 10);
+} else if (maskInput) {
+if (/^\d+$/.test(maskInput)) {
+prefix = parseInt(maskInput, 10);
+} else {
+prefix = maskToPrefix(maskInput);
+if (prefix === null) { resultBox.value = "That mask isn\u2019t a valid, contiguous subnet mask."; return; }
+}
+}
+
+var ipInt = ipToInt(ipPart);
+if (ipInt === null) { resultBox.value = "That doesn\u2019t look like a valid IPv4 address."; return; }
+if (prefix === null || isNaN(prefix) || prefix < 0 || prefix > 32) { resultBox.value = "Enter a CIDR prefix (0-32) either after a / on the IP, or as a mask/prefix in the second field."; return; }
+
+var maskInt = prefix === 0 ? 0 : (0xFFFFFFFF << (32 - prefix)) >>> 0;
+var wildcardInt = (~maskInt) >>> 0;
+var networkInt = (ipInt & maskInt) >>> 0;
+var broadcastInt = (networkInt | wildcardInt) >>> 0;
+
+var out = "IP entered: " + ipPart + "\n";
+out += "CIDR: /" + prefix + "\n";
+out += "Subnet mask: " + intToIp(maskInt) + "\n";
+out += "Wildcard mask: " + intToIp(wildcardInt) + "\n";
+
+if (prefix === 32) {
+out += "Network: " + intToIp(networkInt) + " (single host, /32)\n";
+out += "Usable hosts: 1 (" + intToIp(networkInt) + ")";
+} else if (prefix === 31) {
+out += "Network: " + intToIp(networkInt) + " (RFC 3021 point-to-point - no network/broadcast address)\n";
+out += "Usable hosts: 2 (" + intToIp(networkInt) + " - " + intToIp(broadcastInt) + ")";
+} else {
+var totalHosts = Math.pow(2, 32 - prefix);
+out += "Network: " + intToIp(networkInt) + "\n";
+out += "Broadcast: " + intToIp(broadcastInt) + "\n";
+out += "Usable range: " + intToIp(networkInt + 1) + " - " + intToIp(broadcastInt - 1) + "\n";
+out += "Usable hosts: " + (totalHosts - 2).toLocaleString();
+}
+
+resultBox.value = out;
+writeToOutput("Subnet Calculator", out);
+});
+
+body.querySelector("#subnet-reset").addEventListener("click", function () {
+body.querySelector("#subnet-ip").value = "";
+body.querySelector("#subnet-mask").value = "";
+body.querySelector("#subnet-result").value = "";
+});
+}
+},
+
+"SSL Cert Decrypter": {
+render: function (body) {
+body.innerHTML =
+'<p class="mod-note" style="margin-top:0;">Paste a PEM certificate (the -----BEGIN CERTIFICATE----- block) to decode its real fields - no external service, decoded entirely in-browser, nothing leaves this page. Validated against openssl x509 -text output field-for-field.</p>' +
+'<textarea class="mod-input" id="ssl-cert-input" rows="8" style="width:100%;font-family:Consolas,monospace;font-size:11px;" placeholder="-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----"></textarea>' +
+'<button class="mod-btn" id="ssl-decode" style="margin-top:8px;">Decode</button>' +
+'<button class="mod-btn secondary" id="ssl-reset">Reset</button>' +
+'<textarea class="mod-result" id="ssl-result" rows="14" readonly placeholder="Subject, issuer, validity dates, key info, and SANs will appear here"></textarea>' +
+'<p class="mod-note" style="font-size:11px;color:var(--text-mid);">RSA and EC keys both parse; RSA also reports key size in bits. Handles one certificate per paste - for a full chain, decode each block separately.</p>';
+
+function base64ToBytes(b64) {
+var bin = atob(b64);
+var bytes = new Uint8Array(bin.length);
+for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+return bytes;
+}
+function bytesToUtf8(bytes) { return new TextDecoder("utf-8").decode(bytes); }
+function bytesToAscii(bytes) {
+var s = "";
+for (var i = 0; i < bytes.length; i++) s += String.fromCharCode(bytes[i]);
+return s;
+}
+function parseAsn1(bytes, offset) {
+offset = offset || 0;
+var start = offset;
+var tag = bytes[offset++];
+var lenByte = bytes[offset++];
+var length;
+if (lenByte & 0x80) {
+var numLenBytes = lenByte & 0x7f;
+length = 0;
+for (var i = 0; i < numLenBytes; i++) length = (length << 8) | bytes[offset++];
+} else {
+length = lenByte;
+}
+var valueStart = offset;
+var valueEnd = offset + length;
+var constructed = (tag & 0x20) !== 0;
+var node = { tag: tag, tagNumber: tag & 0x1f, constructed: constructed, start: start, valueStart: valueStart, valueEnd: valueEnd, end: valueEnd, bytes: bytes.slice(valueStart, valueEnd) };
+if (constructed) {
+node.children = [];
+var pos = valueStart;
+while (pos < valueEnd) {
+var child = parseAsn1(bytes, pos);
+node.children.push(child);
+pos = child.end;
+}
+}
+return node;
+}
+function bytesToHex(bytes) {
+var out = [];
+for (var i = 0; i < bytes.length; i++) out.push(bytes[i].toString(16).padStart(2, "0"));
+return out.join(":");
+}
+function parseOid(bytes) {
+var parts = [];
+var first = bytes[0];
+parts.push(Math.floor(first / 40));
+parts.push(first % 40);
+var value = 0;
+for (var i = 1; i < bytes.length; i++) {
+value = (value << 7) | (bytes[i] & 0x7f);
+if (!(bytes[i] & 0x80)) { parts.push(value); value = 0; }
+}
+return parts.join(".");
+}
+var OID_NAMES = {
+"2.5.4.3": "CN", "2.5.4.6": "C", "2.5.4.7": "L", "2.5.4.8": "ST",
+"2.5.4.10": "O", "2.5.4.11": "OU",
+"1.2.840.113549.1.1.1": "RSA", "1.2.840.113549.1.1.11": "SHA256withRSA",
+"1.2.840.113549.1.1.5": "SHA1withRSA", "1.2.840.113549.1.1.13": "SHA512withRSA",
+"1.2.840.10045.2.1": "EC", "1.2.840.10045.4.3.2": "SHA256withECDSA",
+"2.5.29.17": "subjectAltName", "2.5.29.19": "basicConstraints",
+"2.5.29.15": "keyUsage", "2.5.29.37": "extKeyUsage",
+"2.5.29.14": "subjectKeyIdentifier", "2.5.29.35": "authorityKeyIdentifier",
+"2.5.29.31": "crlDistributionPoints", "1.3.6.1.5.5.7.1.1": "authorityInfoAccess"
+};
+function parseName(nameNode) {
+var parts = [];
+nameNode.children.forEach(function (rdnSet) {
+rdnSet.children.forEach(function (attrSeq) {
+var oidNode = attrSeq.children[0];
+var valNode = attrSeq.children[1];
+var oid = parseOid(oidNode.bytes);
+var label = OID_NAMES[oid] || oid;
+parts.push({ label: label, value: bytesToUtf8(valNode.bytes) });
+});
+});
+return parts;
+}
+function parseAsn1Time(node) {
+var str = bytesToAscii(node.bytes);
+var isUtc = node.tagNumber === 0x17;
+var year, rest;
+if (isUtc) { year = parseInt(str.substr(0, 2), 10); year += year < 50 ? 2000 : 1900; rest = str.substr(2); }
+else { year = parseInt(str.substr(0, 4), 10); rest = str.substr(4); }
+var month = rest.substr(0, 2), day = rest.substr(2, 2);
+var hour = rest.substr(4, 2), min = rest.substr(6, 2), sec = rest.substr(8, 2);
+return new Date(Date.UTC(year, parseInt(month, 10) - 1, parseInt(day, 10), parseInt(hour, 10), parseInt(min, 10), parseInt(sec, 10)));
+}
+function decodeCert(pem) {
+var b64 = pem.replace(/-----BEGIN CERTIFICATE-----/, "").replace(/-----END CERTIFICATE-----/, "").replace(/[\r\n\s]/g, "");
+if (!b64) throw new Error("No certificate data found - paste the full -----BEGIN CERTIFICATE----- block.");
+var bytes = base64ToBytes(b64);
+var cert = parseAsn1(bytes, 0);
+var tbs = cert.children[0];
+var idx = 0;
+var version = 1;
+if (tbs.children[idx].tag === 0xa0) { version = tbs.children[idx].children[0].bytes[0] + 1; idx++; }
+var serial = bytesToHex(tbs.children[idx++].bytes);
+var sigAlgOid = parseOid(tbs.children[idx++].children[0].bytes);
+var sigAlg = OID_NAMES[sigAlgOid] || sigAlgOid;
+var issuer = parseName(tbs.children[idx++]);
+var validityNode = tbs.children[idx++];
+var notBefore = parseAsn1Time(validityNode.children[0]);
+var notAfter = parseAsn1Time(validityNode.children[1]);
+var subject = parseName(tbs.children[idx++]);
+var spkiNode = tbs.children[idx++];
+var spkiAlgOid = parseOid(spkiNode.children[0].children[0].bytes);
+var spkiAlg = OID_NAMES[spkiAlgOid] || spkiAlgOid;
+var keyBits = null;
+if (spkiAlgOid === "1.2.840.113549.1.1.1") {
+var bitStringNode = spkiNode.children[1];
+var keyBytes = bitStringNode.bytes.slice(1);
+var rsaKeySeq = parseAsn1(keyBytes, 0);
+var modulus = rsaKeySeq.children[0].bytes;
+var modLen = modulus.length;
+if (modulus[0] === 0) modLen--;
+keyBits = modLen * 8;
+}
+var sans = [];
+var extensions = [];
+var extTag = tbs.children[tbs.children.length - 1];
+if (extTag && extTag.tag === 0xa3) {
+var extSeq = extTag.children[0];
+extSeq.children.forEach(function (extNode) {
+var oid = parseOid(extNode.children[0].bytes);
+extensions.push(OID_NAMES[oid] || oid);
+if (oid === "2.5.29.17") {
+var octetString = extNode.children[extNode.children.length - 1];
+var sanSeq = parseAsn1(octetString.bytes, 0);
+sanSeq.children.forEach(function (gn) {
+if (gn.tagNumber === 2) sans.push("DNS:" + bytesToUtf8(gn.bytes));
+else if (gn.tagNumber === 7) sans.push("IP:" + Array.from(gn.bytes).join("."));
+else if (gn.tagNumber === 1) sans.push("email:" + bytesToUtf8(gn.bytes));
+});
+}
+});
+}
+return { version: version, serial: serial, sigAlg: sigAlg, issuer: issuer, subject: subject, notBefore: notBefore, notAfter: notAfter, spkiAlg: spkiAlg, keyBits: keyBits, sans: sans, extensions: extensions };
+}
+function formatName(parts) {
+return parts.map(function (p) { return p.label + "=" + p.value; }).join(", ");
+}
+
+body.querySelector("#ssl-decode").addEventListener("click", function () {
+var resultBox = body.querySelector("#ssl-result");
+var input = body.querySelector("#ssl-cert-input").value.trim();
+if (!input) { resultBox.value = "Paste a PEM certificate first."; return; }
+try {
+var c = decodeCert(input);
+var now = new Date();
+var expired = now > c.notAfter;
+var notYetValid = now < c.notBefore;
+var out = "Subject: " + formatName(c.subject) + "\n";
+out += "Issuer: " + formatName(c.issuer) + "\n";
+out += "Serial: " + c.serial + "\n";
+out += "Signature algorithm: " + c.sigAlg + "\n";
+out += "Version: " + c.version + "\n\n";
+out += "Not before: " + c.notBefore.toUTCString() + "\n";
+out += "Not after: " + c.notAfter.toUTCString();
+if (expired) out += "  \u2192 EXPIRED";
+if (notYetValid) out += "  \u2192 NOT YET VALID";
+out += "\n\n";
+out += "Public key: " + c.spkiAlg + (c.keyBits ? " (" + c.keyBits + " bit)" : "") + "\n\n";
+if (c.sans.length) out += "Subject Alternative Names:\n" + c.sans.map(function (s) { return "  " + s; }).join("\n") + "\n\n";
+if (c.extensions.length) out += "Extensions present: " + c.extensions.join(", ");
+resultBox.value = out;
+writeToOutput("SSL Cert Decrypter", out);
+} catch (err) {
+resultBox.value = "Couldn\u2019t decode that as a certificate: " + err.message + "\n\nMake sure the full -----BEGIN CERTIFICATE----- ... -----END CERTIFICATE----- block was pasted, with nothing else mixed in.";
+}
+});
+
+body.querySelector("#ssl-reset").addEventListener("click", function () {
+body.querySelector("#ssl-cert-input").value = "";
+body.querySelector("#ssl-result").value = "";
+});
+}
+},
+
+"Pathfinder SCIM Provisioning": {
+render: function (body) {
+body.innerHTML =
+'<p class="mod-note" style="margin-top:0;">Verified against BeyondTrust\'s own <a href="https://docs.beyondtrust.com/pra/docs/scim" target="_blank" style="color:var(--accent-cyan);">SCIM</a> and <a href="https://docs.beyondtrust.com/pra/docs/pf-api-configuration" target="_blank" style="color:var(--accent-cyan);">API configuration</a> documentation. Distinct from Pathfinder SAML Claims - SCIM automates account lifecycle (create/update/deactivate), SAML claims are about what happens at the moment someone logs in.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">What SCIM actually does here</p>' +
+'<p class="mod-note">SCIM 2.0 lets an IdP push user and group changes to Pathfinder directly, instead of Pathfinder waiting for someone to log in (which is how SAML-only JIT provisioning works). Create, update, deactivate - all driven from the IdP side. When someone is removed from the IdP, SCIM revokes their Pathfinder access immediately rather than waiting for their session to expire naturally.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">The gotcha that actually breaks setups: a separate toggle</p>' +
+'<p class="mod-note">The Configuration API page has <strong style="color:#ff6b6b;">three independent access toggles</strong>, not one: general Configuration API access, Vault Accounts management, and the SCIM API itself. Enabling the Configuration API does not automatically enable SCIM - if provisioning isn\'t syncing at all, check whether the SCIM API toggle specifically was ever turned on, before assuming the problem is on the IdP side.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">Duplicate / conflicting accounts</p>' +
+'<p class="mod-note">If a SCIM-provisioned user matches an account that already exists in Pathfinder (e.g. one created manually via Invite before SCIM was turned on), Pathfinder may link the records automatically or may require admin review, depending on the setup. <strong style="color:var(--text-white);">Review for duplicate or conflicting accounts before a broad SCIM rollout</strong> - this is explicitly called out as a pre-rollout checklist item, not an edge case to discover after the fact.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">Group provisioning</p>' +
+'<p class="mod-note">If the IdP sends group objects and membership changes (not just individual users), those can drive Pathfinder role/access assignment directly - confirm how the customer\'s specific IdP maps its groups to Pathfinder roles or application access, since this mapping is configured per integration, not identical across every IdP. Nested group support also varies by release and provider combination - don\'t assume it works until confirmed for that specific pairing.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">Where to look when something\'s wrong</p>' +
+'<p class="mod-note">1. Confirm the SCIM API toggle is actually on (separate from Configuration API access in general). 2. Check for duplicate/conflicting accounts if this is a new rollout. 3. On the IdP side, confirm the connection test itself succeeds (e.g. an HTTP 200 test connection) before troubleshooting individual user sync - a broken connection looks identical to "nothing is syncing" from the Pathfinder side.</p>' +
+
+'<p class="mod-note" style="color:var(--text-mid);font-size:11px;margin-top:10px;">Public product docs only. Exact admin-interface navigation can vary by version - confirm against the customer\'s actual environment if something doesn\'t match.</p>';
+}
+},
+
+"Pathfinder Site & Product Access": {
+render: function (body) {
+body.innerHTML =
+'<p class="mod-note" style="margin-top:0;">Verified against BeyondTrust\'s own <a href="https://docs.beyondtrust.com/bt-docs/docs/user-management" target="_blank" style="color:var(--accent-cyan);">User management</a> documentation. Different failure mode from the SAML/Kerberos modules - this is for when someone authenticates completely fine but doesn\'t see the product they expect.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">Sites are the access boundary, not the product itself</p>' +
+'<p class="mod-note">Pathfinder groups SaaS products into <strong style="color:var(--text-white);">sites</strong> - typically mirroring org structure (e.g. by department or region). Sites are isolated groups of applications: a user only sees the sites they\'ve been explicitly granted access to, and within a site, only the specific applications they\'ve been granted. Logging in successfully proves nothing about site/application access - those are two completely separate checks.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">Where this is actually configured</p>' +
+'<p class="mod-note">Administration (top-right site name dropdown) &gt; Administration &gt; User Management &gt; find the user. Every user has two things that matter here: an <strong style="color:var(--text-white);">Organization Role</strong> (Standard User or Administrator - Administrators see every site, Standard Users only their assigned ones) and <strong style="color:var(--text-white);">Site Access</strong> (which specific sites, and within each site, at least one application must also be checked - site access alone without an application checked won\'t surface anything).</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">The most common actual complaint and its real cause</p>' +
+'<p class="mod-note">"I can log in but I don\'t see [product]" is almost always one of: the user\'s Organization Role is Standard User and they were never granted that specific site, or they have the site but the specific application within it was never checked when access was granted. Both look identical from the user\'s side - a login that works but a missing tile - so check User Management directly rather than assuming it\'s an auth problem.</p>' +
+
+'<p class="mod-note" style="color:var(--text-mid);font-size:11px;margin-top:10px;">Public product docs only. Exact admin-interface navigation can vary by version - confirm against the customer\'s actual environment if something doesn\'t match.</p>';
+}
+},
+
+"Pathfinder API Configuration": {
+render: function (body) {
+body.innerHTML =
+'<p class="mod-note" style="margin-top:0;">Verified against BeyondTrust\'s own <a href="https://docs.beyondtrust.com/pra/docs/pf-api-configuration" target="_blank" style="color:var(--accent-cyan);">API configuration</a> documentation (RS and PRA share the same page structure). Covers the Configuration API, Vault API access, and ECM Groups - three separate things that live on the same admin page and get confused with each other.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">Three independent toggles, one admin page</p>' +
+'<p class="mod-note">1. <strong style="color:var(--text-white);">Configuration API</strong> - general access for automating common /login tasks (orchestration, scripted config changes). 2. <strong style="color:var(--text-white);">Manage Vault Accounts</strong> - a separate checkbox specifically for whether this API account can touch Vault. 3. <strong style="color:var(--text-white);">SCIM API</strong> - also separate, covered in depth in Pathfinder SCIM Provisioning. Enabling one does not enable the others - if an integration can reach the API but a specific capability silently fails, check whether that specific toggle was actually turned on.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">Network Restrictions - the part that breaks automation the most</p>' +
+'<p class="mod-note"><strong style="color:#ff6b6b;">API accounts are NOT restricted by the network prefixes configured on Management &gt; Security.</strong> They are restricted only by the network prefixes configured specifically for that API account. If an automation script or orchestration tool starts failing with an access-denied-looking error after a network change, check the API account\'s own Network Restrictions list first - the general site-wide security settings are a red herring here, since they don\'t apply to API accounts at all.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">ECM Groups</p>' +
+'<p class="mod-note">Lets a single PRA deployment integrate with <strong style="color:var(--text-white);">multiple, disconnected</strong> external credential providers at once (e.g. Password Safe and Privileged Identity side by side) - not a single ECM connection, a set of them. If a customer has more than one credential source and only one is working, confirm which ECM Group each Jump Item or policy is actually pointed at rather than assuming a single, global ECM setting.</p>' +
+
+'<p class="mod-note" style="color:var(--text-mid);font-size:11px;margin-top:10px;">Public product docs only. Exact admin-interface navigation can vary by version - confirm against the customer\'s actual environment if something doesn\'t match.</p>';
+}
+},
+
+"Legacy /login vs Pathfinder": {
+render: function (body) {
+body.innerHTML =
+'<p class="mod-note" style="margin-top:0;">Verified against BeyondTrust\'s own <a href="https://docs.beyondtrust.com/pra/docs/pf-users-security" target="_blank" style="color:var(--accent-cyan);">Users &amp; Security on Pathfinder</a> documentation. For "why do I have two logins now" and "where did my old bookmark go" cases during or after a Pathfinder migration.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">The real, documented change</p>' +
+'<p class="mod-note">Once a product moves onto Pathfinder, its old, per-product /login Users &amp; Security section <strong style="color:#ff6b6b;">loses the ability to add new users or synchronize users/groups from an external security provider directly</strong>. That functionality doesn\'t disappear - it moves to Pathfinder\'s own, single User Management page, which now covers every product hosted on Pathfinder at once instead of each product managing its own users separately.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">What this means in practice for a case</p>' +
+'<p class="mod-note">If a customer says "I used to add users directly in RS/PRA\'s own admin panel and now that option is gone" - that\'s expected, not a bug. Point them to Administration &gt; User Management on Pathfinder (app.beyondtrust.io) instead of the product\'s own legacy Users &amp; Security page. Security Providers (SAML, LDAP, Kerberos, SCIM) are still configured per-product under Users &amp; Security - it\'s specifically manual user creation and provider sync that centralized, not authentication configuration itself.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">Two logins / bookmark confusion</p>' +
+'<p class="mod-note">Sign-in is meant to be single, central authentication through app.beyondtrust.io - if someone has an old, bookmarked direct /login URL for a specific appliance, that can still work for the product itself, but user management for that product no longer lives there. This is a common source of "which URL am I even supposed to use now" tickets during a transition period, especially for admins used to the old workflow.</p>' +
+
+'<p class="mod-note" style="color:var(--text-mid);font-size:11px;margin-top:10px;">Public product docs only. Exact behavior can vary depending on how far along a given customer\'s migration is - confirm what\'s actually still active on their specific site if something doesn\'t match.</p>';
+}
+},
+
+"Pathfinder Custom Domain (CNAME)": {
+render: function (body) {
+body.innerHTML =
+'<p class="mod-note" style="margin-top:0;">Verified against BeyondTrust\'s own <a href="https://docs.beyondtrust.com/bt-docs/docs/welcome-to-the-pathfinder-platform" target="_blank" style="color:var(--accent-cyan);">Pathfinder platform</a> documentation. Short, focused reference - see also Pathfinder Troubleshooting for the broader troubleshooting picture.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">The default vs. the option</p>' +
+'<p class="mod-note">Every Pathfinder site gets a default subdomain of <code style="color:var(--accent-gold);">beyondtrustcloud.com</code> automatically. A customer who wants their own company web address instead can use a CNAME record to point that custom domain at the default site address - along with their own SSL certificate for that domain, not a BeyondTrust-issued one.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">Naming it well matters more than it sounds</p>' +
+'<p class="mod-note">Since the site accesses the <code style="color:var(--accent-gold);">/login</code> interface directly, BeyondTrust\'s own guidance is to use a simple, descriptive name for the CNAME\'d domain - something that reads clearly to end users landing on a login page, not an internal-only or cryptic hostname.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">When a cert error shows up on a CNAME\'d site</p>' +
+'<p class="mod-note">Check whether the certificate error is actually about the <strong style="color:var(--text-white);">customer\'s own cert</strong> for their custom domain, not a BeyondTrust-side problem - since the customer supplies and manages that certificate themselves once they\'ve set up the CNAME, an expired or misconfigured cert there is on their side to renew/fix, not something to escalate as a platform issue.</p>' +
+
+'<p class="mod-note" style="color:var(--text-mid);font-size:11px;margin-top:10px;">Public product docs only. DNS propagation timing and exact cert requirements can vary - confirm against the customer\'s actual DNS/cert setup if something doesn\'t match.</p>';
+}
 }
 
 };
@@ -12683,6 +13185,17 @@ var WNT_CATEGORY_ICONS = {
 "Other": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>'
 };
 function isNewlyAddedModule(m) { return !!(m && m.added); }
+var ADDED_DATE_MONTHS = { JAN: 0, FEB: 1, MAR: 2, APR: 3, MAY: 4, JUN: 5, JUL: 6, AUG: 7, SEP: 8, OCT: 9, NOV: 10, DEC: 11 };
+function parseAddedDate(dateStr) {
+if (!dateStr) return 0;
+var match = /^(\d{2})([A-Z]{3})(\d{4})$/.exec(dateStr);
+if (!match) return 0;
+var day = parseInt(match[1], 10);
+var month = ADDED_DATE_MONTHS[match[2]];
+var year = parseInt(match[3], 10);
+if (month === undefined) return 0;
+return new Date(year, month, day).getTime();
+}
 var WNT_ALL_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>';
 
 var categoryDragState = { cat: null };
@@ -12959,6 +13472,20 @@ filtered = roleSearchMatches;
 }
 
 filtered.sort(function (a, b) { return getEffectiveOrder(role, a) - getEffectiveOrder(role, b); });
+
+if (!filterText && currentCategory === "Newly Added") {
+// Newest first, not lowest-order-number-first - a module added
+// today should show above one added weeks ago even though today's
+// module necessarily has a higher order number (order values only
+// ever increase as new modules get built). Same-day additions fall
+// back to order descending, so the most recently built module of
+// the day still lands on top rather than reshuffling by name.
+filtered.sort(function (a, b) {
+var dateDiff = parseAddedDate(b.added) - parseAddedDate(a.added);
+if (dateDiff !== 0) return dateDiff;
+return getEffectiveOrder(role, b) - getEffectiveOrder(role, a);
+});
+}
 
 var resetLink = qs("#dash-reset-order");
 var hasCustomOrder = !!loadCustomOrder(role);
@@ -13458,11 +13985,72 @@ qs("#advanced-panel").classList.add("open");
 // dashboard showing everything. The title screen / role picker is
 // no longer part of the normal flow.
 openDashboard("ALL");
+
+checkDeepLink();
 }
+
+/* ---------------- Stream Deck / external deep-linking ----------------
+A Stream Deck button (or any external launcher) can only open a URL in
+a new browser tab - the Stream Deck SDK's openUrl() always uses the
+default browser and explicitly does not support custom URL schemes, so
+there's no way for a button press to reach into and control a WNT tab
+someone already has open. This is the practical workaround: the new
+tab loads with #module=Name in the URL, and instead of silently
+opening a second copy of WNT, it asks the person whether they want it
+here or in whichever tab they already had open. "Already open" is
+detected by writing a timestamped key to localStorage - since a
+storage event fires in every OTHER tab sharing this exact file://
+path (never the tab that made the change), any other genuinely-open
+WNT tab picks it up and opens the module itself. There is no way to
+force that other tab into focus (browsers don't allow a page to steal
+focus from a different tab), so the person still has to click back to
+it themselves - this closes the gap of also having to navigate to the
+right module by hand once they get there. */
+function findModuleByLooseName(name) {
+if (!name) return null;
+var target = decodeURIComponent(name).trim().toLowerCase();
+for (var i = 0; i < MODULES.length; i++) {
+if (MODULES[i].name.toLowerCase() === target) return MODULES[i].name;
+}
+return null;
+}
+function checkDeepLink() {
+var match = location.hash.match(/[#&]module=([^&]+)/);
+if (!match) return;
+var resolvedName = findModuleByLooseName(match[1]);
+if (!resolvedName) return;
+qs("#deeplink-module-name").textContent = resolvedName;
+closeOtherOverlays("deeplink-overlay");
+qs("#deeplink-overlay").classList.add("open");
+
+qs("#deeplink-open-here").addEventListener("click", function () {
+qs("#deeplink-overlay").classList.remove("open");
+openModuleOverlay(resolvedName);
+history.replaceState(null, "", location.pathname + location.search);
+}, { once: true });
+
+qs("#deeplink-send-other").addEventListener("click", function () {
+localStorage.setItem("wnt_deeplink_request", JSON.stringify({ module: resolvedName, ts: Date.now() }));
+qs("#deeplink-open-here").style.display = "none";
+qs("#deeplink-send-other").style.display = "none";
+qs("#deeplink-sent-note").style.display = "block";
+history.replaceState(null, "", location.pathname + location.search);
+}, { once: true });
+}
+// Fires in every OTHER tab of the same file:// path when the key
+// above is written - never in the tab that wrote it, which is exactly
+// the "the tab someone already had open" this is meant to reach.
+window.addEventListener("storage", function (e) {
+if (e.key !== "wnt_deeplink_request" || !e.newValue) return;
+try {
+var payload = JSON.parse(e.newValue);
+if (payload && payload.module) openModuleOverlay(payload.module);
+} catch (err) { /* malformed payload, ignore */ }
+});
 
 init();
 })();
 </script>
 
-</body>
-</html>
+
+</body></html>

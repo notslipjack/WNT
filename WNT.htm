@@ -1121,43 +1121,7 @@ cursor: pointer;
 }
 #recomb-info-close:hover { color: var(--accent-cyan); }
 
-/* ---- TSE Coverage overlay (stacks above the module popup) ---- */
-#tse-coverage-overlay {
-display: none;
-position: fixed;
-top: 0; left: 0;
-width: 100%; height: 100%;
-background: rgba(0,0,0,0.7);
-z-index: 1100;
-align-items: center;
-justify-content: center;
-padding: 20px;
-}
-#tse-coverage-overlay.open { display: flex; }
-#tse-coverage-popup {
-background: var(--bg-panel);
-border: 1px solid var(--accent-cyan);
-border-radius: 8px;
-max-width: 440px;
-width: 100%;
-max-height: 85vh;
-overflow-y: auto;
-padding: 16px 18px;
-position: relative;
-}
-#tse-coverage-popup h3 { margin: 0 0 8px; font-size: 14px; color: var(--accent-cyan); }
-#tse-coverage-close {
-position: absolute;
-top: 10px; right: 12px;
-background: transparent;
-border: none;
-color: var(--text-dim);
-font-size: 18px;
-cursor: pointer;
-}
-#tse-coverage-close:hover { color: var(--accent-cyan); }
-
-#tse-coverage-grid-wrap {
+#tse-coverage-grid-standalone {
 overflow-x: auto;
 border: 1px solid var(--border-subtle);
 border-radius: 4px;
@@ -2292,16 +2256,27 @@ Apply plasma? <span style="color:var(--text-mid);">(4rknova plasma. Colors below
 <div id="advanced-modules-list"></div>
 </div>
 </div>
-</div>
-</div>
 
-<div id="tse-coverage-overlay">
-<div id="tse-coverage-popup">
-<button id="tse-coverage-close" type="button" aria-label="Close">&times;</button>
-<h3>TSE Coverage Times</h3>
-<p class="mod-note" style="margin-top:0;color:var(--accent-gold);">Written by hand ~2024 - being re-verified with Tim. Treat as a starting point, not gospel, until confirmed.</p>
-<p class="mod-note" style="margin-top:0;color:var(--text-mid);font-size:11px;">Fixed since the original: Eastern row's 10am-Central slot corrected from 11:00 PM to 11:00 AM, matching the Central+1hr pattern used everywhere else.</p>
-<div id="tse-coverage-grid-wrap"></div>
+<div id="whats-new-content" style="display:none;padding:20px;">
+<p class="mod-note" style="margin-top:0;">Quick orientation for anyone new to WNT, or coming back after a while away.</p>
+
+<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">Finding a module</p>
+<p class="mod-note">Sidebar on the left groups modules by category - click a category to filter the tile grid, or click "All Modules" to see everything. The search bar filters by module name <strong style="color:var(--text-white);">and</strong> by content inside each module, so searching a command or a term you remember often works even if you don't remember the module's name.</p>
+
+<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:10px;">Making it yours</p>
+<p class="mod-note">Drag any tile onto a sidebar category icon to move it there, or onto the Custom (star) icon to pin it to your own personal shortlist - drag it onto "All Modules" to clear an override. On mobile, long-press a tile instead of dragging. Theme, seasonal effects, and plasma background all live under <strong style="color:var(--text-white);">Options</strong>, just above this entry.</p>
+
+<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:10px;">The Output / Scratch Pad</p>
+<p class="mod-note">Most generator modules write their result to the shared Output box at the top of the dashboard, so you can build up notes across several tools in one case without losing earlier output. Append keeps adding to the top; Replace clears it each time - that's a global switch, not per-module.</p>
+
+<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:10px;">Two easy-to-forget gestures</p>
+<p class="mod-note">Hold <strong style="color:var(--text-white);">Escape down</strong>, then click anywhere <strong style="color:var(--text-white);">3 times while still holding it</strong>, to show/hide the TSM Admin category entirely - desktop only, since it's a keyboard+mouse gesture. Toggling it back on brings those modules right back.</p>
+<p class="mod-note">Stuck in New Hire (TSA)/(TSE) mode with no visible way back to the normal dashboard? <strong style="color:var(--text-white);">3 quick Escape presses</strong> (not held down, 3 separate taps within about a second) or <strong style="color:var(--text-white);">3 quick taps on the BT logo</strong> (works on phones too, where there's no Escape key) both exit back to the regular dashboard.</p>
+
+<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:10px;">What's actually new</p>
+<p class="mod-note">In-app release notes (right below this) cover recent changes in detail, newest at the top. For the <strong style="color:var(--text-white);">full</strong> history going back further, the Confluence page is the source of truth - <a href="https://beyondtrust.atlassian.net/wiki/spaces/~61fb382e8d9e3c00688f80e0/" target="_blank" style="color:var(--accent-cyan);">Full release notes on Confluence</a>. <strong style="color:#ff6b6b;">Opposite order from in here: on that page, the newest version is always at the bottom</strong> - scroll all the way down for the latest, not up.</p>
+<p class="mod-note">WNT is built with Claude (Anthropic) - <a href="https://claude.ai/project/019f3949-836f-7564-ba13-242b997c57d5" target="_blank" style="color:var(--accent-cyan);">the project this tool is developed in</a>, if you want to see how a change actually gets made or suggest one yourself.</p>
+</div>
 </div>
 </div>
 
@@ -2316,6 +2291,8 @@ Apply plasma? <span style="color:var(--text-mid);">(4rknova plasma. Colors below
 <a href="https://beyondtrust.atlassian.net/wiki/spaces/STSE/pages/43843657/PRA+Consolidated+Upgrade+Path" target="_blank">PRA Consolidated Upgrade Path</a>
 </p>
 <p><strong>To refresh:</strong> in Confluence, click the <strong>&#8943;</strong> (three dots, top right) &rarr; <strong>Export</strong> &rarr; <strong>Export to Word</strong>, then drop the downloaded file on the import control in <strong>Update Paths (Consolidated)</strong>. It reads the table straight out of the export, recomputes the chain shown there, and updates this module's own version-lookup data at the same time - saved locally, so it's still there next time you open the tool.</p>
+<p style="font-size:11px;color:var(--text-mid);margin-top:10px;">Target version field suggested by TSE Mike McCauley - thanks for the idea.</p>
+<p style="font-size:10px;color:var(--text-mid);margin-top:6px;">Recombobulator, as opposed to <a href="https://www.youtube.com/watch?v=B62ACxuq8Pw" target="_blank" style="color:var(--text-mid);">discombobulate</a>.</p>
 </div>
 </div>
 
@@ -2592,7 +2569,14 @@ var MODULES = [
 { name: "DNS Troubleshooting (Plain English)", category: "Guides", tag: "TSE", order: 104530, added: "31AUG2026" },
 { name: "TLS Proxy and Cert Decoder", category: "Guides", tag: "TSE", order: 104540, added: "31AUG2026" },
 { name: "Jump Connectivity Decision Tree", category: "Guides", tag: "TSE", order: 104550, added: "31AUG2026" },
-{ name: "Linux Field Guide", category: "Guides", tag: "TSE", order: 104560, added: "31AUG2026" }
+{ name: "Linux Field Guide", category: "Guides", tag: "TSE", order: 104560, added: "31AUG2026" },
+{ name: "Deploy a Linux Jumpoint", category: "Guides", tag: "TSE", order: 104565, added: "03SEP2026" },
+{ name: "Deploy a Windows Jumpoint", category: "Guides", tag: "TSE", order: 104566, added: "03SEP2026" },
+{ name: "Windows Field Guide", category: "Guides", tag: "TSE", order: 104567, added: "03SEP2026" },
+{ name: "Vault Basics: Check Out, Rotate, Inject", category: "Guides", tag: "common", order: 104568, added: "03SEP2026" },
+{ name: "SSO / Kerberos Troubleshooting", category: "Guides", tag: "common", order: 104569, added: "03SEP2026" },
+{ name: "Atlas Cluster & Failover in Plain English", category: "Guides", tag: "common", order: 104570, added: "03SEP2026" },
+{ name: "TSE Coverage Grid", category: "Reference Tables", tag: "common", order: 104571, added: "03SEP2026" }
 ];
 
 var qs = function (sel) { return document.querySelector(sel); };
@@ -2616,7 +2600,7 @@ all meant to stack above an open Options/module popup, not close it. */
 var MUTUALLY_EXCLUSIVE_OVERLAY_IDS = [
 "stats-overlay", "release-notes-overlay",
 "panic-reset-overlay", "theme-guide-overlay", "mode-info-overlay",
-"recomb-info-overlay", "tse-coverage-overlay", "tile-custom-overlay",
+"recomb-info-overlay", "tile-custom-overlay",
 "tile-hidden-overlay"
 ];
 function closeOtherOverlays(exceptId) {
@@ -3950,6 +3934,95 @@ var RELEASE_NOTES_HTML =
 
 '<div class="rn-version" style="font-size:14px;margin-top:18px;color:var(--accent-gold);">Changelog</div>' +
 '<p class="mod-note" style="font-size:11px;color:var(--text-mid);">Newest entries added here going forward, on top - the fuller numbered history below stays as a standing snapshot and isn\'t rewritten each time.</p>' +
+
+'<div class="rn-version" style="font-size:12px;margin-top:10px;">03 Sep 2026 (cont.)</div>' +
+'<p class="mod-note">New "What\'s New?" entry in the sidebar, right under Options - a quick user guide plus a link to the full release notes on Confluence (newest version always at the bottom there, opposite of the order used in here) and a link to this project.</p>' +
+
+'<div class="rn-version" style="font-size:12px;margin-top:10px;">03 Sep 2026</div>' +
+'<p class="mod-note">New modules: Deploy a Windows Jumpoint, Windows Field Guide, Vault Basics: Check Out/Rotate/Inject, SSO/Kerberos Troubleshooting, Atlas Cluster &amp; Failover in Plain English - all verified against BeyondTrust\'s own public docs. Also: TSE Coverage Grid moved out of Hunt Group Numbers into its own searchable module (previously only reachable via a popup inside another module, so it never showed up in search).</p>' +
+
+'<div class="rn-version" style="font-size:12px;margin-top:10px;">31 Aug 2026 (file generation 57)</div>' +
+'<p class="mod-note">Recombobulator: target version field widened so its placeholder text doesn\'t clip, and the RS/PRA toggle nudged slightly right so its pulse animation doesn\'t clip against the module edge.</p>' +
+
+'<div class="rn-version" style="font-size:12px;margin-top:10px;">31 Aug 2026 (file generation 54)</div>' +
+'<ul>' +
+'<li><strong style="color:var(--accent-gold);">New file:</strong> WNT-TSM-3.0_31AUG2026-54.htm. One-word tweak to the wording added in generation 53.</li>' +
+'</ul>' +
+'<div class="rn-version" style="font-size:12px;margin-top:10px;">31 Aug 2026 (wording tweak)</div>' +
+'<p class="mod-note">"Full path to latest with (dual Base software versions):" -> "Full path to latest with (dual Base RS/PRA software versions):" - specifies which software the dual-Base versions belong to.</p>' +
+
+'<div class="rn-version" style="font-size:12px;margin-top:10px;">31 Aug 2026 (file generation 53)</div>' +
+'<ul>' +
+'<li><strong style="color:var(--accent-gold);">New file:</strong> WNT-TSM-3.0_31AUG2026-53.htm. Recombobulator\'s target-not-found message reworded.</li>' +
+'</ul>' +
+'<div class="rn-version" style="font-size:12px;margin-top:10px;">31 Aug 2026 (Recombobulator message reworded)</div>' +
+'<p class="mod-note">"Target version \u2018X\u2019 isn\u2019t a step in this path, showing the full path to latest instead:" replaced with "Full path to latest with (dual Base software versions):" - shorter, and describes what\'s actually being shown (the parenthetical dual/merged-Base entries) rather than explaining why the typed target didn\'t match.</p>' +
+'<p class="mod-note">Touch points: targetNotFoundNote\'s assignment inside #recomb-generate\'s click handler, right where the target-match loop falls through to the full-path fallback.</p>' +
+
+'<div class="rn-version" style="font-size:12px;margin-top:10px;">31 Aug 2026 (file generation 51)</div>' +
+'<ul>' +
+'<li><strong style="color:var(--accent-gold);">New file:</strong> WNT-TSM-3.0_31AUG2026-51.htm. Recombobulator collapses consecutive same-Base steps.</li>' +
+'</ul>' +
+'<div class="rn-version" style="font-size:12px;margin-top:10px;">31 Aug 2026 (Recombobulator collapses redundant Base repeats)</div>' +
+'<p class="mod-note">When two consecutive RS/PRA steps require the identical Base version back to back (e.g. both 26.2.1 and 26.2.2 require Base 8.3.0), the chain used to repeat "Base 8.3.0" twice for no reason - once before each version. Now shown as one "Base 8.3.0" followed by both versions, the second in parentheses: "Base 8.3.0 \u2192 RS 26.2.1 (RS 26.2.2)" - the same visual pattern already used for a documented dual-base candidate, since a reader is asking the same practical question either way: is there a separate Base step here, or am I already on the Base I need for this jump too.</p>' +
+'<p class="mod-note">General grouping, not a hardcoded pair like the dual-candidate lookup - any run of consecutive same-Base steps collapses the same way, however many versions are involved. Composes correctly with the existing dual-candidate parentheticals (25.3.1 (25.3.4), 26.1.1 (26.1.2) both still appear correctly alongside this) and with [wait], which now falls after the whole merged group rather than after every individual version inside it, since a dual/merged candidate in parentheses isn\'t a separate update step to actually perform - it\'s an alternative landing spot at that same point in the chain.</p>' +
+'<p class="mod-note">Touch points: the step-rendering block inside #recomb-generate\'s click handler, replaced with a grouping pass (Base value -> list of RS/PRA versions sharing it) before building the output text.</p>' +
+
+'<div class="rn-version" style="font-size:12px;margin-top:10px;">31 Aug 2026 (file generation 49)</div>' +
+'<ul>' +
+'<li><strong style="color:var(--accent-gold);">New file:</strong> WNT-TSM-3.0_31AUG2026-49.htm. Recombobulator now links its own source material directly underneath the output box.</li>' +
+'</ul>' +
+'<div class="rn-version" style="font-size:12px;margin-top:10px;">31 Aug 2026 (Recombobulator source links)</div>' +
+'<p class="mod-note">Added the seven sources actually used to build and verify this dataset, grouped the same way they were provided: Confluence (RS/PRA Full Update Paths and RS/PRA Consolidated Paths), then public docs release notes (RS, PRA, Base). Sits directly under the output textarea so anyone double-checking a generated chain, or wondering where a specific step came from, has one click to the real source instead of needing to go find it.</p>' +
+'<p class="mod-note">Touch points: right after #recomb-result in the module\'s render function.</p>' +
+
+'<div class="rn-version" style="font-size:12px;margin-top:10px;">31 Aug 2026 (file generation 48)</div>' +
+'<ul>' +
+'<li><strong style="color:var(--accent-gold);">New file:</strong> WNT-TSM-3.0_31AUG2026-48.htm. Recombobulator output reworded for clarity.</li>' +
+'</ul>' +
+'<div class="rn-version" style="font-size:12px;margin-top:10px;">31 Aug 2026 (Recombobulator output reworded)</div>' +
+'<p class="mod-note">Output now separates the starting point from the path more clearly. The starting version is now labeled "Current appliance:" on its own line, and the chain itself starts fresh on the line below rather than continuing directly after the opening parenthetical. When a typed target isn\'t a step in the path, that note now comes first, followed by a blank line, then the current-appliance line and the full path - applied consistently whether or not a target was typed in, so the format doesn\'t shift between the two cases.</p>' +
+'<p class="mod-note">Example: targeting 26.1.2 from RS 25.1.7/8.0.0 now reads "Target version \u201826.1.2\u2019 isn\u2019t a step in this path, showing the full path to latest instead:" then a blank line, then "Current appliance: (Base 8.0.0 | RS 25.1.7)" then the chain on the next line.</p>' +
+'<p class="mod-note">Touch points: the result-string assembly inside #recomb-generate\'s click handler - chain text is now built into its own variable first, then combined with the current-appliance line and (when applicable) the target-not-found note.</p>' +
+
+'<div class="rn-version" style="font-size:12px;margin-top:10px;">31 Aug 2026 (file generation 47)</div>' +
+'<ul>' +
+'<li><strong style="color:var(--accent-gold);">New file:</strong> WNT-TSM-3.0_31AUG2026-47.htm. Recombobulator now shows dual-base-compatible sibling versions in parentheses.</li>' +
+'</ul>' +
+'<div class="rn-version" style="font-size:12px;margin-top:10px;">31 Aug 2026 (Recombobulator dual-base candidates)</div>' +
+'<p class="mod-note">Some releases are documented as supporting either of two Base versions (e.g. RS/PRA 26.1.2\'s own public release notes say "requires Base 8.2.0 or 8.3.0"). That means a later patch in the same minor line can be an equally valid landing spot at a given step, even when it isn\'t itself a named upgrade waypoint - RS/PRA 26.1.2 is a real GA release that happens to share Base 8.2.0 with 26.1.1, the version actually named in the chain. Cross-referenced each step currently used anywhere in RECOMB_DATASETS against public release notes: 26.1.1/8.2.0 has 26.1.2 as a dual (Base 8.2.0 or 8.3.0), 25.3.1/8.1.0 has 25.3.4 as the latest dual (Base 8.1.0 or 8.2.0, 25.3.3 also qualifies but 25.3.4 is newer), and 24.3.1/7.3.0 has 24.3.4 as the latest dual (Base 7.3.0 or 7.4.0).</p>' +
+'<p class="mod-note">Generated output now reads e.g. "RS 26.1.1 (RS 26.1.2)" at that step - the named waypoint first, the dual candidate in parentheses. This is intentionally a small, explicit lookup keyed to the exact steps currently in the dataset, not an attempt to compute dual-base compatibility generally - RS/PRA versions not used anywhere as a chain step aren\'t covered, and adding a new step to the dataset later won\'t automatically get a dual candidate unless one is added here too.</p>' +
+'<p class="mod-note">Touch points: RECOMB_DUAL_CANDIDATES (new lookup, right before the step-rendering loop) and the loop itself inside #recomb-generate\'s click handler, which now looks up each RS/PRA step against its immediately preceding Base step.</p>' +
+
+'<div class="rn-version" style="font-size:12px;margin-top:10px;">31 Aug 2026 (file generation 45)</div>' +
+'<ul>' +
+'<li><strong style="color:var(--accent-gold);">New file:</strong> WNT-TSM-3.0_31AUG2026-45.htm. RECOMB_DATASETS (24.x forward) rebuilt from BeyondTrust\'s own internal upgrade-path documentation, fixing a real path error McCauley\'s target-version request surfaced.</li>' +
+'</ul>' +
+'<div class="rn-version" style="font-size:12px;margin-top:10px;">31 Aug 2026 (Recombobulator dataset cross-referenced against source of truth)</div>' +
+'<p class="mod-note">McCauley\'s target-version request led to checking the actual chains against docs.beyondtrust.com release notes and the internal Confluence pages (Remote Support ERS, Access Management PAM) rather than assuming the existing dataset was correct. It mostly was, with one confirmed real bug: RS/PRA 26.2.2 officially "supports upgrades from 25.3.5+" - meaning 25.3.1 through 25.3.4 are NOT eligible to jump straight to 26.2.2 the way the old "25.3.[1-4]/8.1.0" row sent them. Their real, documented path goes through 26.1.1 first. The old row skipped that step entirely.</p>' +
+'<p class="mod-note">Also resolved: 26.1.2 is explicitly listed as the DOWNGRADE target from 26.2.x in both internal docs, not an upgrade waypoint - confirming it was correctly absent from every chain, not a gap. And the 25.3.5-to-26.2.2 path itself was missing an intermediate step (26.2.1) that every source names explicitly - both the old dataset and the still-preserved older rows below have that added now.</p>' +
+'<p class="mod-note"><strong style="color:var(--text-white);">Scope of the rebuild:</strong> 24.x-forward (roughly 2024 to now) is rebuilt directly from named "Upgrade Paths" pairs in the internal Confluence pages - the same pages linked at the top of Update Paths (Consolidated) - via a small parsing script that built a graph of every documented hop and walked each starting version forward to 26.2.2, rather than hand-transcribing chains. A handful of versions (e.g. RS 24.2.4, PRA 25.1.2) were never named as a source in any later release\'s documented path - for those, this treated them as following the same route as the identical RS/PRA version number with a different, verified base pairing, since that\'s the same software either way. Rows before 24.x (down to 21.1.3, matching the existing floor - anything older is already called out above as no longer possible) were kept as they were, since the source data for that era has real gaps that would need more manual reconciliation than this pass covered responsibly - only the missing 26.2.1 hop at the very end was added for consistency.</p>' +
+'<p class="mod-note">Confirmed directly: a customer on PRA 25.1.7 (McCauley\'s own example) now correctly routes 25.1.7 \u2192 25.3.1 \u2192 26.1.1 \u2192 26.2.1 \u2192 26.2.2, and targeting 26.1.1 specifically correctly stops there. RS 25.3.5 still correctly skips straight to 26.2.1 (its own validated direct path), while 25.3.1-25.3.4 now correctly route through 26.1.1 first - the exact split that was wrong before.</p>' +
+'<p class="mod-note">Touch points: RECOMB_DATASETS, both RS and PRA arrays, rows above the 23.3.x/22.x/21.x floor.</p>' +
+
+'<div class="rn-version" style="font-size:12px;margin-top:10px;">31 Aug 2026 (file generation 44)</div>' +
+'<ul>' +
+'<li><strong style="color:var(--accent-gold);">New file:</strong> WNT-TSM-3.0_31AUG2026-44.htm. Recombobulator can now stop at a specific target version instead of always walking to latest.</li>' +
+'</ul>' +
+'<div class="rn-version" style="font-size:12px;margin-top:10px;">31 Aug 2026 (Recombobulator target version)</div>' +
+'<p class="mod-note">Suggested by McCauley (TSE): the Recombobulator always walked a matched row all the way to its last cell - useful when someone genuinely wants latest, but no help when a customer wants to land on a specific version deliberately (his example: a customer on 25.1.7 wanting 26.1.2 specifically, not whatever\'s newest).</p>' +
+'<p class="mod-note">New optional "Target version" field, left blank by default. With nothing typed in it, behavior is byte-for-byte unchanged - full path to latest, exactly as before. With a target typed in, the generator walks the same row\'s steps but stops right after the first RS/PRA-labeled step (not a bare Base step, so a same-numbered Base version can\'t be mistaken for the target) that matches - reusing the exact same recombVersionMatches() prefix logic the starting-version field already used, so "26.1" would match "26.1.2" the same way it already does for the start.</p>' +
+'<p class="mod-note">If the typed target genuinely isn\'t one of the explicit steps in that row\'s data, the tool says so directly rather than silently ignoring the field or guessing - and falls back to showing the full path to latest underneath that message, so the answer is never just a dead end. Worth knowing: this can only stop at versions that are actual named waypoints in the underlying Confluence-sourced dataset - it can\'t invent an intermediate stop that BeyondTrust\'s own consolidated upgrade path doesn\'t define for that starting version.</p>' +
+'<p class="mod-note">Touch points: the new #recomb-target input, right below the existing Version/Base row; the target-matching block inside #recomb-generate\'s click handler, right after allSteps is built.</p>' +
+
+'<div class="rn-version" style="font-size:12px;margin-top:10px;">31 Aug 2026 (file generation 43)</div>' +
+'<ul>' +
+'<li><strong style="color:var(--accent-gold);">New file:</strong> WNT-TSM-3.0_31AUG2026-43.htm. New module: Deploy a Linux Jumpoint.</li>' +
+'</ul>' +
+'<div class="rn-version" style="font-size:12px;margin-top:10px;">31 Aug 2026 (new module: Deploy a Linux Jumpoint)</div>' +
+'<p class="mod-note">New module (Guides, TSE, order 104565) covering the actual deployment process for a Linux Jumpoint - not troubleshooting an existing one, which is what Linux Field Guide already covers. Pulled directly from BeyondTrust\'s own PRA v24.3 "Install a Linux Jumpoint" documentation, current within the last year: the required libraries and the Web Jump-specific X server setup, the clustered-vs-stand-alone decision (explicitly called out as irreversible - this seemed like the single most important thing to get in front of someone before they configure it, not buried after the fact), the real install command syntax including the --user flag and the root-context warning, the systemd setup steps to survive a reboot, adding nodes to a cluster, and the Docker deployment path for clustered Jumpoints specifically.</p>' +
+'<p class="mod-note">Cross-references Linux Field Guide in its own intro line so the two don\'t read as overlapping or duplicated - one is "how do I stand this up," the other is "something\'s wrong with the one that\'s already running."</p>' +
+'<p class="mod-note">Touch points: MODULES array entry right after Linux Field Guide; MODULE_HANDLERS entry immediately before it, since Linux Field Guide was the last key in that object.</p>' +
 
 '<div class="rn-version" style="font-size:12px;margin-top:10px;">31 Aug 2026 (file generation 42)</div>' +
 '<ul>' +
@@ -5645,48 +5718,46 @@ files earlier - kept in exact sync with those, not re-guessed. */
 
 var RECOMB_DATASETS = {
 "RS": [
-["26.1.x/8.2.0", "", "", "", "", "", "26.2.2/8.3.0"],
-["25.3.5/8.2.0", "", "", "", "", "", "26.2.2/8.3.0"],
-["25.3.[1-4]/8.1.0", "", "", "", "", "", "26.2.2/8.3.0"],
-["25.2.x/8.0.0", "", "", "", "", "25.3.5/8.2.0", "26.2.2/8.3.0"],
-["25.1.x/7.4.0", "", "", "", "", "25.3.5/8.2.0", "26.2.2/8.3.0"],
-["24.3.x/7.3.0", "", "", "", "25.1.7/8.0.0", "25.3.5/8.2.0", "26.2.2/8.3.0"],
-["24.2.4/7.3.0", "", "", "", "25.1.7/8.0.0", "25.3.5/8.2.0", "26.2.2/8.3.0"],
-["24.2.[1-3]/7.2.1", "", "", "24.2.7/7.3.0", "25.1.7/8.0.0", "25.3.5/8.2.0", "26.2.2/8.3.0"],
-["24.1.x/7.[1-2].x", "", "", "24.2.7/7.3.0", "25.1.7/8.0.0", "25.3.5/8.2.0", "26.2.2/8.3.0"],
-["23.3.5/7.[0-1].0", "", "", "24.2.7/7.3.0", "25.1.7/8.0.0", "25.3.5/8.2.0", "26.2.2/8.3.0"],
-["23.3.[1-4]/7.[0-1].0", "", "", "24.2.7/7.3.0", "25.1.7/8.0.0", "25.3.5/8.2.0", "26.2.2/8.3.0"],
-["23.2.x/7.0.0", "", "", "24.2.7/7.3.0", "25.1.7/8.0.0", "25.3.5/8.2.0", "26.2.2/8.3.0"],
-["22.3.4/6.2.0", "", "", "24.2.7/7.3.0", "25.1.7/8.0.0", "25.3.5/8.2.0", "26.2.2/8.3.0"],
-["22.3.[1-3]/6.2.0", "", "23.2.7/7.0.0", "24.2.7/7.3.0", "25.1.7/8.0.0", "25.3.5/8.2.0", "26.2.2/8.3.0"],
-["22.2.x/6.[1-2].x", "", "23.2.7/7.0.0", "24.2.7/7.3.0", "25.1.7/8.0.0", "25.3.5/8.2.0", "26.2.2/8.3.0"],
-["22.1.[1-4]/6.[1-2].x", "22.2.7/6.2.0", "23.2.7/7.0.0", "24.2.7/7.3.0", "25.1.7/8.0.0", "25.3.5/8.2.0", "26.2.2/8.3.0"],
-["21.3.[2-5]/6.1.x", "22.2.7/6.2.0", "23.2.7/7.0.0", "24.2.7/7.3.0", "25.1.7/8.0.0", "25.3.5/8.2.0", "26.2.2/8.3.0"],
-["21.2.x/6.1.x", "22.2.7/6.2.0", "23.2.7/7.0.0", "24.2.7/7.3.0", "25.1.7/8.0.0", "25.3.5/8.2.0", "26.2.2/8.3.0"],
-["21.1.3/6.x.x", "22.2.7/6.2.0", "23.2.7/7.0.0", "24.2.7/7.3.0", "25.1.7/8.0.0", "25.3.5/8.2.0", "26.2.2/8.3.0"]
+["26.1.1/8.2.0", "26.2.1/8.3.0", "26.2.2/8.3.0"],
+["25.3.5/8.2.0", "26.2.1/8.3.0", "26.2.2/8.3.0"],
+["25.3.x/8.1.0", "26.1.1/8.2.0", "26.2.1/8.3.0", "26.2.2/8.3.0"],
+["25.2.x/8.0.0", "25.3.1/8.1.0", "26.1.1/8.2.0", "26.2.1/8.3.0", "26.2.2/8.3.0"],
+["25.1.x/7.4.0", "25.3.1/8.1.0", "26.1.1/8.2.0", "26.2.1/8.3.0", "26.2.2/8.3.0"],
+["24.3.x/7.3.0", "25.1.1/7.4.0", "25.3.1/8.1.0", "26.1.1/8.2.0", "26.2.1/8.3.0", "26.2.2/8.3.0"],
+["24.2.x/7.2.1", "24.3.1/7.3.0", "25.1.1/7.4.0", "25.3.1/8.1.0", "26.1.1/8.2.0", "26.2.1/8.3.0", "26.2.2/8.3.0"],
+["24.1.x/7.[1-2].x", "24.3.1/7.3.0", "25.1.1/7.4.0", "25.3.1/8.1.0", "26.1.1/8.2.0", "26.2.1/8.3.0", "26.2.2/8.3.0"],
+["23.3.5/7.[0-1].0", "", "", "24.2.7/7.3.0", "25.1.7/8.0.0", "25.3.5/8.2.0", "26.2.1/8.3.0", "26.2.2/8.3.0"],
+["23.3.[1-4]/7.[0-1].0", "", "", "24.2.7/7.3.0", "25.1.7/8.0.0", "25.3.5/8.2.0", "26.2.1/8.3.0", "26.2.2/8.3.0"],
+["23.2.x/7.0.0", "", "", "24.2.7/7.3.0", "25.1.7/8.0.0", "25.3.5/8.2.0", "26.2.1/8.3.0", "26.2.2/8.3.0"],
+["22.3.4/6.2.0", "", "", "24.2.7/7.3.0", "25.1.7/8.0.0", "25.3.5/8.2.0", "26.2.1/8.3.0", "26.2.2/8.3.0"],
+["22.3.[1-3]/6.2.0", "", "23.2.7/7.0.0", "24.2.7/7.3.0", "25.1.7/8.0.0", "25.3.5/8.2.0", "26.2.1/8.3.0", "26.2.2/8.3.0"],
+["22.2.x/6.[1-2].x", "", "23.2.7/7.0.0", "24.2.7/7.3.0", "25.1.7/8.0.0", "25.3.5/8.2.0", "26.2.1/8.3.0", "26.2.2/8.3.0"],
+["22.1.[1-4]/6.[1-2].x", "22.2.7/6.2.0", "23.2.7/7.0.0", "24.2.7/7.3.0", "25.1.7/8.0.0", "25.3.5/8.2.0", "26.2.1/8.3.0", "26.2.2/8.3.0"],
+["21.3.[2-5]/6.1.x", "22.2.7/6.2.0", "23.2.7/7.0.0", "24.2.7/7.3.0", "25.1.7/8.0.0", "25.3.5/8.2.0", "26.2.1/8.3.0", "26.2.2/8.3.0"],
+["21.2.x/6.1.x", "22.2.7/6.2.0", "23.2.7/7.0.0", "24.2.7/7.3.0", "25.1.7/8.0.0", "25.3.5/8.2.0", "26.2.1/8.3.0", "26.2.2/8.3.0"],
+["21.1.3/6.x.x", "22.2.7/6.2.0", "23.2.7/7.0.0", "24.2.7/7.3.0", "25.1.7/8.0.0", "25.3.5/8.2.0", "26.2.1/8.3.0", "26.2.2/8.3.0"]
 ],
 "PRA": [
-["26.1.x/8.2.0", "", "", "", "", "", "26.2.2/8.3.0"],
-["25.3.5/8.2.0", "", "", "", "", "", "26.2.2/8.3.0"],
-["25.3.[1-4]/8.1.0", "", "", "", "", "", "26.2.2/8.3.0"],
-["25.2.x/8.0.0", "", "", "", "", "25.3.5/8.2.0", "26.2.2/8.3.0"],
-["25.1.x/7.4.0", "", "", "", "", "25.3.5/8.2.0", "26.2.2/8.3.0"],
-["24.3.x/7.3.0", "", "", "", "25.1.4/7.4.0", "25.3.5/8.2.0", "26.2.2/8.3.0"],
-["24.2.4/7.3.0", "", "", "", "25.1.4/7.4.0", "25.3.5/8.2.0", "26.2.2/8.3.0"],
-["24.2.[1-3]/7.2.1", "", "", "24.2.7/7.3.0", "25.1.4/7.4.0", "25.3.5/8.2.0", "26.2.2/8.3.0"],
-["24.1.x/7.[1-2].x", "", "", "24.2.7/7.3.0", "25.1.4/7.4.0", "25.3.5/8.2.0", "26.2.2/8.3.0"],
-["23.3.4/7.[0-1].0", "", "", "24.2.7/7.3.0", "25.1.4/7.4.0", "25.3.5/8.2.0", "26.2.2/8.3.0"],
-["23.3.[1-3]/7.[0-1].0", "", "", "24.2.7/7.3.0", "25.1.4/7.4.0", "25.3.5/8.2.0", "26.2.2/8.3.0"],
-["23.2.[3-5]/7.0.0", "", "", "24.2.7/7.3.0", "25.1.4/7.4.0", "25.3.5/8.2.0", "26.2.2/8.3.0"],
-["23.2.[1-2]/7.0.0", "", "23.2.7/7.0.0", "24.2.7/7.3.0", "25.1.4/7.4.0", "25.3.5/8.2.0", "26.2.2/8.3.0"],
-["23.1.x/6.2.0-7.0.0", "", "23.2.7/7.0.0", "24.2.7/7.3.0", "25.1.4/7.4.0", "25.3.5/8.2.0", "26.2.2/8.3.0"],
-["22.4.x/6.2.0", "", "23.2.7/7.0.0", "24.2.7/7.3.0", "25.1.4/7.4.0", "25.3.5/8.2.0", "26.2.2/8.3.0"],
-["22.3.x/6.2.0", "", "23.2.7/7.0.0", "24.2.7/7.3.0", "25.1.4/7.4.0", "25.3.5/8.2.0", "26.2.2/8.3.0"],
-["22.2.x/6.2.0", "", "23.2.7/7.0.0", "24.2.7/7.3.0", "25.1.4/7.4.0", "25.3.5/8.2.0", "26.2.2/8.3.0"],
-["22.1.4/6.2.x", "22.2.7/6.2.0", "23.2.7/7.0.0", "24.2.7/7.3.0", "25.1.4/7.4.0", "25.3.5/8.2.0", "26.2.2/8.3.0"],
-["22.1.[1-3]/6.2.x", "22.2.7/6.2.0", "23.2.7/7.0.0", "24.2.7/7.3.0", "25.1.4/7.4.0", "25.3.5/8.2.0", "26.2.2/8.3.0"],
-["21.2.[1-5]/6.[1-2].x", "22.2.7/6.2.0", "23.2.7/7.0.0", "24.2.7/7.3.0", "25.1.4/7.4.0", "25.3.5/8.2.0", "26.2.2/8.3.0"],
-["21.1.4/6.1.x", "22.2.7/6.2.0", "23.2.7/7.0.0", "24.2.7/7.3.0", "25.1.4/7.4.0", "25.3.5/8.2.0", "26.2.2/8.3.0"]
+["26.1.1/8.2.0", "26.2.1/8.3.0", "26.2.2/8.3.0"],
+["25.3.5/8.2.0", "26.2.1/8.3.0", "26.2.2/8.3.0"],
+["25.3.x/8.1.0", "26.1.1/8.2.0", "26.2.1/8.3.0", "26.2.2/8.3.0"],
+["25.2.x/8.1.0", "25.3.1/8.1.0", "26.1.1/8.2.0", "26.2.1/8.3.0", "26.2.2/8.3.0"],
+["25.1.x/8.0.0", "25.3.1/8.1.0", "26.1.1/8.2.0", "26.2.1/8.3.0", "26.2.2/8.3.0"],
+["24.3.x/7.3.0", "25.1.1/7.4.0", "25.3.1/8.1.0", "26.1.1/8.2.0", "26.2.1/8.3.0", "26.2.2/8.3.0"],
+["24.2.x/7.2.1", "24.3.1/7.3.0", "25.1.1/7.4.0", "25.3.1/8.1.0", "26.1.1/8.2.0", "26.2.1/8.3.0", "26.2.2/8.3.0"],
+["24.1.x/7.[1-2].x", "24.3.1/7.3.0", "25.1.1/7.4.0", "25.3.1/8.1.0", "26.1.1/8.2.0", "26.2.1/8.3.0", "26.2.2/8.3.0"],
+["23.3.4/7.[0-1].0", "", "", "24.2.7/7.3.0", "25.1.4/7.4.0", "25.3.5/8.2.0", "26.2.1/8.3.0", "26.2.2/8.3.0"],
+["23.3.[1-3]/7.[0-1].0", "", "", "24.2.7/7.3.0", "25.1.4/7.4.0", "25.3.5/8.2.0", "26.2.1/8.3.0", "26.2.2/8.3.0"],
+["23.2.[3-5]/7.0.0", "", "", "24.2.7/7.3.0", "25.1.4/7.4.0", "25.3.5/8.2.0", "26.2.1/8.3.0", "26.2.2/8.3.0"],
+["23.2.[1-2]/7.0.0", "", "23.2.7/7.0.0", "24.2.7/7.3.0", "25.1.4/7.4.0", "25.3.5/8.2.0", "26.2.1/8.3.0", "26.2.2/8.3.0"],
+["23.1.x/6.2.0-7.0.0", "", "23.2.7/7.0.0", "24.2.7/7.3.0", "25.1.4/7.4.0", "25.3.5/8.2.0", "26.2.1/8.3.0", "26.2.2/8.3.0"],
+["22.4.x/6.2.0", "", "23.2.7/7.0.0", "24.2.7/7.3.0", "25.1.4/7.4.0", "25.3.5/8.2.0", "26.2.1/8.3.0", "26.2.2/8.3.0"],
+["22.3.x/6.2.0", "", "23.2.7/7.0.0", "24.2.7/7.3.0", "25.1.4/7.4.0", "25.3.5/8.2.0", "26.2.1/8.3.0", "26.2.2/8.3.0"],
+["22.2.x/6.2.0", "", "23.2.7/7.0.0", "24.2.7/7.3.0", "25.1.4/7.4.0", "25.3.5/8.2.0", "26.2.1/8.3.0", "26.2.2/8.3.0"],
+["22.1.4/6.2.x", "22.2.7/6.2.0", "23.2.7/7.0.0", "24.2.7/7.3.0", "25.1.4/7.4.0", "25.3.5/8.2.0", "26.2.1/8.3.0", "26.2.2/8.3.0"],
+["22.1.[1-3]/6.2.x", "22.2.7/6.2.0", "23.2.7/7.0.0", "24.2.7/7.3.0", "25.1.4/7.4.0", "25.3.5/8.2.0", "26.2.1/8.3.0", "26.2.2/8.3.0"],
+["21.2.[1-5]/6.[1-2].x", "22.2.7/6.2.0", "23.2.7/7.0.0", "24.2.7/7.3.0", "25.1.4/7.4.0", "25.3.5/8.2.0", "26.2.1/8.3.0", "26.2.2/8.3.0"],
+["21.1.4/6.1.x", "22.2.7/6.2.0", "23.2.7/7.0.0", "24.2.7/7.3.0", "25.1.4/7.4.0", "25.3.5/8.2.0", "26.2.1/8.3.0", "26.2.2/8.3.0"]
 ]
 };
 
@@ -5856,17 +5927,28 @@ render: function (body) {
 var mode = "RS";
 body.innerHTML =
 '<div class="mod-row">' +
-'<button class="mod-toggle-btn" id="recomb-mode-btn">RS</button>' +
+'<button class="mod-toggle-btn" id="recomb-mode-btn" style="margin-left:6px;">RS</button>' +
 '<label class="mod-label" style="margin:0;">Version:</label>' +
 '<input class="mod-input" id="recomb-version" placeholder="25.3.2" style="width:90px;">' +
 '<label class="mod-label" style="margin:0;">Base:</label>' +
 '<input class="mod-input" id="recomb-base" placeholder="8.1.0" style="width:90px;">' +
 '<button id="recomb-info-btn" title="How current is this data?" style="width:15px;height:15px;line-height:13px;border-radius:50%;border:1px solid var(--text-mid);color:var(--text-mid);background:transparent;font-size:9px;font-weight:700;cursor:pointer;padding:0;text-align:center;font-family:var(--font-main);">?</button>' +
 '</div>' +
+'<div class="mod-row">' +
+'<label class="mod-label" style="margin:0;">Target version:</label>' +
+'<input class="mod-input" id="recomb-target" placeholder="e.g. 26.1.2 - leave blank for latest" style="flex:1;min-width:200px;">' +
+'</div>' +
 '<div class="mod-check"><input type="checkbox" id="recomb-wait"><label for="recomb-wait">Add [wait] after RS/PRA updates</label></div>' +
 '<button class="mod-btn" id="recomb-generate">Generate</button>' +
 '<button class="mod-btn secondary" id="recomb-reset">Reset</button>' +
-'<textarea class="mod-result" id="recomb-result" rows="5" readonly placeholder="(current Base | current RS/PRA) Base x.x.x \u2192 RS/PRA x.x.x"></textarea>';
+'<textarea class="mod-result" id="recomb-result" rows="8" readonly placeholder="(current Base | current RS/PRA) Base x.x.x \u2192 RS/PRA x.x.x"></textarea>' +
+'<div style="margin-top:10px;font-size:11px;color:var(--text-mid);">' +
+'<p class="mod-note" style="margin:0 0 2px 0;font-weight:700;color:var(--text-white);">Confluence</p>' +
+'<p class="mod-note" style="margin:0;"><a href="https://beyondtrust.atlassian.net/wiki/spaces/TRY/pages/45025393/Remote+Support+ERS" target="_blank" style="color:var(--accent-cyan);">RS Full Update Paths</a> &middot; <a href="https://beyondtrust.atlassian.net/wiki/spaces/STSE/pages/43843641/RS+Consolidated+Upgrade+Path" target="_blank" style="color:var(--accent-cyan);">RS Consolidated Paths</a></p>' +
+'<p class="mod-note" style="margin:0;"><a href="https://beyondtrust.atlassian.net/wiki/spaces/TRY/pages/45025366/Access+Management+PAM" target="_blank" style="color:var(--accent-cyan);">PRA Full Update Paths</a> &middot; <a href="https://beyondtrust.atlassian.net/wiki/spaces/STSE/pages/43843657/PRA+Consolidated+Upgrade+Path" target="_blank" style="color:var(--accent-cyan);">PRA Consolidated Paths</a></p>' +
+'<p class="mod-note" style="margin:8px 0 2px 0;font-weight:700;color:var(--text-white);">Public docs (release notes)</p>' +
+'<p class="mod-note" style="margin:0;"><a href="https://docs.beyondtrust.com/rs/docs/rn-remote-support" target="_blank" style="color:var(--accent-cyan);">RS</a> &middot; <a href="https://docs.beyondtrust.com/pra/docs/rn-privileged-remote-access" target="_blank" style="color:var(--accent-cyan);">PRA</a> &middot; <a href="https://docs.beyondtrust.com/pra/docs/rn-base-software" target="_blank" style="color:var(--accent-cyan);">Base</a></p>' +
+'</div>';
 
 body.querySelector("#recomb-info-btn").addEventListener("click", function () {
 closeOtherOverlays("recomb-info-overlay");
@@ -5882,12 +5964,14 @@ toggleBtn.textContent = mode;
 body.querySelector("#recomb-reset").addEventListener("click", function () {
 body.querySelector("#recomb-version").value = "";
 body.querySelector("#recomb-base").value = "";
+body.querySelector("#recomb-target").value = "";
 body.querySelector("#recomb-result").value = "";
 });
 
 body.querySelector("#recomb-generate").addEventListener("click", function () {
 var versionInput = body.querySelector("#recomb-version").value.trim();
 var baseInput = body.querySelector("#recomb-base").value.trim();
+var targetInput = body.querySelector("#recomb-target").value.trim();
 var addWait = body.querySelector("#recomb-wait").checked;
 var resultBox = body.querySelector("#recomb-result");
 
@@ -5896,7 +5980,6 @@ resultBox.value = "Please enter both current Version and Base.";
 return;
 }
 
-var result = "(Base " + baseInput + " | " + mode + " " + versionInput + ")";
 var found = false;
 
 var rows = getRecombDataset(mode);
@@ -5908,17 +5991,97 @@ var allSteps = [];
 for (var j = 1; j < row.length; j++) {
 allSteps = allSteps.concat(recombParseStep(row[j], mode));
 }
-for (var i = 0; i < allSteps.length; i++) {
-var step = allSteps[i];
-result += " \u2192 " + step.label + " " + step.value;
-if (addWait && step.label === mode && i < allSteps.length - 1) {
-result += " \u2192 [wait]";
-}
-}
+
+// A target version stops the chain at that step instead of
+// always walking to the end of the row (the row IS "path to
+// latest" by construction - McCauley's request was for the
+// tool to also support "path to a SPECIFIC version" when the
+// upgrade shouldn't skip past it). Only RS/PRA-labeled steps
+// count as a match target, not a bare Base step, since the
+// version someone types in (e.g. "26.1.2") is an RS/PRA
+// version - matching on mode keeps a same-numbered Base
+// version from being mistaken for the target.
+var targetStepIndex = -1;
+var targetNotFoundNote = "";
+if (targetInput) {
+for (var t = 0; t < allSteps.length; t++) {
+if (allSteps[t].label === mode && recombVersionMatches(targetInput, allSteps[t].value)) {
+targetStepIndex = t;
 break;
 }
 }
-if (!found) result += "\n\n\u2192 No match found. Try again ;)";
+if (targetStepIndex === -1) {
+targetNotFoundNote = "Full path to latest with (dual Base RS/PRA software versions):\n\n";
+targetStepIndex = allSteps.length - 1;
+}
+}
+
+/* Some releases are documented as supporting either of two Base
+versions (e.g. "26.1.2 requires Base 8.2.0 or 8.3.0" per its own
+public release notes), which means a later patch in the same minor
+line can be an equally valid landing spot at a given step in the
+chain, even though it isn't itself a named upgrade waypoint. Keyed
+by "version/base" for the step already in the chain -> the latest
+sibling patch confirmed (via its own public release notes) to also
+support that same base. Only covers steps that actually appear in
+RECOMB_DATASETS above - not a general version database. */
+var RECOMB_DUAL_CANDIDATES = {
+"26.1.1/8.2.0": "26.1.2",
+"25.3.1/8.1.0": "25.3.4",
+"24.3.1/7.3.0": "24.3.4"
+};
+
+var chainText = "";
+var stepsToShow = targetInput ? allSteps.slice(0, targetStepIndex + 1) : allSteps;
+
+// Group into [Base, RS/PRA] pairs, then merge consecutive pairs that
+// share the identical Base value into one group - e.g. "Base 8.3.0 ->
+// RS 26.2.1 -> Base 8.3.0 -> RS 26.2.2" (two separate, redundant Base
+// entries for the same value back to back) becomes one "Base 8.3.0"
+// followed by both RS/PRA versions, second one in parentheses -
+// exactly how a same-version dual-base candidate is already shown,
+// since a reader would ask the same question either way: "do I need
+// a separate Base step for this, or am I already there?"
+var groups = [];
+for (var g = 0; g < stepsToShow.length; g++) {
+var s = stepsToShow[g];
+if (s.label === "Base") {
+if (groups.length && groups[groups.length - 1].base === s.value && groups[groups.length - 1].versions.length) {
+// same Base as the immediately previous group - merge into it
+// rather than starting a new one
+continue;
+}
+groups.push({ base: s.value, versions: [] });
+} else if (s.label === mode) {
+if (groups.length) groups[groups.length - 1].versions.push(s.value);
+}
+}
+
+for (var i = 0; i < groups.length; i++) {
+var grp = groups[i];
+if (i > 0) chainText += " \u2192 ";
+chainText += "Base " + grp.base;
+for (var v = 0; v < grp.versions.length; v++) {
+var versionValue = grp.versions[v];
+var versionLabel = mode + " " + versionValue;
+var dual = RECOMB_DUAL_CANDIDATES[versionValue + "/" + grp.base];
+if (v === 0) {
+chainText += " \u2192 " + versionLabel;
+if (dual) chainText += " (" + mode + " " + dual + ")";
+} else {
+chainText += " (" + versionLabel + ")";
+}
+}
+if (addWait && i < groups.length - 1) chainText += " \u2192 [wait]";
+}
+
+var result = targetNotFoundNote +
+"Current appliance: (Base " + baseInput + " | " + mode + " " + versionInput + ")\n" +
+chainText;
+break;
+}
+}
+if (!found) var result = "(Base " + baseInput + " | " + mode + " " + versionInput + ")\n\n\u2192 No match found. Try again ;)";
 
 resultBox.value = result;
 writeToOutput("Recombobulator", result);
@@ -6201,14 +6364,8 @@ row("PWS TEE", "(602) 362-4949", "") +
 row("BI TEE", "(602)-789-3061", "") +
 row("EPM TEE", "(843)-895-2352", "") +
 row("SRA TEE", "(602) 362-4976", "") +
-'<p class="mod-note" style="margin-top:8px;"><button class="mod-btn" id="tse-coverage-open" type="button" style="margin:0;">View TSE Coverage Grid</button></p>' +
+'<p class="mod-note" style="margin-top:8px;">TSE Coverage Grid is now its own module - search "TSE Coverage" or find it under Reference Tables.</p>' +
 '<p class="mod-note"><a href="https://lumigent-my.sharepoint.com/:u:/g/personal/jowilliams_beyondtrust_com/EWHZduDLxJ5GoG_L3edf2fABvQDLPyHYwXQEb7qHqCRFQQ?e=dAxqwL" target="_blank" style="color:var(--accent-cyan);">Original source on OneDrive</a></p>';
-
-body.querySelector("#tse-coverage-open").addEventListener("click", function () {
-renderTseCoverageGrid();
-closeOtherOverlays("tse-coverage-overlay");
-qs("#tse-coverage-overlay").classList.add("open");
-});
 }
 },
 
@@ -11935,6 +12092,249 @@ body.querySelector("#lx-result").value = out;
 writeToOutput("Linux Field Guide", out);
 });
 }
+},
+
+"Deploy a Linux Jumpoint": {
+render: function (body) {
+body.innerHTML =
+'<p class="mod-note" style="margin-top:0;">Verified against BeyondTrust\'s own <a href="https://docs.beyondtrust.com/pra/v24.3/docs/installation-linux" target="_blank" style="color:var(--accent-cyan);">Install a Linux Jumpoint</a> documentation (PRA v24.3, current within the last year). Complements Linux Field Guide, which covers troubleshooting an already-running Jumpoint - this one covers getting a new one stood up.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">Session types a Linux Jumpoint supports</p>' +
+'<p class="mod-note">RDP, SSH/Telnet, Protocol Tunneling, Web Jump, VNC.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">Before you start: clustered vs. stand-alone</p>' +
+'<p class="mod-note"><strong style="color:#ff6b6b;">This decision cannot be changed later.</strong> A clustered Jumpoint cannot be converted to stand-alone, and vice versa. A clustered Jumpoint supports up to 10 redundant nodes on different hosts in the <em>same local network</em>, stays available as long as one node is online, and is configured entirely in /login - no local configuration on the host at all, even after install. Stand-alone is simpler and fine for most single-network cases. If this network genuinely needs redundancy, decide clustered up front.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">1. Install dependencies on the host</p>' +
+'<p class="mod-note">Exact package names vary by distro, but these are recommended: <code style="color:var(--accent-gold);">libopengl0</code>, <code style="color:var(--accent-gold);">libglx0</code>, <code style="color:var(--accent-gold);">libxkbcommon-dev</code>, <code style="color:var(--accent-gold);">libfontconfig</code>, <code style="color:var(--accent-gold);">libx11</code>. If the installer fails on missing libraries, its own error message says exactly what\'s missing.</p>' +
+'<p class="mod-note">For <strong style="color:var(--text-white);">Web Jump specifically</strong>, you also need an X server and X dummy driver:</p>' +
+'<p class="mod-note"><span style="color:var(--text-mid);">Ubuntu:</span> <code style="color:var(--accent-gold);">apt install xserver-xorg-video-dummy</code> &nbsp; <span style="color:var(--text-mid);">CentOS:</span> <code style="color:var(--accent-gold);">yum install xorg-x11-drv-dummy</code></p>' +
+'<p class="mod-note">Then create/edit <code style="color:var(--accent-gold);">/etc/X11/Xwrapper.config</code>:</p>' +
+'<p class="mod-note"><code style="color:var(--accent-gold);">allowed_users=anybody</code><br><code style="color:var(--accent-gold);">needs_root_rights=no</code></p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">2. Configure in /login</p>' +
+'<p class="mod-note"><strong style="color:var(--text-white);">Jump &gt; Jumpoint &gt; Add.</strong> Give it a name that helps users find it, select <strong style="color:var(--text-white);">Linux</strong> as the platform (cannot be changed after creation), and check <strong style="color:var(--text-white);">Clustered</strong> now if that\'s the decision from step 0 (also permanent). Worth deciding at the same time: Enable Shell Jump Method (for SSH/Telnet to network devices), Enable Protocol Tunnel Jump Method, and Enable Jump Zone Proxy if this Jumpoint should also proxy connections for internet-less endpoints on the same network (e.g. POS systems) - a Jump Zone Proxy only routes traffic to the B Series Appliance, and its host cannot itself sit behind a proxy.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">3. Download &amp; run the installer</p>' +
+'<p class="mod-note">Download the installer from the Jumpoint table in /login, either running it directly if you have access to the host, or emailing it to whoever does. <strong style="color:#ff6b6b;">The installer expires 7 days after download.</strong></p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">4. Install on the host</p>' +
+'<p class="mod-note">Install to a location you have write permission to - the path must not already exist:</p>' +
+'<p class="mod-note"><code style="color:var(--accent-gold);">sh ./bomgar-jpt-{uid}.bin --install-dir /home/username/jumpoint</code></p>' +
+'<p class="mod-note">To run under a specific user context (the user must already exist and have rights to that directory):</p>' +
+'<p class="mod-note"><code style="color:var(--accent-gold);">sh ./bomgar-jpt-{uid}.bin --install-dir /home/username/jumpoint --user jsmith</code></p>' +
+'<p class="mod-note"><strong style="color:#ff6b6b;">Do not install under the root context.</strong> If the current user is root, the installer warns and requires <code style="color:var(--accent-gold);">--user</code> to be passed explicitly.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">5. Start it, and make it survive a reboot</p>' +
+'<p class="mod-note"><code style="color:var(--accent-gold);">/home/username/jumpoint/init-script start</code> &nbsp; <span style="color:var(--text-mid);">(also accepts stop, restart, status)</span></p>' +
+'<p class="mod-note">The install generates an example systemd service block on screen - copy it into a real service so the Jumpoint comes back after a reboot:</p>' +
+'<ul class="mod-note" style="margin:4px 0;padding-left:18px;">' +
+'<li><code style="color:var(--accent-gold);">cd /etc/systemd/system</code>, then <code style="color:var(--accent-gold);">vi filename.service</code> and paste the generated block</li>' +
+'<li><code style="color:var(--accent-gold);">chmod 777 filename.service</code>, reload the systemctl daemon</li>' +
+'<li><code style="color:var(--accent-gold);">sudo systemctl start filename.service</code>, then as root <code style="color:var(--accent-gold);">systemctl enable filename.service</code> so it survives future reboots too</li>' +
+'</ul>' +
+'<p class="mod-note">To remove it later, run the <code style="color:var(--accent-gold);">uninstall.sh</code> script included in the install.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">Clustered? Adding nodes</p>' +
+'<p class="mod-note">Same /login setup as above, but once the clustered Jumpoint exists you get an <strong style="color:var(--text-white);">Add Node</strong> link instead - repeat the download/install per host, up to 10 nodes, all on the same local network. No configuration screens appear during a node install. At least one node must stay online for the cluster to work; PRA picks a node at random per session.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">Clustered as a Docker container (alternative to a bare-metal/VM node)</p>' +
+'<p class="mod-note">Get the deploy key from the Jumpoint table (Copy Docker deploy key), from the Jumpoint\'s own Docker DEPLOY_KEY field, or via <code style="color:var(--accent-gold);">GET /jumpoint/{id}</code> in the Configuration API. Then:</p>' +
+'<p class="mod-note"><code style="color:var(--accent-gold);">docker run -e DEPLOY_KEY=&lt;deploy_key&gt; -v &lt;local_path&gt;:/jpt --name &lt;jumpoint_name&gt; --cap-add ipc_lock -d beyondtrust/sra-jumpoint:&lt;tag&gt;</code></p>' +
+'<p class="mod-note">The bind-mounted volume at <code style="color:var(--accent-gold);">/jpt</code> persists the install across container restarts/upgrades - install data lives under <code style="color:var(--accent-gold);">/jpt/home/install</code>, and the deploy key itself is saved under <code style="color:var(--accent-gold);">/jpt/</code> (deleting it forces a re-install next run). <code style="color:var(--accent-gold);">ipc_lock</code> is required for keyring operations.</p>' +
+
+'<p class="mod-note" style="color:var(--text-mid);font-size:11px;margin-top:10px;">Public product docs only - no internal Confluence content was needed for this module. Port/library specifics can vary by version; confirm against the customer\'s actual build if something doesn\'t match.</p>';
+}
+},
+
+"Deploy a Windows Jumpoint": {
+render: function (body) {
+body.innerHTML =
+'<p class="mod-note" style="margin-top:0;">Verified against BeyondTrust\'s own <a href="https://docs.beyondtrust.com/pra/v24.3/docs/installation-windows" target="_blank" style="color:var(--accent-cyan);">Install a Windows Jumpoint</a> documentation (PRA v24.3, current within the last year). Same clustered-vs-stand-alone decision and Jump Zone Proxy concepts as Deploy a Linux Jumpoint - the install mechanics differ.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">Before you start: clustered vs. stand-alone</p>' +
+'<p class="mod-note"><strong style="color:#ff6b6b;">This decision cannot be changed later.</strong> Same rule as Linux: a clustered Jumpoint cannot be converted to stand-alone, and vice versa. Clustered supports up to 10 redundant nodes on different hosts in the same local network, stays available as long as one node is online, and is configured entirely in /login - once installed, opening BeyondTrust Jumpoint Configuration on a clustered node\'s Start menu shows only an About box, not a configuration window.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">1. Configure in /login</p>' +
+'<p class="mod-note"><strong style="color:var(--text-white);">Jump &gt; Jumpoint &gt; Add.</strong> Select <strong style="color:var(--text-white);">Windows</strong> as the platform (cannot be changed after creation), check <strong style="color:var(--text-white);">Clustered</strong> now if that\'s the decision from above (also permanent). Worth deciding at the same time: Enable Shell Jump Method (SSH/Telnet to network devices through this Jumpoint), Enable Protocol Tunnel Jump Method, and Enable Jump Zone Proxy if this Jumpoint should also proxy connections for internet-less endpoints on the same network.</p>' +
+'<p class="mod-note">If Session Forensics is enabled on a Remote RDP Jump Item using this Jumpoint, set an <strong style="color:var(--text-white);">RDP Service Account</strong> too - <strong style="color:#ff6b6b;">must be a domain account, not local admin</strong>, with rights to remotely connect to the endpoint\'s ADMIN$ share, remotely create and start services on it, and access its remote file systems. Windows-only option, not available on Linux Jumpoints.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">2. Download &amp; run the installer</p>' +
+'<p class="mod-note">Download from the Jumpoint table in /login, either running it directly if you have access to the host, or emailing it to whoever does. <strong style="color:#ff6b6b;">The installer expires 7 days after download</strong> - same limit as Linux.</p>' +
+'<p class="mod-note">For a silent, unattended install (e.g. through Intune or another deployment tool), the EXE supports a <code style="color:var(--accent-gold);">/S</code> flag - uses the installer\'s default options, no user interaction:</p>' +
+'<p class="mod-note"><code style="color:var(--accent-gold);">bomgar-jpt-{uid}.exe /S</code></p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">3. Install wizard (interactive install)</p>' +
+'<p class="mod-note">Run the installer on the host &rarr; Next &rarr; accept the waiver agreement (required to continue) &rarr; agree to the disclaimer &rarr; choose an install location (default <code style="color:var(--accent-gold);">C:\\Program Files\\Bomgar\\Jumpoint\\your-site</code> or the (x86) equivalent) &rarr; Install &rarr; Finish.</p>' +
+'<p class="mod-note">For a <strong style="color:var(--text-white);">stand-alone</strong> Jumpoint, the Jumpoint Configuration app opens automatically right after install to let you set proxy options (see below). For a <strong style="color:var(--text-white);">clustered node</strong>, there\'s nothing further to configure - the install just finishes.</p>' +
+'<p class="mod-note">After install, configuration is always reachable later from the Windows Start menu under <strong style="color:var(--text-white);">Jumpoint Configuration</strong> - for a stand-alone Jumpoint only; clustered nodes only show an About box there, per the note above.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">Deploying behind a proxy (stand-alone only)</p>' +
+'<p class="mod-note">Clustered nodes have no local proxy customization - skip this section entirely for those. For a stand-alone Jumpoint that needs to reach the B Series Appliance through a proxy: open the <strong style="color:var(--text-white);">Proxy</strong> tab in Jumpoint Configuration, choose <strong style="color:var(--text-white);">Basic</strong> or <strong style="color:var(--text-white);">NTLM</strong>, then set Proxy Host, Proxy Port, Username, and Password. The Jumpoint supplies these credentials whenever it Jumps to another system on the remote network, since that\'s what authorizes downloading and running the endpoint client on the target.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">Clustered? Adding nodes</p>' +
+'<p class="mod-note">Same /login setup as above, but once the clustered Jumpoint exists you get an <strong style="color:var(--text-white);">Add Node</strong> link instead - repeat the download/install per host, up to 10 nodes, all on the same local network. No configuration screens appear during a node install. At least one node must stay online for the cluster to work; PRA picks a node at random per session. Nodes can be deleted but not individually edited, and in the access console only the parent Jumpoint is visible, never the individual nodes.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">Jumpoint through a Jumpoint deployed as a proxy server</p>' +
+'<p class="mod-note">For isolated, non-routable OT networks without relying only on Jump Clients: install a Jumpoint configured as a Jump Zone Proxy on System 1, then a second Jumpoint on System 2 (the isolated network), pointing System 2\'s proxy config at System 1. New Jump Items on System 2 then route through System 1\'s proxy. The Jump Zone Proxy must already be running on the target network <strong style="color:#ff6b6b;">before</strong> installing the Jumpoint or Jump Client that will use it, for mDNS auto-discovery to work - and daisy-chaining Jump Zone Proxies isn\'t supported, so System 2 can\'t also run as a Jump Zone Proxy pointing at System 1\'s.</p>' +
+
+'<p class="mod-note" style="color:var(--text-mid);font-size:11px;margin-top:10px;">Public product docs only - no internal Confluence content was needed for this module. Exact install paths and wizard screens can vary slightly by version; confirm against the customer\'s actual build if something doesn\'t match.</p>';
+}
+},
+
+"Windows Field Guide": {
+render: function (body) {
+body.innerHTML =
+'<p class="mod-note" style="margin-top:0;">Plain-English Windows notes for TSE work on customer boxes, the Windows counterpart to Linux Field Guide. Complements Network Troubleshooting Tools (flip the OS toggle to Windows) and Jump Connectivity Decision Tree. BeyondTrust-specific facts from docs.beyondtrust.com; the rest is standard Windows admin knowledge.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">First minute on the box</p>' +
+'<p class="mod-note"><code style="color:var(--accent-gold);">systeminfo | findstr /B /C:"OS Name" /C:"OS Version"</code> &nbsp; <code style="color:var(--accent-gold);">whoami /groups</code></p>' +
+'<p class="mod-note">Know the exact build and whether you are actually running elevated (an admin group membership is not the same as an elevated shell). <code style="color:var(--accent-gold);">whoami /priv</code> shows what the current shell can actually do. <code style="color:var(--accent-gold);">w32tm /query /status</code> or just check the clock - skew breaks TLS and Jump check-in exactly like on Linux.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:10px;">Network on Windows</p>' +
+'<p class="mod-note"><code style="color:var(--accent-gold);">ipconfig /all</code> - address, mask, gateway, DNS servers, and whether DHCP or static. <code style="color:var(--accent-gold);">route print</code> for the full routing table.</p>' +
+'<p class="mod-note"><code style="color:var(--accent-gold);">nslookup name</code> or <code style="color:var(--accent-gold);">Resolve-DnsName name</code> (PowerShell, richer output). <code style="color:var(--accent-gold);">ipconfig /flushdns</code> if a stale record is suspected.</p>' +
+'<p class="mod-note"><code style="color:var(--accent-gold);">Test-Connection host</code> (PowerShell ping) then <code style="color:var(--accent-gold);">Test-NetConnection host -Port 443</code> - this is the Windows equivalent of nc -vz, and it is the one people forget: ping succeeding proves nothing about the actual app port.</p>' +
+'<p class="mod-note"><code style="color:var(--accent-gold);">netstat -ano</code> - what is listening and the owning PID; cross-reference with Task Manager\'s Details tab or <code style="color:var(--accent-gold);">Get-Process -Id</code>. <code style="color:var(--accent-gold);">curl.exe -Iv --max-time 10 https://host/</code> ships in modern Windows for a quick TLS/HTTP check from the box itself.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:10px;">Firewall and Defender</p>' +
+'<p class="mod-note">A local block looks exactly like "the network is broken," same as a Linux firewall drop. Check: <code style="color:var(--accent-gold);">Get-NetFirewallProfile</code> (are the profiles even on) and <code style="color:var(--accent-gold);">netsh advfirewall show allprofiles</code>. To see what would actually block a specific connection, <code style="color:var(--accent-gold);">Get-NetFirewallRule -Direction Inbound -Action Block -Enabled True</code> is more useful than scrolling the GUI.</p>' +
+'<p class="mod-note">Antivirus/EDR quarantining or blocking a BeyondTrust binary presents as a silent failure to launch, not an error dialog - check Defender\'s protection history (<code style="color:var(--accent-gold);">Get-MpThreatDetection</code> in PowerShell, or Windows Security > Protection history in the GUI) before assuming the app itself is broken. Third-party AV/EDR needs its own console checked the same way; Defender commands only cover Defender.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:10px;">Services and processes</p>' +
+'<p class="mod-note"><code style="color:var(--accent-gold);">Get-Service name</code> / <code style="color:var(--accent-gold);">sc query name</code> for status; <code style="color:var(--accent-gold);">services.msc</code> for the GUI. Event Viewer > Windows Logs > Application/System is the Windows equivalent of journalctl - filter by source rather than scrolling. <code style="color:var(--accent-gold);">Get-Process | Where-Object {$_.Name -match "bomgar|sra|jumpoint"}</code> to see whether a client or Jumpoint is actually running.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:10px;">Jump Client on Windows (public docs)</p>' +
+'<p class="mod-note">Installer is an MSI (or a plain EXE for a manual, interactive install). Command-line/mass deployment: <code style="color:var(--accent-gold);">msiexec /i sra-scc-win64.msi KEY_INFO=&lt;key_info_string&gt; INSTALLDIR=&lt;path&gt;</code>, add <code style="color:var(--accent-gold);">/quiet</code> for silent - Run as Administrator is required when using /quiet, since no install prompt appears to elevate through. Wrap in <code style="color:var(--accent-gold);">start /wait ... & echo %ERRORLEVEL%</code> to catch install failures in a script.</p>' +
+'<p class="mod-note">Unlike Linux, there\'s no separate uninstall script - remove via <strong style="color:var(--text-white);">Add/Remove Programs</strong> or <code style="color:var(--accent-gold);">msiexec /x</code>. MSI-installed Jump Clients auto-update on their own; the EXE installer does not.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:10px;">Windows Jumpoint (public docs)</p>' +
+'<p class="mod-note">Session types: RDP, Shell Jump (SSH/Telnet to network devices), Protocol Tunneling - broader than the Linux Jumpoint\'s public session list. Installer is an EXE; silent install is <code style="color:var(--accent-gold);">bomgar-jpt-{uid}.exe /S</code> (uses default options, no prompts) - see Deploy a Windows Jumpoint for the full walkthrough. Default install path <code style="color:var(--accent-gold);">C:\\Program Files\\Bomgar\\Jumpoint\\your-site</code>. Configuration lives in the Jumpoint Configuration app from the Start menu - for stand-alone Jumpoints only; a clustered node only shows an About box there.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:10px;">Logs and trust</p>' +
+'<p class="mod-note">Event Viewer application/system logs, plus anything under the install folder itself. Pair with What Logs should I get? and Client Log Renames - names move by version, same caveat as Linux.</p>' +
+'<p class="mod-note">Trust store here <strong style="color:var(--text-white);">is</strong> one place - the Windows Certificate Store (<code style="color:var(--accent-gold);">certmgr.msc</code> for the current user, <code style="color:var(--accent-gold);">certlm.msc</code> for the machine store). Corporate SSL inspection has to land in the machine store the BeyondTrust process actually reads from, not just the browser\'s own store. Clock first, then certs - same rule as Linux.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:10px;">Copy a starter pack for the case</p>' +
+'<div class="mod-row" style="margin-top:6px;">' +
+'<button class="mod-btn" id="win-copy">Copy first-minute commands</button>' +
+'</div>' +
+'<textarea class="mod-result" id="win-result" rows="10" readonly></textarea>' +
+'<p class="mod-note" style="margin-top:10px;border-left:2px solid var(--accent-cyan);padding-left:8px;"><strong style="color:var(--text-white);">Case note:</strong> "OS build: ___. Elevated: yes/no. ipconfig gateway/DNS: ___. TCP 443 to site: open/closed. Firewall profiles on: ___. Defender/AV blocking: yes/no. Jump Client/Jumpoint service running: ___. Cert store issue: yes/no. Error text: ___."</p>' +
+'<p class="mod-note" style="font-size:11px;color:var(--text-mid);">Product install paths and flags change by RS/PRA version. Confirm against the customer build and current docs.beyondtrust.com pages.</p>';
+
+body.querySelector("#win-copy").addEventListener("click", function () {
+var out = [
+"# Windows first-minute pack - paste in PowerShell",
+"systeminfo | findstr /B /C:\"OS Name\" /C:\"OS Version\"",
+"whoami /groups",
+"whoami /priv",
+"w32tm /query /status",
+"ipconfig /all",
+"route print",
+"netstat -ano",
+"Get-NetFirewallProfile",
+"Get-Service | Where-Object {$_.Name -match 'bomgar|sra|jumpoint'}",
+"Get-Process | Where-Object {$_.Name -match 'bomgar|sra|jumpoint'}"
+].join("\n");
+body.querySelector("#win-result").value = out;
+writeToOutput("Windows Field Guide", out);
+});
+}
+},
+
+"Vault Basics: Check Out, Rotate, Inject": {
+render: function (body) {
+body.innerHTML =
+'<p class="mod-note" style="margin-top:0;">Verified against BeyondTrust\'s own <a href="https://docs.beyondtrust.com/rs/docs/vault" target="_blank" style="color:var(--accent-cyan);">Vault guide</a> (RS/PRA share the same feature). Plain-English orientation for anyone who hasn\'t worked a Vault case before - not a full admin reference.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">What Vault actually does</p>' +
+'<p class="mod-note">Vault is BeyondTrust\'s built-in credential manager: it stores privileged account passwords and can hand them to a remote system directly from the console <strong style="color:var(--text-white);">without ever showing the password to the user doing the work</strong>. That\'s the whole point - a rep can log into a server as a domain admin without ever seeing or typing that domain admin\'s password.</p>' +
+'<p class="mod-note">Core pieces: <strong style="color:var(--text-white);">Discovery &amp; Import</strong> (find privileged accounts, their endpoints, and Windows service accounts, then bring them into Vault), <strong style="color:var(--text-white);">Account Policies</strong> (define rotation/checkout rules once, apply to many accounts at once), <strong style="color:var(--text-white);">Rotation</strong>, <strong style="color:var(--text-white);">Check In/Check Out</strong>, <strong style="color:var(--text-white);">Injection</strong>, and <strong style="color:var(--text-white);">Reporting</strong> (who used which credential, when).</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">Personal vs. Shared accounts - this trips people up</p>' +
+'<p class="mod-note"><strong style="color:var(--text-white);">Personal accounts:</strong> belong to one user (up to 50 per user). <strong style="color:#ff6b6b;">Only the user who created it can modify, inject, or view its password</strong> - a Vault admin can see that the personal account exists, but cannot edit it, inject it, or view the password. If a customer or teammate says "I can see the account in Vault but can\'t use it," this is very often why.</p>' +
+'<p class="mod-note"><strong style="color:var(--text-white);">Shared accounts:</strong> accessible to any user with the right role/permissions assigned - these are the ones a whole team typically uses for common service accounts.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">Check Out / Check In</p>' +
+'<p class="mod-note">For when someone needs the actual credential <strong style="color:var(--text-white);">outside</strong> a BeyondTrust session (e.g. logging in directly, not through a Jump). From the admin interface: Shared tab &rarr; find the account &rarr; <strong style="color:var(--text-white);">Check Out</strong> &rarr; the Account Password dialog shows the password in the clear. This is the one place in the whole workflow where a human actually sees the password - injection never shows it at all.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">Rotation</p>' +
+'<p class="mod-note">Passwords can rotate automatically after every use, or on a schedule when they hit a max age, or be rotated manually on demand (select account &rarr; Rotate &rarr; Rotate Summary &rarr; Start Rotation - Password Age updates once it\'s done, usually within seconds). Vault generates new passwords using an algorithm based on the NIST framework, not something ad hoc.</p>' +
+'<p class="mod-note">Two things that trigger an automatic rotation worth knowing when a customer asks "why did this password just change": leaving a session where injection was used, or the password simply reaching its configured max age with scheduled rotation enabled.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">Credential Injection</p>' +
+'<p class="mod-note">Injects the stored credential directly into the remote system\'s login prompt from the access console, in one click - the rep never sees or types it. This is the normal, intended way most Vault-backed sessions actually authenticate; Check Out is the exception path for when the credential is needed somewhere outside a session entirely.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">Beyond username/password</p>' +
+'<p class="mod-note">Vault accounts aren\'t limited to username+password - they can also be security tokens, digital certificates, or SSH keys. SSH certificate authority accounts specifically: the account\'s public key starts with <code style="color:var(--accent-gold);">cert-authority</code>, and it has to be added to the target endpoint\'s SSH config as a trusted CA (or into its known_hosts) before that endpoint will accept certificates Vault signs.</p>' +
+
+'<p class="mod-note" style="color:var(--text-mid);font-size:11px;margin-top:10px;">Public product docs only. Vault permissions, discovery sources, and exact admin-interface navigation can vary by RS/PRA version and whether the site is Cloud, on-prem, or Pathfinder - confirm against the customer\'s actual environment if something doesn\'t match.</p>';
+}
+},
+
+"SSO / Kerberos Troubleshooting": {
+render: function (body) {
+body.innerHTML =
+'<p class="mod-note" style="margin-top:0;">BeyondTrust-specific setup facts verified against <a href="https://docs.beyondtrust.com/pra/docs/kerberos" target="_blank" style="color:var(--accent-cyan);">docs.beyondtrust.com/pra/docs/kerberos</a> and the matching RS page. General Kerberos failure modes are standard protocol knowledge, not BeyondTrust-specific.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">What this actually is</p>' +
+'<p class="mod-note">BeyondTrust supports SSO via Kerberos - once set up, a user authenticates to their BeyondTrust account without ever typing BeyondTrust credentials, using the ticket their OS already got from logging into the domain. Prerequisites: a working Kerberos KDC, and the user needs to already be a member of a Kerberos realm that can talk to that KDC - typically over <strong style="color:var(--text-white);">port 88 UDP</strong>.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">How it gets configured (so you know what to check)</p>' +
+'<p class="mod-note">1. On the Kerberos KDC: register an SPN for the appliance\'s hostname, export the keytab for that SPN.</p>' +
+'<p class="mod-note">2. In /login: <strong style="color:var(--text-white);">Users &amp; Security &gt; Kerberos Keytab &gt; Import Keytab</strong> - choose the exported file and upload. It should then show up under Configured Principals.</p>' +
+'<p class="mod-note">3. In /login: <strong style="color:var(--text-white);">Users &amp; Security &gt; Security Providers &gt; Add &gt; Kerberos</strong> - name it, check Enabled, optionally sync display names, optionally strip the REALM portion off the UPN when building the BeyondTrust username, User Handling Mode usually "Allow all users", SPN Handling Mode usually left unchecked (allows all SPNs), optionally wire up LDAP Group Lookup and a default group policy.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">The single most common real-world fix</p>' +
+'<p class="mod-note">If multiple hostname SPNs exist for the same site, BeyondTrust uses whichever site hostname it most recently connected to successfully as a client - not necessarily the one a given user\'s browser resolved to. <strong style="color:var(--text-white);">If Kerberos auth is failing intermittently or for some users but not others, import a keytab for every hostname the site might canonicalize to</strong>, not just the primary one. This is the fix the docs themselves call out first.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">General Kerberos failure modes (standard protocol behavior, not BeyondTrust-specific)</p>' +
+'<p class="mod-note"><strong style="color:var(--text-white);">Clock skew</strong> is the single biggest cause of otherwise-inexplicable Kerberos failures - tickets are time-bounded, and most KDCs reject anything more than 5 minutes off. Check the client\'s clock before anything else; this is the same "clock first, then certs" rule that applies to TLS on Linux/Windows.</p>' +
+'<p class="mod-note"><strong style="color:var(--text-white);">SPN mismatches</strong>: the browser/client requests a ticket for the exact hostname in the URL. If that doesn\'t match a registered SPN (including trailing differences like a missing or extra port, or a CNAME vs. the real hostname), Kerberos silently falls back to prompting for credentials instead of erroring clearly - which often gets misread as "SSO is broken" when it\'s actually "the wrong SPN got requested."</p>' +
+'<p class="mod-note"><strong style="color:var(--text-white);">Realm trust</strong>: cross-realm auth needs an explicit trust relationship between the realms; a user in Realm A can\'t get a ticket for a service in Realm B without one, no matter how correctly everything else is configured.</p>' +
+'<p class="mod-note"><strong style="color:var(--text-white);">Browser support</strong>: Windows Integrated Authentication (the "send my Kerberos ticket automatically" behavior) has to be explicitly trusted by the browser for that specific site/zone - this is usually an Intranet Zone or a browser policy setting, and its absence looks identical to a server-side Kerberos misconfiguration from the user\'s side.</p>' +
+
+'<p class="mod-note" style="color:var(--text-mid);font-size:11px;margin-top:10px;">Public product docs only for the BeyondTrust-specific setup steps. Kerberos is a mature, well-documented protocol - for anything beyond this level, klist/kinit on the client and standard KDC-side logs are the next step, same as any other Kerberos deployment.</p>';
+}
+},
+
+"Atlas Cluster & Failover in Plain English": {
+render: function (body) {
+body.innerHTML =
+'<p class="mod-note" style="margin-top:0;">Verified against BeyondTrust\'s own <a href="https://docs.beyondtrust.com/rs/docs/atlas" target="_blank" style="color:var(--accent-cyan);">Atlas cluster guide</a> and <a href="https://docs.beyondtrust.com/rs/docs/failover" target="_blank" style="color:var(--accent-cyan);">Failover guide</a>. These two features get confused constantly because they sound similar and both involve more than one appliance - they solve different problems.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">The one-line difference</p>' +
+'<p class="mod-note"><strong style="color:var(--text-white);">Failover</strong> = one primary appliance, one backup, ready to swap in if the primary dies. Disaster recovery for a single site.</p>' +
+'<p class="mod-note"><strong style="color:var(--text-white);">Atlas Cluster</strong> = multiple appliances (nodes) working together as one distributed system, for load balancing and geographic reach - built for large, spread-out deployments, not just "what if the box dies."</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">Failover, in more detail</p>' +
+'<p class="mod-note">Two peer appliances hosting the <strong style="color:var(--text-white);">same installed software package</strong> for one site - confirm this in /login by checking that Product Version and Product Build match on both. DNS points site traffic at the primary, where everything is configured; the backup syncs from the primary on its own schedule.</p>' +
+'<p class="mod-note">Three ways to actually fail over: <strong style="color:var(--text-white);">Shared IP</strong> (recommended - both appliances share one IP, requires them on the same subnet), <strong style="color:var(--text-white);">DNS swing</strong>, or <strong style="color:var(--text-white);">NAT swing</strong> (the latter two exist specifically for when Shared IP isn\'t possible, e.g. the two appliances are on different subnets). Can be automated further through the BeyondTrust API. Setup: /login &gt; Management &gt; Failover &gt; Enable Backup Operations.</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">Atlas Cluster, in more detail</p>' +
+'<p class="mod-note">Built for large-scale, geographically spread deployments - a single BeyondTrust site spanning multiple appliances, called <strong style="color:var(--text-white);">nodes</strong>. The <strong style="color:var(--text-white);">primary node</strong> is where most admin happens; <strong style="color:var(--text-white);">traffic nodes</strong> exist to route support session traffic efficiently, often placed closer to where the actual users/customers are.</p>' +
+'<p class="mod-note">When you add a traffic node, you give it a name, its canonical hostname, and optionally associate it with specific networks - this predetermines which traffic node a client lands on based on their network\'s prefix mask, which matters most for WAN deployments spanning multiple sites/regions. Time zone offset is also set per traffic node.</p>' +
+'<p class="mod-note">Setup/management: /login &gt; Management &gt; Cluster. From there: <strong style="color:var(--text-white);">Sync Now</strong> (push cluster settings out to every node), <strong style="color:var(--text-white);">Disband</strong> (pulls every appliance out of its cluster role entirely).</p>' +
+
+'<p class="mod-note" style="color:var(--accent-gold);font-weight:700;margin-top:12px;">Where they overlap</p>' +
+'<p class="mod-note">A clustered primary can <strong style="color:var(--text-white);">also</strong> have its own failover backup - and when it does, BeyondTrust wires them together automatically: if the primary already has a failover backup when the cluster is set up, that backup gets pulled into the cluster too. If a new failover backup is added later, the same thing happens - it joins the cluster automatically, with cluster settings synced to it as part of establishing failover. So a real deployment can genuinely have both running at once; they\'re not mutually exclusive, they answer different questions ("what if this one box fails" vs. "how do we serve support traffic efficiently across a large geographic footprint").</p>' +
+
+'<p class="mod-note" style="color:var(--text-mid);font-size:11px;margin-top:10px;">Public product docs only. Exact admin-interface navigation can vary slightly by version and whether the site is Cloud, on-prem, or Pathfinder - confirm against the customer\'s actual environment if something doesn\'t match.</p>';
+}
+},
+
+"TSE Coverage Grid": {
+render: function (body) {
+body.innerHTML =
+'<p class="mod-note" style="margin-top:0;">Moved out of Hunt Group Numbers into its own module so it shows up in search directly, rather than only being reachable by opening a different module first. Transcribed from the team\'s own hand-built export (dated 09MAY2024), preserved exactly as given.</p>' +
+'<p class="mod-note" style="margin-top:0;color:var(--accent-gold);">Written by hand ~2024 - being re-verified with Tim. Treat as a starting point, not gospel, until confirmed.</p>' +
+'<p class="mod-note" style="margin-top:0;color:var(--text-mid);font-size:11px;">Fixed since the original: Eastern row\'s 10am-Central slot corrected from 11:00 PM to 11:00 AM, matching the Central+1hr pattern used everywhere else.</p>' +
+'<div id="tse-coverage-grid-standalone"></div>' +
+'<p class="mod-note"><a href="https://lumigent-my.sharepoint.com/:u:/g/personal/jowilliams_beyondtrust_com/EWHZduDLxJ5GoG_L3edf2fABvQDLPyHYwXQEb7qHqCRFQQ?e=dAxqwL" target="_blank" style="color:var(--accent-cyan);">Original source on OneDrive</a></p>';
+
+renderTseCoverageGrid(body.querySelector("#tse-coverage-grid-standalone"));
+}
 }
 
 };
@@ -12025,6 +12425,7 @@ qs("#module-title").textContent = displayTitle || name;
 var body = qs("#module-body");
 body.style.display = "";
 qs("#options-content").style.display = "none";
+qs("#whats-new-content").style.display = "none";
 body.innerHTML = "";
 var handler = MODULE_HANDLERS[name];
 if (!handler || typeof handler.render !== "function") {
@@ -12071,7 +12472,7 @@ var TSE_PRODUCTS = [
 { name: "PI", colors: ["NONE","NONE","APAC","APAC","APAC","APAC","EMEA/NA","EMEA/NA","EMEA/NA","EMEA/NA","EMEA/NA","EMEA/NA","EMEA/NA","EMEA/NA","EMEA/NA","EMEA/NA","EMEA/NA","EMEA/NA","EMEA/NA","EMEA/NA","NONE","NONE","NONE","NONE"] }
 ];
 
-function renderTseCoverageGrid() {
+function renderTseCoverageGrid(targetEl) {
 var html = '<table class="tse-grid">';
 TSE_TIMEZONES.forEach(function (tz) {
 html += '<tr><td class="tse-label">' + tz.label + '</td>';
@@ -12091,15 +12492,8 @@ legend += '<span style="display:inline-flex;align-items:center;white-space:nowra
 });
 legend += '</div><p class="mod-note" style="margin-top:8px;">Times do not take into account Daylight Savings.</p>';
 
-qs("#tse-coverage-grid-wrap").innerHTML = html + legend;
+targetEl.innerHTML = html + legend;
 }
-
-qs("#tse-coverage-close").addEventListener("click", function () {
-qs("#tse-coverage-overlay").classList.remove("open");
-});
-qs("#tse-coverage-overlay").addEventListener("click", function (e) {
-if (e.target.id === "tse-coverage-overlay") qs("#tse-coverage-overlay").classList.remove("open");
-});
 
 /* ---------------- Role selection ---------------- */
 qsa(".role-radio").forEach(function (el) {
@@ -12130,6 +12524,7 @@ openDashboard("ALL");
 });
 
 var WNT_OPTIONS_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>';
+var WNT_WHATS_NEW_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>';
 
 /* ---------------- New sidebar: collapse persistence + mobile drawer ---------------- */
 if (isMobileDevice()) {
@@ -12184,10 +12579,34 @@ optionsEl.addEventListener("click", function () {
 qs("#module-title").textContent = "Options";
 qs("#module-body").style.display = "none";
 qs("#options-content").style.display = "block";
+qs("#whats-new-content").style.display = "none";
 qs("#module-overlay").classList.add("open");
 qs("#wnt-sidebar").classList.remove("mobile-open");
 });
 qs("#wnt-sidebar").appendChild(optionsEl);
+
+// What's New entry - same fixed-destination pattern as Options,
+// placed directly after it. Reuses the same #module-overlay popup,
+// showing a third content div instead of #module-body/#options-content.
+var existingWhatsNew = document.getElementById("wnt-whats-new-link");
+if (existingWhatsNew) existingWhatsNew.remove();
+
+var whatsNewEl = document.createElement("div");
+whatsNewEl.className = "wnt-cat-link";
+whatsNewEl.id = "wnt-whats-new-link";
+whatsNewEl.innerHTML =
+'<span class="wnt-cat-icon">' + WNT_WHATS_NEW_ICON + '</span>' +
+'<span class="wnt-cat-label">What\'s New?</span>' +
+'<span class="wnt-tooltip">What\'s New? - quick user guide, full release notes, and this project\'s link</span>';
+whatsNewEl.addEventListener("click", function () {
+qs("#module-title").textContent = "What's New?";
+qs("#module-body").style.display = "none";
+qs("#options-content").style.display = "none";
+qs("#whats-new-content").style.display = "block";
+qs("#module-overlay").classList.add("open");
+qs("#wnt-sidebar").classList.remove("mobile-open");
+});
+qs("#wnt-sidebar").appendChild(whatsNewEl);
 })();
 
 /* ---------------- Dashboard rendering ---------------- */

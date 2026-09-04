@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" class="theme-builder-slate"><head>
+<html lang="en">
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script>if(/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent))document.documentElement.classList.add("is-mobile-device");</script>
@@ -1401,8 +1402,10 @@ background: var(--bg-panel);
 #dash-back:hover { border-color: var(--accent-cyan); color: var(--accent-cyan); }
 
 #dash-search-wrap {
-position: relative;
 margin-bottom: 14px;
+}
+#dash-search-input-row {
+position: relative;
 }
 #dash-search {
 width: 100%;
@@ -1434,6 +1437,87 @@ display: none;
 }
 #dash-search-clear:hover { color: var(--text-white); background: var(--bg-panel-2); }
 #dash-search-wrap.has-query #dash-search-clear { display: block; }
+
+.dash-search-modes {
+display: flex;
+align-items: center;
+gap: 6px;
+margin-top: 6px;
+flex-wrap: wrap;
+}
+.dash-search-modes-label {
+font-size: 10px;
+color: var(--text-mid);
+letter-spacing: 0.3px;
+text-transform: uppercase;
+margin-right: 2px;
+}
+.dsm-btn {
+font-family: var(--font-main);
+font-size: 11px;
+padding: 3px 10px;
+border-radius: 999px;
+border: 1px solid var(--border-subtle);
+background: transparent;
+color: var(--text-dim);
+cursor: pointer;
+}
+.dsm-btn:hover { border-color: var(--accent-cyan); color: var(--text-white); }
+.dsm-btn.active { background: var(--accent-cyan); border-color: var(--accent-cyan); color: var(--bg-deep); font-weight: 700; }
+.dsm-hint {
+font-size: 10px;
+color: var(--text-mid);
+margin-left: 4px;
+}
+
+#dash-search-live-panel {
+display: none;
+margin-top: 8px;
+background: var(--bg-panel);
+border: 1px solid var(--border-subtle);
+border-radius: 6px;
+padding: 0;
+font-size: 12px;
+}
+#dash-search-live-panel.open { display: block; }
+#dash-search-live-header {
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 6px 8px 6px 12px;
+border-bottom: 1px solid var(--border-subtle);
+}
+#dash-search-live-title {
+font-size: 11px;
+color: var(--text-mid);
+letter-spacing: 0.3px;
+text-transform: uppercase;
+}
+#dash-search-live-close {
+border: 0;
+background: transparent;
+color: var(--text-mid);
+cursor: pointer;
+font-size: 16px;
+line-height: 1;
+padding: 3px 7px;
+border-radius: 4px;
+}
+#dash-search-live-close:hover { color: var(--text-white); background: var(--bg-panel-2); }
+#dash-search-live-body {
+padding: 10px 12px;
+max-height: 300px;
+overflow-y: auto;
+}
+.dsl-loading, .dsl-empty { color: var(--text-mid); }
+.dsl-error { color: #ff6b6b; }
+.dsl-result { padding: 7px 0; border-bottom: 1px solid var(--border-subtle); }
+.dsl-result:last-child { border-bottom: none; }
+.dsl-result a { color: var(--accent-cyan); text-decoration: none; font-weight: 600; font-size: 12.5px; }
+.dsl-result a:hover { text-decoration: underline; }
+.dsl-meta { color: var(--text-dim); font-size: 10px; margin-top: 2px; }
+.dsl-docslink { color: var(--accent-cyan); text-decoration: none; font-weight: 600; }
+.dsl-docslink:hover { text-decoration: underline; }
 
 #dash-category-bar {
 display: flex;
@@ -2046,7 +2130,7 @@ html.theme-toasters {
 
 <div id="theme-guide-overlay">
 <div id="theme-guide-popup">
-<button id="theme-guide-close" type="button" aria-label="Close">×</button>
+<button id="theme-guide-close" type="button" aria-label="Close">&times;</button>
 <h3>Theme color reference</h3>
 <p class="guide-sub">Every theme is just these 9 variables. Set all 9 and you've made a new theme.</p>
 
@@ -2062,11 +2146,11 @@ That's it - everything on the page reads from these variables, nothing else need
 
 <hr style="border-color:var(--border-subtle);margin:14px 0;">
 
-<button class="link-toggle" id="theme-builder-toggle" style="margin:0;">🎨 Build Your Own Theme</button>
+<button class="link-toggle" id="theme-builder-toggle" style="margin:0;">&#127912; Build Your Own Theme</button>
 
 <div id="theme-builder-panel" style="display:none;margin-top:10px;">
 <label class="mod-label" style="margin-top:0;">Start from</label>
-<select id="theme-builder-start" class="mod-input"><option value="__current__">Current theme</option><option value="dark">BeyondTrust Dark</option><option value="christmas">Christmas</option><option value="matrix">Matrix</option><option value="starfield">Starfield</option><option value="light">Light</option><option value="highcontrast">High Contrast</option><option value="plain">Plain Text</option><option value="ctp-macchiato-maroon">Catppuccin Macchiato (Maroon)</option><option value="ctp-macchiato-blue">Catppuccin Macchiato (Blue)</option><option value="ctp-mocha-peach">Catppuccin Mocha (Peach)</option><option value="ctp-mocha-mauve">Catppuccin Mocha (Mauve)</option><option value="ctp-frappe-teal">Catppuccin Frappe (Teal)</option><option value="builder-classic">Builder Classic</option><option value="builder-dark">Builder Dark</option><option value="builder-slate">Builder Slate</option><option value="builder-ezi">Builder Ezi</option><option value="halloween">Halloween / Autumn</option></select>
+<select id="theme-builder-start" class="mod-input"></select>
 
 <div id="theme-builder-fields" style="margin-top:10px;"></div>
 
@@ -2089,7 +2173,7 @@ That's it - everything on the page reads from these variables, nothing else need
 
 <div id="mode-info-overlay">
 <div id="mode-info-popup">
-<button id="mode-info-close" type="button" aria-label="Close">×</button>
+<button id="mode-info-close" type="button" aria-label="Close">&times;</button>
 <h3>Append vs. Replace</h3>
 <p><strong>Append</strong> - each time you hit Generate, the new output gets added to the <em>top</em> of the box, so the newest thing you ran is always the first thing you see. Older entries stay below it. Good for building up notes across several generators in one case.</p>
 <p><strong>Replace</strong> - each Generate click clears the box first, so it only ever shows the most recent output. Good when you only care about the last thing you ran.</p>
@@ -2101,7 +2185,7 @@ That's it - everything on the page reads from these variables, nothing else need
 <div id="tile-hidden-popup">
 <h3 id="tile-hidden-title">Module hidden</h3>
 <p id="tile-hidden-message"></p>
-<p class="tile-hidden-note">You can save your current setup anytime from <strong>Options → Export settings</strong>.</p>
+<p class="tile-hidden-note">You can save your current setup anytime from <strong>Options &rarr; Export settings</strong>.</p>
 <p class="tile-hidden-note">This isn't permanent - use <strong>Reset order to default</strong> at the top of this list to bring everything back.</p>
 <button class="mod-btn" id="tile-hidden-ok" style="margin-top:12px;">Got it</button>
 </div>
@@ -2121,7 +2205,7 @@ That's it - everything on the page reads from these variables, nothing else need
 
 <div id="stats-overlay">
 <div id="stats-popup">
-<button id="stats-close" type="button" aria-label="Close">×</button>
+<button id="stats-close" type="button" aria-label="Close">&times;</button>
 <h3>Stats for nerds</h3>
 <div id="stats-content"></div>
 </div>
@@ -2129,7 +2213,7 @@ That's it - everything on the page reads from these variables, nothing else need
 
 <div id="release-notes-overlay">
 <div id="release-notes-popup">
-<button id="release-notes-close" type="button" aria-label="Close">×</button>
+<button id="release-notes-close" type="button" aria-label="Close">&times;</button>
 <h3>WNT 3.0 - Release Notes</h3>
 <div id="release-notes-content"></div>
 </div>
@@ -2139,7 +2223,7 @@ That's it - everything on the page reads from these variables, nothing else need
 <div id="panic-reset-popup">
 <h3>Reset everything?</h3>
 <p id="panic-reset-lead">This clears your theme, tile order, hidden modules, custom selection, tooltip preference, and any imported New Hire content - back to exactly how the tool looked the first time you opened it.</p>
-<p class="panic-reset-note" id="panic-reset-note">Nothing here is permanent. Restore later from Options → Import settings if you keep a JSON backup.</p>
+<p class="panic-reset-note" id="panic-reset-note">Nothing here is permanent. Restore later from Options &rarr; Import settings if you keep a JSON backup.</p>
 <div class="mod-row" style="justify-content:center;margin-top:12px;flex-wrap:wrap;gap:8px;" id="panic-reset-actions">
 <button class="mod-btn secondary" id="panic-reset-cancel">Cancel</button>
 <button class="mod-btn" id="panic-reset-confirm" style="background:#ff3b3b;border-color:#ff3b3b;">Yes, reset everything</button>
@@ -2147,12 +2231,12 @@ That's it - everything on the page reads from these variables, nothing else need
 </div>
 </div>
 
-<div id="module-overlay" class="open">
+<div id="module-overlay">
 <div id="module-popup">
-<button id="module-close" type="button" aria-label="Close">×</button>
-<h3 id="module-title">Options</h3>
-<div id="module-body" style="display: none;"></div>
-<div id="options-content" style="display: block; padding: 20px;">
+<button id="module-close" type="button" aria-label="Close">&times;</button>
+<h3 id="module-title"></h3>
+<div id="module-body"></div>
+<div id="options-content" style="display:none;padding:20px;">
 <div id="advanced-panel" class="open">
 
 <div id="theme-row">
@@ -2208,7 +2292,7 @@ Override for holidays <span style="color:var(--text-mid);">(disable automatic se
 Disable tooltips <span style="color:var(--text-mid);">(hides the hover explanations throughout the tool)</span>
 </label>
 <label style="display:flex;align-items:center;gap:8px;font-size:12px;cursor:pointer;margin-top:8px;">
-<input type="checkbox" id="autobackup-checkbox" checked="">
+<input type="checkbox" id="autobackup-checkbox" checked>
 Auto-backup New Hire data <span style="color:var(--text-mid);">(on by default - see below)</span>
 </label>
 <label style="display:flex;align-items:center;gap:8px;font-size:12px;cursor:pointer;margin-top:8px;">
@@ -2269,12 +2353,12 @@ Apply plasma? <span style="color:var(--text-mid);">(4rknova plasma. Colors below
 <div id="save-local-copy-row" style="margin-top:14px;">
 <button class="mod-btn secondary" id="save-local-copy-link" type="button">Save a local copy to this device</button>
 <p class="mod-note" style="font-size:11px;color:var(--text-mid);margin-top:6px;">If you got here via a link like <code style="color:var(--accent-cyan);">hostname/download/...</code>, "Add to Home Screen" from THIS page will just bookmark that link - and if that link only works once or expires, the shortcut ends up 404ing. This button saves an exact copy of the file straight to your device's Downloads. Open <strong style="color:var(--text-white);">that</strong> downloaded file (from your Downloads/Files app, not this browser tab) once, and add <strong style="color:var(--text-white);">that</strong> to your Home Screen instead - it has no dependency on this hostname at all after that.</p>
-<p class="mod-note" id="save-local-copy-status" style="font-size: 11px; min-height: 14px; color: var(--text-mid);">Saving...</p>
+<p class="mod-note" id="save-local-copy-status" style="font-size:11px;min-height:14px;"></p>
 </div>
 
 <p class="adv-sub">Pick any mix of modules, regardless of role. Common items are on by default.</p>
 
-<div id="advanced-modules-list"><div class="adv-group"><div class="adv-group-label">Common</div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="ServiceNow URL Shortener"><label>ServiceNow URL Shortener</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="ServiceNow Email Mailto"><label>ServiceNow Email Mailto</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Manual Update (Download Key)"><label>Manual Update (Download Key)</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Important Emails"><label>Important Emails</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Character Counter"><label>Character Counter</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="CAPITAL → lowercase"><label>CAPITAL → lowercase</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Full Admin Authorization"><label>Full Admin Authorization</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Update Paths (Consolidated)"><label>Update Paths (Consolidated)</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Recombobulator"><label>Update Path Recombobulator</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="AAAAAAAAAAAAA (panic!!)"><label>AAAAAAAAAAAAA (panic!!)</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Misc Notes"><label>Misc Notes</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Links"><label>Links</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Scratch Pad"><label>Scratch Pad</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Shared Knowledge"><label>Shared Knowledge</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="ctxt.io Share"><label>ctxt.io Share</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Calendar (Outlook)"><label>Calendar (Outlook)</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Android wrapper (WebView)"><label>Android wrapper (WebView)</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="APK update manager"><label>APK update manager</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="SSL Certificates Explained"><label>SSL Certificates Explained</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="PERSONAL"><label>PERSONAL</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Timezone Conversion"><label>Timezone Conversion</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="BIPS Support Escalation Process"><label>BIPS Support Escalation Process</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Vault Basics: Check Out, Rotate, Inject"><label>Vault Basics: Check Out, Rotate, Inject</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="SSO / Kerberos Troubleshooting"><label>SSO / Kerberos Troubleshooting</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Atlas Cluster &amp; Failover in Plain English"><label>Atlas Cluster &amp; Failover in Plain English</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="TSE Coverage Grid"><label>TSE Coverage Grid</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Pathfinder SAML Claims"><label>Pathfinder SAML Claims</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Pathfinder Troubleshooting"><label>Pathfinder Troubleshooting</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Subnet Calculator"><label>Subnet Calculator</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="SSL Cert Decrypter"><label>SSL Cert Decrypter</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Pathfinder SCIM Provisioning"><label>Pathfinder SCIM Provisioning</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Pathfinder Site &amp; Product Access"><label>Pathfinder Site &amp; Product Access</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Pathfinder API Configuration"><label>Pathfinder API Configuration</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Legacy /login vs Pathfinder"><label>Legacy /login vs Pathfinder</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Pathfinder Custom Domain (CNAME)"><label>Pathfinder Custom Domain (CNAME)</label></div></div><div class="adv-group"><div class="adv-group-label">TSA + TSE (pick what you want via Custom Selection)</div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Hunt Group Numbers"><label>Hunt Group Numbers</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Internal IT"><label>Internal IT</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="SRA Update Request"><label>SRA Update Request</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="SRA Logging"><label>SRA Logging</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Process for Changing the PF Org/Site Admin"><label>Process for Changing the PF Org/Site Admin</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Updating SRA Failover"><label>Updating SRA Failover</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Jump Client Info"><label>Jump Client Info</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Helpful KB Articles"><label>Helpful KB Articles</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Browsers &amp; Approved Extensions"><label>Browsers &amp; Approved Extensions</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Jump Client Statuses"><label>Jump Client Statuses</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="New Jump Terminology"><label>New Jump Terminology</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="SRA VA License and Sizing"><label>SRA VA License and Sizing</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Common Failover Error Codes"><label>Common Failover Error Codes</label></div></div><div class="adv-group"><div class="adv-group-label">TSA</div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Appliance Details"><label>Appliance Details</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Partners and the Customer Portal (CXP)"><label>Partners and the Customer Portal (CXP)</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Customer Admin/Partners with Cases flags (CXP)"><label>Customer Admin/Partners with Cases flags (CXP)</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Okta Reset"><label>Okta Reset</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="More Info"><label>More Info</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="PWS Cloud Custom Hostname"><label>PWS Cloud Custom Hostname</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="PWS Cloud Upgrade"><label>PWS Cloud Upgrade</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Cloud Infrastructure Post Helper"><label>Cloud Infrastructure Post Helper</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="SRA Pathfinder URL Change Helper"><label>SRA Pathfinder URL Change Helper</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Phone Guide"><label>Phone Guide</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Single Add User to CXP"><label>Single Add User to CXP</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Multi-add Users to CXP"><label>Multi-add Users to CXP</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="FedRAMP"><label>FedRAMP</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="BI or PWS?"><label>BI or PWS?</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Product Sorting"><label>Product Sorting (Hat)</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="SRA Renewal (Live update) process"><label>SRA Renewal (Live update) process</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="SRA Jump Client Limits"><label>SRA Jump Client Limits</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Basic TSA ServiceNow Filters"><label>Basic TSA ServiceNow Filters</label></div></div><div class="adv-group"><div class="adv-group-label">TSE</div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Decommission Process for Pathfinder Sites and Apps"><label>Decommission Process for Pathfinder Sites and Apps</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="What Logs should I get?"><label>What Logs should I get?</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Escalating Cases to TEEs"><label>Escalating Cases to TEEs</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Product Info Request How-To"><label>Product Info Request How-To</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Regional Transfer Process"><label>Regional Transfer Process</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="New Install Hypervisors"><label>New Install Hypervisors</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Network Troubleshooting Tools"><label>Network Troubleshooting Tools</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="SRA Claims/Assertions"><label>SRA Claims/Assertions</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="NSTV stats"><label>NSTV stats</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Client Log Renames"><label>Client Log Renames</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Common HTTP Errors"><label>Common HTTP Errors</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Jump Client / Rep Console MSI Reference"><label>Jump Client / Rep Console MSI Reference</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Network Layers in Plain English"><label>Network Layers in Plain English</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Where Did It Break?"><label>Where Did It Break?</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="MTU and Big Packet Symptoms"><label>MTU and Big Packet Symptoms</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="DNS Troubleshooting (Plain English)"><label>DNS Troubleshooting (Plain English)</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="TLS Proxy and Cert Decoder"><label>TLS Proxy and Cert Decoder</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Jump Connectivity Decision Tree"><label>Jump Connectivity Decision Tree</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Linux Field Guide"><label>Linux Field Guide</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Deploy a Linux Jumpoint"><label>Deploy a Linux Jumpoint</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Deploy a Windows Jumpoint"><label>Deploy a Windows Jumpoint</label></div><div class="adv-check"><input type="checkbox" class="adv-module-checkbox" data-name="Windows Field Guide"><label>Windows Field Guide</label></div></div></div>
+<div id="advanced-modules-list"></div>
 </div>
 </div>
 
@@ -2303,7 +2387,7 @@ Apply plasma? <span style="color:var(--text-mid);">(4rknova plasma. Colors below
 
 <div id="recomb-info-overlay">
 <div id="recomb-info-popup">
-<button id="recomb-info-close" type="button" aria-label="Close">×</button>
+<button id="recomb-info-close" type="button" aria-label="Close">&times;</button>
 <h3>Keeping this data current</h3>
 <p>This dataset is <strong>shared with Update Paths (Consolidated)</strong> - the two used to be separate and could silently drift apart from each other; as of this build, refreshing one refreshes both.</p>
 <p>To verify or refresh it yourself, check the source pages directly:</p>
@@ -2311,7 +2395,7 @@ Apply plasma? <span style="color:var(--text-mid);">(4rknova plasma. Colors below
 <a href="https://beyondtrust.atlassian.net/wiki/spaces/STSE/pages/43843641/RS+Consolidated+Upgrade+Path" target="_blank">RS Consolidated Upgrade Path</a><br>
 <a href="https://beyondtrust.atlassian.net/wiki/spaces/STSE/pages/43843657/PRA+Consolidated+Upgrade+Path" target="_blank">PRA Consolidated Upgrade Path</a>
 </p>
-<p><strong>To refresh:</strong> in Confluence, click the <strong>⋯</strong> (three dots, top right) → <strong>Export</strong> → <strong>Export to Word</strong>, then drop the downloaded file on the import control in <strong>Update Paths (Consolidated)</strong>. It reads the table straight out of the export, recomputes the chain shown there, and updates this module's own version-lookup data at the same time - saved locally, so it's still there next time you open the tool.</p>
+<p><strong>To refresh:</strong> in Confluence, click the <strong>&#8943;</strong> (three dots, top right) &rarr; <strong>Export</strong> &rarr; <strong>Export to Word</strong>, then drop the downloaded file on the import control in <strong>Update Paths (Consolidated)</strong>. It reads the table straight out of the export, recomputes the chain shown there, and updates this module's own version-lookup data at the same time - saved locally, so it's still there next time you open the tool.</p>
 <p style="font-size:11px;color:var(--text-mid);margin-top:10px;">Target version field suggested by TSE Mike McCauley - thanks for the idea.</p>
 <p style="font-size:10px;color:var(--text-mid);margin-top:6px;">Recombobulator, as opposed to <a href="https://www.youtube.com/watch?v=B62ACxuq8Pw" target="_blank" style="color:var(--text-mid);">discombobulate</a>.</p>
 </div>
@@ -2343,22 +2427,22 @@ Apply plasma? <span style="color:var(--text-mid);">(4rknova plasma. Colors below
 
 <div id="shell">
 
-<div id="app-header" class="compact">
+<div id="app-header">
 <div id="logo-mark"><img src="data:image/png;base64,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" alt="WNT logo"></div>
 <div id="app-title">WNT 3.0</div>
-<div id="header-links"><a href="https://beyondtrust.atlassian.net/wiki/spaces/STSE/pages/367526225/SRA+Issue+Radar" target="_blank">SRA Issue Radar</a><br><a href="https://www.beyondtrust.com/trust-center/security-advisories" target="_blank">Current Security Advisories</a></div>
+<div id="header-links"></div>
 </div>
 
 <!-- ============ VIEW 1: Role picker / greeting ============ -->
 <div class="view" id="view-picker" style="display:none;"></div>
 
 <!-- ============ VIEW 2: Dashboard (module tiles) ============ -->
-<div class="view active" id="view-dashboard">
+<div class="view" id="view-dashboard">
 
 <div id="output-section" class="collapsed">
 <div id="output-header">
 <div class="title-group">
-<span id="collapse-caret">▼</span>
+<span id="collapse-caret">&#9660;</span>
 <h2><span class="output-title-full">Output / Scratch Pad</span><span class="output-title-short">Output/Scratch</span></h2>
 </div>
 <div id="mode-toggle">
@@ -2377,10 +2461,10 @@ Apply plasma? <span style="color:var(--text-mid);">(4rknova plasma. Colors below
 </div>
 
 <div id="dash-header">
-<div id="greeting" style="font-size:16px;font-weight:600;color:var(--text-white);">Good Afternoon.</div>
-<div id="dash-role-label" style="display:none;">All Modules</div>
+<div id="greeting" style="font-size:16px;font-weight:600;color:var(--text-white);"></div>
+<div id="dash-role-label" style="display:none;">TSA</div>
 <button id="wnt-mobile-menu-btn" title="Open menu">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
 </button>
 <div class="mod-row" style="gap:6px;margin:0;">
 <button class="mod-btn secondary" id="btn-new-hire-tsa" style="margin:0;font-size:11px;padding:5px 10px;">New Hire (TSA)</button>
@@ -2389,16 +2473,31 @@ Apply plasma? <span style="color:var(--text-mid);">(4rknova plasma. Colors below
 </div>
 
 <div id="dash-body-row">
-<div id="wnt-sidebar" class="collapsed">
-<button id="wnt-sidebar-toggle" title="Collapse/expand">▶</button>
-<div id="wnt-cat-list"><div class="wnt-cat-link" data-cat="Custom" draggable="true"><span class="wnt-cat-icon"><svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg></span><span class="wnt-cat-label">Custom</span><span class="wnt-cat-count">17</span><span class="wnt-tooltip">Custom (17) - drag to reorder, or drop a module here to recategorize it</span></div><div class="wnt-cat-link" data-cat="Personal &amp; Utility" draggable="true"><span class="wnt-cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></span><span class="wnt-cat-label">Personal &amp; Utility</span><span class="wnt-cat-count">13</span><span class="wnt-tooltip">Personal &amp; Utility (13) - drag to reorder, or drop a module here to recategorize it</span></div><div class="wnt-cat-link" data-cat="Guides" draggable="true"><span class="wnt-cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.8 2.8-2-2 2.8-2.8z"></path></svg></span><span class="wnt-cat-label">Guides</span><span class="wnt-cat-count">37</span><span class="wnt-tooltip">Guides (37) - drag to reorder, or drop a module here to recategorize it</span></div><div class="wnt-cat-link" data-cat="Case Handling" draggable="true"><span class="wnt-cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 0 1 18 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3M3 12v5a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3"></path></svg></span><span class="wnt-cat-label">Case Handling</span><span class="wnt-cat-count">18</span><span class="wnt-tooltip">Case Handling (18) - drag to reorder, or drop a module here to recategorize it</span></div><div class="wnt-cat-link" data-cat="Reference Tables" draggable="true"><span class="wnt-cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="9" y1="10" x2="9" y2="20"></line></svg></span><span class="wnt-cat-label">Reference Tables</span><span class="wnt-cat-count">22</span><span class="wnt-tooltip">Reference Tables (22) - drag to reorder, or drop a module here to recategorize it</span></div><div class="wnt-cat-link" data-cat="Newly Added" draggable="true"><span class="wnt-cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15 9 22 9 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9 9 9"></polygon></svg></span><span class="wnt-cat-label">Newly Added</span><span class="wnt-cat-count">42</span><span class="wnt-tooltip">Newly Added (42) - drag to reorder, or drop a module here to recategorize it</span></div><div class="wnt-cat-link" data-cat="TSM Admin" draggable="true"><span class="wnt-cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"></path></svg></span><span class="wnt-cat-label">TSM Admin</span><span class="wnt-cat-count">8</span><span class="wnt-tooltip">TSM Admin (8) - drag to reorder, or drop a module here to recategorize it</span></div><div class="wnt-cat-link active" data-cat="" style="border-top:1px solid var(--border-subtle);margin-top:8px;"><span class="wnt-cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect></svg></span><span class="wnt-cat-label">All Modules</span><span class="wnt-cat-count">104</span><span class="wnt-tooltip">All Modules (104)</span></div></div>
-<div class="wnt-cat-link" id="wnt-options-link"><span class="wnt-cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></span><span class="wnt-cat-label">Options</span><span class="wnt-tooltip">Options - Theme, Export/Import, Panic Reset, and more</span></div><div class="wnt-cat-link" id="wnt-whats-new-link"><span class="wnt-cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg></span><span class="wnt-cat-label">What's New?</span><span class="wnt-tooltip">What's New? - quick user guide, full release notes, and this project's link</span></div></div>
+<div id="wnt-sidebar">
+<button id="wnt-sidebar-toggle" title="Collapse/expand">&#9664;</button>
+<div id="wnt-cat-list"></div>
+</div>
 <div id="wnt-sidebar-backdrop"></div>
 
 <div id="wnt-main">
 <div id="dash-search-wrap">
-<input type="text" id="dash-search" placeholder="Search..." title="Searches module names and the actual content inside each one" autocomplete="off">
-<button type="button" id="dash-search-clear" title="Clear search" aria-label="Clear search">×</button>
+<div id="dash-search-input-row">
+<input type="text" id="dash-search" placeholder="Search..." title="Searches module names and the actual content inside each one - press Enter to also search KB/Confluence/Docs" autocomplete="off">
+<button type="button" id="dash-search-clear" title="Clear search" aria-label="Clear search">&times;</button>
+</div>
+<div class="dash-search-modes">
+<span class="dash-search-modes-label">Also search:</span>
+<button type="button" class="dsm-btn active" id="dsm-kb" data-mode="kb">KB Articles</button>
+<button type="button" class="dsm-btn" id="dsm-docs" data-mode="docs">Public Docs</button>
+<span class="dsm-hint">press Enter in the box above</span>
+</div>
+<div id="dash-search-live-panel">
+<div id="dash-search-live-header">
+<span id="dash-search-live-title">Results</span>
+<button type="button" id="dash-search-live-close" title="Close results" aria-label="Close results">&times;</button>
+</div>
+<div id="dash-search-live-body"></div>
+</div>
 </div>
 <div style="text-align:right;margin-top:4px;">
 <a class="link-toggle" id="dash-reset-order" style="display:none;font-size:11px;margin:0;">Reset order to default</a>
@@ -2415,18 +2514,18 @@ Apply plasma? <span style="color:var(--text-mid);">(4rknova plasma. Colors below
 
 <div id="dash-category-bar" style="display:none;"></div>
 
-<div class="tile-list" id="tile-list"><div class="tile-section">Newly Added<span class="tile-section-sub">42 since the 31AUG2026 wave</span></div><div class="tile" data-name="TSM Case Review Checklist" draggable="true" tabindex="0"><div class="tile-name">TSM Case Review Checklist</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="ServiceNow Query Builder (TSM)" draggable="true" tabindex="0"><div class="tile-name">ServiceNow Query Builder (TSM)</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="Handoff / Shift Notes Generator" draggable="true" tabindex="0"><div class="tile-name">Handoff / Shift Notes Generator</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="Escalation Quality Gate" draggable="true" tabindex="0"><div class="tile-name">Escalation Quality Gate</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="Jira Ticket Template Generator" draggable="true" tabindex="0"><div class="tile-name">Jira Ticket Template Generator</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="Team Capacity Snapshot" draggable="true" tabindex="0"><div class="tile-name">Team Capacity Snapshot</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="New Hire Progress Board" draggable="true" tabindex="0"><div class="tile-name">New Hire Progress Board</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="1:1 / Coaching Note Pad" draggable="true" tabindex="0"><div class="tile-name">1:1 / Coaching Note Pad</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="Process Change Log" draggable="true" tabindex="0"><div class="tile-name">Process Change Log</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="Weekly Team Metrics Scratchpad" draggable="true" tabindex="0"><div class="tile-name">Weekly Team Metrics Scratchpad</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="Customer Health Flags" draggable="true" tabindex="0"><div class="tile-name">Customer Health Flags</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="Approval / Exception Log" draggable="true" tabindex="0"><div class="tile-name">Approval / Exception Log</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="Confluence Quick Links + Search" draggable="true" tabindex="0"><div class="tile-name">Confluence Quick Links + Search</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="KB / SOP Freshness Checker" draggable="true" tabindex="0"><div class="tile-name">KB / SOP Freshness Checker</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="Teams Channel / Tag Cheatsheet" draggable="true" tabindex="0"><div class="tile-name">Teams Channel / Tag Cheatsheet</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="ctxt.io Share" draggable="true" tabindex="0"><div class="tile-name">ctxt.io Share</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div><button type="button" class="tile-delete-btn" aria-label="Remove from Custom">×</button></div><div class="tile" data-name="Calendar (Outlook)" draggable="true" tabindex="0"><div class="tile-name">Calendar (Outlook)</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="Android wrapper (WebView)" draggable="true" tabindex="0"><div class="tile-name">Android wrapper (WebView)</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="APK update manager" draggable="true" tabindex="0"><div class="tile-name">APK update manager</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="Network Layers in Plain English" draggable="true" tabindex="0"><div class="tile-name">Network Layers in Plain English</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="Where Did It Break?" draggable="true" tabindex="0"><div class="tile-name">Where Did It Break?</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="MTU and Big Packet Symptoms" draggable="true" tabindex="0"><div class="tile-name">MTU and Big Packet Symptoms</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="DNS Troubleshooting (Plain English)" draggable="true" tabindex="0"><div class="tile-name">DNS Troubleshooting (Plain English)</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="TLS Proxy and Cert Decoder" draggable="true" tabindex="0"><div class="tile-name">TLS Proxy and Cert Decoder</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="Jump Connectivity Decision Tree" draggable="true" tabindex="0"><div class="tile-name">Jump Connectivity Decision Tree</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="Linux Field Guide" draggable="true" tabindex="0"><div class="tile-name">Linux Field Guide</div><div class="tile-added"><span class="tile-added-new">NEW</span>31AUG2026</div></div><div class="tile" data-name="Deploy a Linux Jumpoint" draggable="true" tabindex="0"><div class="tile-name">Deploy a Linux Jumpoint</div><div class="tile-added"><span class="tile-added-new">NEW</span>03SEP2026</div></div><div class="tile" data-name="Deploy a Windows Jumpoint" draggable="true" tabindex="0"><div class="tile-name">Deploy a Windows Jumpoint</div><div class="tile-added"><span class="tile-added-new">NEW</span>03SEP2026</div></div><div class="tile" data-name="Windows Field Guide" draggable="true" tabindex="0"><div class="tile-name">Windows Field Guide</div><div class="tile-added"><span class="tile-added-new">NEW</span>03SEP2026</div></div><div class="tile" data-name="Vault Basics: Check Out, Rotate, Inject" draggable="true" tabindex="0"><div class="tile-name">Vault Basics: Check Out, Rotate, Inject</div><div class="tile-added"><span class="tile-added-new">NEW</span>03SEP2026</div></div><div class="tile" data-name="SSO / Kerberos Troubleshooting" draggable="true" tabindex="0"><div class="tile-name">SSO / Kerberos Troubleshooting</div><div class="tile-added"><span class="tile-added-new">NEW</span>03SEP2026</div></div><div class="tile" data-name="Atlas Cluster &amp; Failover in Plain English" draggable="true" tabindex="0"><div class="tile-name">Atlas Cluster &amp; Failover in Plain English</div><div class="tile-added"><span class="tile-added-new">NEW</span>03SEP2026</div></div><div class="tile" data-name="TSE Coverage Grid" draggable="true" tabindex="0"><div class="tile-name">TSE Coverage Grid</div><div class="tile-added"><span class="tile-added-new">NEW</span>03SEP2026</div></div><div class="tile" data-name="Pathfinder SAML Claims" draggable="true" tabindex="0"><div class="tile-name">Pathfinder SAML Claims</div><div class="tile-added"><span class="tile-added-new">NEW</span>03SEP2026</div></div><div class="tile" data-name="Pathfinder Troubleshooting" draggable="true" tabindex="0"><div class="tile-name">Pathfinder Troubleshooting</div><div class="tile-added"><span class="tile-added-new">NEW</span>03SEP2026</div></div><div class="tile" data-name="Subnet Calculator" draggable="true" tabindex="0"><div class="tile-name">Subnet Calculator</div><div class="tile-added"><span class="tile-added-new">NEW</span>03SEP2026</div></div><div class="tile" data-name="SSL Cert Decrypter" draggable="true" tabindex="0"><div class="tile-name">SSL Cert Decrypter</div><div class="tile-added"><span class="tile-added-new">NEW</span>03SEP2026</div></div><div class="tile" data-name="Pathfinder SCIM Provisioning" draggable="true" tabindex="0"><div class="tile-name">Pathfinder SCIM Provisioning</div><div class="tile-added"><span class="tile-added-new">NEW</span>03SEP2026</div></div><div class="tile" data-name="Pathfinder Site &amp; Product Access" draggable="true" tabindex="0"><div class="tile-name">Pathfinder Site &amp; Product Access</div><div class="tile-added"><span class="tile-added-new">NEW</span>03SEP2026</div></div><div class="tile" data-name="Pathfinder API Configuration" draggable="true" tabindex="0"><div class="tile-name">Pathfinder API Configuration</div><div class="tile-added"><span class="tile-added-new">NEW</span>03SEP2026</div></div><div class="tile" data-name="Legacy /login vs Pathfinder" draggable="true" tabindex="0"><div class="tile-name">Legacy /login vs Pathfinder</div><div class="tile-added"><span class="tile-added-new">NEW</span>03SEP2026</div></div><div class="tile" data-name="Pathfinder Custom Domain (CNAME)" draggable="true" tabindex="0"><div class="tile-name">Pathfinder Custom Domain (CNAME)</div><div class="tile-added"><span class="tile-added-new">NEW</span>03SEP2026</div></div><div class="tile-section">Everything else</div><div class="tile" data-name="Manage New Hire Content" draggable="true" tabindex="0"><div class="tile-name">Manage New Hire Content</div></div><div class="tile" data-name="Appliance Details" draggable="true" tabindex="0"><div class="tile-name">Appliance Details</div><button type="button" class="tile-delete-btn" aria-label="Remove from Custom">×</button></div><div class="tile" data-name="ServiceNow URL Shortener" draggable="true" tabindex="0"><div class="tile-name">ServiceNow URL Shortener</div><button type="button" class="tile-delete-btn" aria-label="Remove from Custom">×</button></div><div class="tile" data-name="ServiceNow Email Mailto" draggable="true" tabindex="0"><div class="tile-name">ServiceNow Email Mailto</div><button type="button" class="tile-delete-btn" aria-label="Remove from Custom">×</button></div><div class="tile" data-name="Manual Update (Download Key)" draggable="true" tabindex="0"><div class="tile-name">Manual Update (Download Key)</div><button type="button" class="tile-delete-btn" aria-label="Remove from Custom">×</button></div><div class="tile" data-name="Important Emails" draggable="true" tabindex="0"><div class="tile-name">Important Emails</div></div><div class="tile" data-name="Phone Guide" draggable="true" tabindex="0"><div class="tile-name">Phone Guide</div></div><div class="tile" data-name="Partners and the Customer Portal (CXP)" draggable="true" tabindex="0"><div class="tile-name">Partners and the Customer Portal (CXP)</div></div><div class="tile" data-name="Customer Admin/Partners with Cases flags (CXP)" draggable="true" tabindex="0"><div class="tile-name">Customer Admin/Partners with Cases flags (CXP)</div></div><div class="tile" data-name="Hunt Group Numbers" draggable="true" tabindex="0"><div class="tile-name">Hunt Group Numbers</div></div><div class="tile" data-name="Character Counter" draggable="true" tabindex="0"><div class="tile-name">Character Counter</div></div><div class="tile" data-name="CAPITAL → lowercase" draggable="true" tabindex="0"><div class="tile-name">CAPITAL → lowercase</div></div><div class="tile" data-name="Full Admin Authorization" draggable="true" tabindex="0"><div class="tile-name">Full Admin Authorization</div><button type="button" class="tile-delete-btn" aria-label="Remove from Custom">×</button></div><div class="tile" data-name="Okta Reset" draggable="true" tabindex="0"><div class="tile-name">Okta Reset</div></div><div class="tile" data-name="Internal IT" draggable="true" tabindex="0"><div class="tile-name">Internal IT</div></div><div class="tile" data-name="More Info" draggable="true" tabindex="0"><div class="tile-name">More Info</div></div><div class="tile" data-name="PWS Cloud Custom Hostname" draggable="true" tabindex="0"><div class="tile-name">PWS Cloud Custom Hostname</div></div><div class="tile" data-name="PWS Cloud Upgrade" draggable="true" tabindex="0"><div class="tile-name">PWS Cloud Upgrade</div></div><div class="tile" data-name="Cloud Infrastructure Post Helper" draggable="true" tabindex="0"><div class="tile-name">Cloud Infrastructure Post Helper</div></div><div class="tile" data-name="SRA Pathfinder URL Change Helper" draggable="true" tabindex="0"><div class="tile-name">SRA Pathfinder URL Change Helper</div></div><div class="tile" data-name="Process for Changing the PF Org/Site Admin" draggable="true" tabindex="0"><div class="tile-name">Process for Changing the PF Org/Site Admin</div></div><div class="tile" data-name="SRA Update Request" draggable="true" tabindex="0"><div class="tile-name">SRA Update Request</div></div><div class="tile" data-name="SRA Logging" draggable="true" tabindex="0"><div class="tile-name">SRA Logging</div></div><div class="tile" data-name="Single Add User to CXP" draggable="true" tabindex="0"><div class="tile-name">Single Add User to CXP</div></div><div class="tile" data-name="FedRAMP" draggable="true" tabindex="0"><div class="tile-name">FedRAMP</div></div><div class="tile" data-name="Multi-add Users to CXP" draggable="true" tabindex="0"><div class="tile-name">Multi-add Users to CXP</div></div><div class="tile" data-name="BI or PWS?" draggable="true" tabindex="0"><div class="tile-name">BI or PWS?</div></div><div class="tile" data-name="Helpful KB Articles" draggable="true" tabindex="0"><div class="tile-name">Helpful KB Articles</div><button type="button" class="tile-delete-btn" aria-label="Remove from Custom">×</button></div><div class="tile" data-name="Product Sorting" draggable="true" tabindex="0"><div class="tile-name">Product Sorting (Hat)</div></div><div class="tile" data-name="Update Paths (Consolidated)" draggable="true" tabindex="0"><div class="tile-name">Update Paths (Consolidated)</div></div><div class="tile" data-name="Recombobulator" draggable="true" tabindex="0"><div class="tile-name">Update Path Recombobulator</div></div><div class="tile" data-name="SRA Renewal (Live update) process" draggable="true" tabindex="0"><div class="tile-name">SRA Renewal (Live update) process</div></div><div class="tile" data-name="Updating SRA Failover" draggable="true" tabindex="0"><div class="tile-name">Updating SRA Failover</div></div><div class="tile" data-name="AAAAAAAAAAAAA (panic!!)" draggable="true" tabindex="0"><div class="tile-name">AAAAAAAAAAAAA (panic!!)</div></div><div class="tile" data-name="Jump Client Info" draggable="true" tabindex="0"><div class="tile-name">Jump Client Info</div><button type="button" class="tile-delete-btn" aria-label="Remove from Custom">×</button></div><div class="tile" data-name="SRA Jump Client Limits" draggable="true" tabindex="0"><div class="tile-name">SRA Jump Client Limits</div></div><div class="tile" data-name="Jump Client Statuses" draggable="true" tabindex="0"><div class="tile-name">Jump Client Statuses</div></div><div class="tile" data-name="New Jump Terminology" draggable="true" tabindex="0"><div class="tile-name">New Jump Terminology</div></div><div class="tile" data-name="SRA VA License and Sizing" draggable="true" tabindex="0"><div class="tile-name">SRA VA License and Sizing</div></div><div class="tile" data-name="Common Failover Error Codes" draggable="true" tabindex="0"><div class="tile-name">Common Failover Error Codes</div></div><div class="tile" data-name="Misc Notes" draggable="true" tabindex="0"><div class="tile-name">Misc Notes</div></div><div class="tile" data-name="Basic TSA ServiceNow Filters" draggable="true" tabindex="0"><div class="tile-name">Basic TSA ServiceNow Filters</div></div><div class="tile" data-name="Links" draggable="true" tabindex="0"><div class="tile-name">Links</div></div><div class="tile" data-name="Browsers &amp; Approved Extensions" draggable="true" tabindex="0"><div class="tile-name">Browsers &amp; Approved Extensions</div></div><div class="tile" data-name="Scratch Pad" draggable="true" tabindex="0"><div class="tile-name">Scratch Pad</div></div><div class="tile" data-name="Shared Knowledge" draggable="true" tabindex="0"><div class="tile-name">Shared Knowledge</div><button type="button" class="tile-delete-btn" aria-label="Remove from Custom">×</button></div><div class="tile" data-name="SSL Certificates Explained" draggable="true" tabindex="0"><div class="tile-name">SSL Certificates Explained</div><button type="button" class="tile-delete-btn" aria-label="Remove from Custom">×</button></div><div class="tile" data-name="PERSONAL" draggable="true" tabindex="0"><div class="tile-name">PERSONAL</div><button type="button" class="tile-delete-btn" aria-label="Remove from Custom">×</button></div><div class="tile" data-name="Timezone Conversion" draggable="true" tabindex="0"><div class="tile-name">Timezone Conversion</div><button type="button" class="tile-delete-btn" aria-label="Remove from Custom">×</button></div><div class="tile" data-name="Decommission Process for Pathfinder Sites and Apps" draggable="true" tabindex="0"><div class="tile-name">Decommission Process for Pathfinder Sites and Apps</div></div><div class="tile" data-name="What Logs should I get?" draggable="true" tabindex="0"><div class="tile-name">What Logs should I get?</div><button type="button" class="tile-delete-btn" aria-label="Remove from Custom">×</button></div><div class="tile" data-name="Escalating Cases to TEEs" draggable="true" tabindex="0"><div class="tile-name">Escalating Cases to TEEs</div></div><div class="tile" data-name="BIPS Support Escalation Process" draggable="true" tabindex="0"><div class="tile-name">BIPS Support Escalation Process</div></div><div class="tile" data-name="SRA Claims/Assertions" draggable="true" tabindex="0"><div class="tile-name">SRA Claims/Assertions</div><button type="button" class="tile-delete-btn" aria-label="Remove from Custom">×</button></div><div class="tile" data-name="NSTV stats" draggable="true" tabindex="0"><div class="tile-name">NSTV stats</div></div><div class="tile" data-name="Client Log Renames" draggable="true" tabindex="0"><div class="tile-name">Client Log Renames</div></div><div class="tile" data-name="Common HTTP Errors" draggable="true" tabindex="0"><div class="tile-name">Common HTTP Errors</div></div><div class="tile" data-name="Regional Transfer Process" draggable="true" tabindex="0"><div class="tile-name">Regional Transfer Process</div></div><div class="tile" data-name="New Install Hypervisors" draggable="true" tabindex="0"><div class="tile-name">New Install Hypervisors</div><button type="button" class="tile-delete-btn" aria-label="Remove from Custom">×</button></div><div class="tile" data-name="Product Info Request How-To" draggable="true" tabindex="0"><div class="tile-name">Product Info Request How-To</div></div><div class="tile" data-name="Network Troubleshooting Tools" draggable="true" tabindex="0"><div class="tile-name">Network Troubleshooting Tools</div><button type="button" class="tile-delete-btn" aria-label="Remove from Custom">×</button></div><div class="tile" data-name="Jump Client / Rep Console MSI Reference" draggable="true" tabindex="0"><div class="tile-name">Jump Client / Rep Console MSI Reference</div><button type="button" class="tile-delete-btn" aria-label="Remove from Custom">×</button></div></div>
+<div class="tile-list" id="tile-list"></div>
 
 <div id="show-all-link" style="display:none;"><a class="link-toggle" id="dash-show-all">Show all modules instead</a></div>
 </div>
 </div>
 
-<div id="app-footer">theme &amp; module setup are remembered · everything else resets on reload</div>
+<div id="app-footer">theme &amp; module setup are remembered &middot; everything else resets on reload</div>
 <div id="app-credit">
 <div>(WNT v3.0 - <a id="release-notes-link" href="#" class="release-notes-label">release notes</a>)</div>
 <div>crafted with love; assisted by claude</div>
 <div>[ <a href="mailto:jowilliams@beyondtrust.com?subject=WNT%20is%20awesome%20and%20I%20love%20it">jowilliams@beyondtrust.com</a> ]</div>
-<div id="app-copyright">Copyright © <span id="copyright-year">2026</span> BeyondTrust Corporation. All rights reserved.</div>
+<div id="app-copyright">Copyright &copy; <span id="copyright-year"></span> BeyondTrust Corporation. All rights reserved.</div>
 </div>
 </div>
 
@@ -2508,6 +2607,7 @@ var MODULES = [
 { name: "ServiceNow Email Mailto", category: "Case Handling", tag: "common", order: 1694 },
 { name: "Manual Update (Download Key)", category: "Personal & Utility", tag: "common", order: 1713 },
 { name: "Important Emails", category: "Guides", tag: "common", order: 1744 },
+{ name: "BeyondTrust Log Analysis", category: "Guides", tag: "common", order: 1745, added: "03SEP2026" },
 { name: "Character Counter", category: "Personal & Utility", tag: "common", order: 2010 },
 { name: "CAPITAL \u2192 lowercase", category: "Personal & Utility", tag: "common", order: 2010.5 },
 { name: "Full Admin Authorization", category: "Case Handling", tag: "common", order: 2099 },
@@ -2626,20 +2726,20 @@ var qs = function (sel) { return document.querySelector(sel); };
 var qsa = function (sel) { return Array.prototype.slice.call(document.querySelectorAll(sel)); };
 
 /* Real bug, reported from an Android WebView build: opening one "?"
-   helper popup (Theme color reference, Append vs. Replace, etc.)
-   without closing it first, then opening a different one, left BOTH
-   with the "open" class simultaneously - nothing ever enforced that
-   only one of these could be open at a time. In a normal browser this
-   is invisible (position: fixed overlays just stack on top of each
-   other, hiding all but the topmost), but this specific WebView
-   doesn't appear to honor position: fixed the same way, so multiple
-   simultaneously-open overlays rendered as separate stacked boxes in
-   normal document flow instead. Fix: closing every OTHER overlay
-   before opening a new one, so only one of these can ever be "open"
-   at once regardless of how a given WebView renders position: fixed.
-   #module-overlay is deliberately excluded - Theme color reference,
-   Append vs. Replace, Recombobulator info, and TSE coverage info are
-   all meant to stack above an open Options/module popup, not close it. */
+helper popup (Theme color reference, Append vs. Replace, etc.)
+without closing it first, then opening a different one, left BOTH
+with the "open" class simultaneously - nothing ever enforced that
+only one of these could be open at a time. In a normal browser this
+is invisible (position: fixed overlays just stack on top of each
+other, hiding all but the topmost), but this specific WebView
+doesn't appear to honor position: fixed the same way, so multiple
+simultaneously-open overlays rendered as separate stacked boxes in
+normal document flow instead. Fix: closing every OTHER overlay
+before opening a new one, so only one of these can ever be "open"
+at once regardless of how a given WebView renders position: fixed.
+#module-overlay is deliberately excluded - Theme color reference,
+Append vs. Replace, Recombobulator info, and TSE coverage info are
+all meant to stack above an open Options/module popup, not close it. */
 var MUTUALLY_EXCLUSIVE_OVERLAY_IDS = [
 "stats-overlay", "release-notes-overlay",
 "panic-reset-overlay", "theme-guide-overlay", "mode-info-overlay",
@@ -2689,8 +2789,8 @@ var STORE_CTXT_HISTORY = "wnt_ctxt_history";
 var ctxtSharePrefill = "";
 
 /* Environment URL relay - user-configured bases for internal tools.
-   Modules call getEnvUrl("servicenow"|"confluence"|"jira") instead of
-   hard-coded placeholders. Nothing is sent anywhere; pure localStorage. */
+Modules call getEnvUrl("servicenow"|"confluence"|"jira") instead of
+hard-coded placeholders. Nothing is sent anywhere; pure localStorage. */
 function loadEnvUrls() {
 try {
 var raw = localStorage.getItem(STORE_ENV_URLS);
@@ -2713,8 +2813,8 @@ return { ok: false, message: "Set your " + (friendlyName || kind) + " base URL u
 return { ok: true, url: val };
 }
 /* Prefer optional SSO launch URL (Okta IdP-initiated) when opening an app
-   in a tab. Link-building modules still use getEnvUrl(base) so constructed
-   deep links stay on the real app host, not the Okta start URL. */
+in a tab. Link-building modules still use getEnvUrl(base) so constructed
+deep links stay on the real app host, not the Okta start URL. */
 function getLaunchUrl(kind) {
 var u = loadEnvUrls();
 var ssoKey = "sso_" + kind;
@@ -5992,6 +6092,44 @@ return parts.join(" \u2192 ");
 
 var MODULE_HANDLERS = {
 
+"BeyondTrust Log Analysis": {
+render: function (body) {
+body.innerHTML =
+'<p class="mod-note">Runs the <code style="color:var(--accent-cyan);">/beyondtrust-log-analysis</code> skill in Claude against PRA/SRA log files - covers sra-scc, sra-con, sra-pin, sra-web, sra-rdp, sra-sjp, ECM (standalone + built-in/Password Safe), Jumpoint subprocess logs, and iOS/Android client logs. Good for connection errors, SSL failures, session issues, ECM auth, credential injection behavior, and Jumpoint architecture questions.</p>' +
+'<p class="mod-note" style="font-size:11px;">This tile cannot reach a live Claude chat directly - copy the command below into a chat, then attach or paste the log content you want analyzed.</p>' +
+'<label class="mod-label" style="margin-top:0;">Command</label>' +
+'<textarea class="mod-result" id="bla-cmd" rows="1" readonly>/beyondtrust-log-analysis</textarea>' +
+'<hr style="border-color:var(--border-subtle);margin:14px 0;">' +
+'<p class="mod-note" style="color:var(--text-white);font-weight:700;margin-top:0;">Stage a log file</p>' +
+'<p class="mod-note" style="font-size:11px;">Reads the file locally in your browser only - nothing here uploads it anywhere. Preview it below, then copy the contents into your chat alongside the command above.</p>' +
+'<label class="mod-btn secondary" style="cursor:pointer;display:inline-block;">Choose log file<input type="file" id="bla-file" accept=".log,.txt,.csv" style="display:none;"></label>' +
+'<span class="mod-note" id="bla-file-info" style="font-size:11px;margin-left:8px;"></span>' +
+'<textarea class="mod-result" id="bla-preview" rows="10" readonly placeholder="File preview will appear here (first 400 lines - truncated if the file is very large)"></textarea>';
+
+body.querySelector("#bla-file").addEventListener("change", function (e) {
+var file = e.target.files[0];
+e.target.value = "";
+if (!file) return;
+body.querySelector("#bla-file-info").textContent = file.name + " (" + Math.round(file.size / 1024) + " KB)";
+var reader = new FileReader();
+reader.onload = function (ev) {
+var text = ev.target.result;
+var lines = text.split(/\r?\n/);
+var truncatedNote = "";
+if (lines.length > 400) {
+lines = lines.slice(0, 400);
+truncatedNote = "\n\n... [truncated to first 400 lines for this preview - copy or attach the original file for the full contents] ...";
+}
+body.querySelector("#bla-preview").value = lines.join("\n") + truncatedNote;
+};
+reader.onerror = function () {
+body.querySelector("#bla-preview").value = "Could not read that file in the browser.";
+};
+reader.readAsText(file);
+});
+}
+},
+
 "Recombobulator": {
 render: function (body) {
 var mode = "RS";
@@ -8972,7 +9110,7 @@ lines = [
 "ss -tulpn"
 ];
 if (port) {
-lines.push("nc -vz " + host + " " + port + "   # or: timeout 3 bash -c '</dev/tcp/" + host + "/" + port + "' && echo open || echo closed");
+lines.push("nc -vz " + host + " " + port + " # or: timeout 3 bash -c '</dev/tcp/" + host + "/" + port + "' && echo open || echo closed");
 lines.push("curl -Iv --max-time 10 https://" + host + ":" + port + "/ 2>&1 | head");
 }
 } else {
@@ -10130,10 +10268,10 @@ lines.push("Cases:");
 if (cases) {
 cases.split(/\r?\n/).forEach(function (row) {
 row = row.trim();
-if (row) lines.push("  - " + row);
+if (row) lines.push(" - " + row);
 });
 } else {
-lines.push("  (none listed)");
+lines.push(" (none listed)");
 }
 if (notes) {
 lines.push("");
@@ -10809,7 +10947,7 @@ var links = [
 { name: "Search (use box above)", url: "", needsBase: true }
 ];
 /* Path suffixes users can customize later; for now open base + /wiki.
-   If you want fixed space shortcuts, add them here after setting confBase. */
+If you want fixed space shortcuts, add them here after setting confBase. */
 var html = '<p class="mod-note" style="margin-top:0;">Uses the Confluence base from Advanced options &gt; Environment URLs. Search builds a real site-search URL against that host.</p>';
 if (!confBase) {
 html += '<p class="mod-note" style="color:#ff6b6b;">No Confluence base set yet. Open Advanced options and save one under Environment URLs.</p>';
@@ -11261,7 +11399,7 @@ wrap.innerHTML =
 '<button class="mod-btn secondary" id="apk-update-check" type="button">Check</button>' +
 '</div>' +
 '<p class="mod-note" id="apk-update-status" style="min-height:16px;"></p>' +
-'<pre class="mod-note" style="white-space:pre-wrap;border:1px solid var(--border-subtle);padding:8px;border-radius:6px;">{{\n  "versionName": "3.0.1",\n  "versionCode": 2,\n  "apkUrl": "https://github.com/notslipjack/WNT/releases/download/v3.0.1/WNT.apk",\n  "htmUrl": "https://github.com/notslipjack/WNT/releases/download/v3.0.1/WNT.htm",\n  "notes": "what changed"\n}}</pre>' +
+'<pre class="mod-note" style="white-space:pre-wrap;border:1px solid var(--border-subtle);padding:8px;border-radius:6px;">{{\n "versionName": "3.0.1",\n "versionCode": 2,\n "apkUrl": "https://github.com/notslipjack/WNT/releases/download/v3.0.1/WNT.apk",\n "htmUrl": "https://github.com/notslipjack/WNT/releases/download/v3.0.1/WNT.htm",\n "notes": "what changed"\n}}</pre>' +
 '<p class="mod-note">Put that file on GitHub (raw URL), GitHub Pages, or any HTTPS host. Bump <code style="color:var(--accent-cyan);">versionCode</code> every APK you ship. The wrapper compares it to its own build number and downloads the APK when remote is higher.</p>';
 body.appendChild(wrap);
 var input = wrap.querySelector("#apk-update-url");
@@ -11680,7 +11818,7 @@ function renderVirtualMonth() {
 var now = localNowParts();
 var title = new Date(viewYear, viewMonth, 1).toLocaleString(undefined, { month: "long", year: "numeric" });
 body.querySelector("#cal-virtual-title").textContent = title;
-body.querySelector("#cal-tz-line").textContent = "Virtual month uses this device clock: " + localTz + "  |  local time " + now.clock;
+body.querySelector("#cal-tz-line").textContent = "Virtual month uses this device clock: " + localTz + " | local time " + now.clock;
 var weekdays = body.querySelector("#cal-grid-weekdays");
 weekdays.innerHTML = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map(function (d) {
 return "<span>" + d + "</span>";
@@ -11736,7 +11874,7 @@ clockTimer = setInterval(function () {
 var line = body.querySelector("#cal-tz-line");
 if (!line) { clearInterval(clockTimer); clockTimer = null; return; }
 var now = localNowParts();
-line.textContent = "Virtual month uses this device clock: " + localTz + "  |  local time " + now.clock;
+line.textContent = "Virtual month uses this device clock: " + localTz + " | local time " + now.clock;
 }, 15000);
 body.querySelector("#cal-prev").addEventListener("click", function () {
 viewMonth -= 1;
@@ -12723,11 +12861,11 @@ out += "Signature algorithm: " + c.sigAlg + "\n";
 out += "Version: " + c.version + "\n\n";
 out += "Not before: " + c.notBefore.toUTCString() + "\n";
 out += "Not after: " + c.notAfter.toUTCString();
-if (expired) out += "  \u2192 EXPIRED";
-if (notYetValid) out += "  \u2192 NOT YET VALID";
+if (expired) out += " \u2192 EXPIRED";
+if (notYetValid) out += " \u2192 NOT YET VALID";
 out += "\n\n";
 out += "Public key: " + c.spkiAlg + (c.keyBits ? " (" + c.keyBits + " bit)" : "") + "\n\n";
-if (c.sans.length) out += "Subject Alternative Names:\n" + c.sans.map(function (s) { return "  " + s; }).join("\n") + "\n\n";
+if (c.sans.length) out += "Subject Alternative Names:\n" + c.sans.map(function (s) { return " " + s; }).join("\n") + "\n\n";
 if (c.extensions.length) out += "Extensions present: " + c.extensions.join(", ");
 resultBox.value = out;
 writeToOutput("SSL Cert Decrypter", out);
@@ -13935,6 +14073,8 @@ syncDashSearchClear();
 var role = loadRole() || "ALL";
 renderTiles(role, "");
 input.focus();
+var livePanel = qs("#dash-search-live-panel");
+if (livePanel) livePanel.classList.remove("open");
 }
 qs("#dash-search").addEventListener("input", function (e) {
 syncDashSearchClear();
@@ -13952,6 +14092,126 @@ e.preventDefault();
 clearDashSearch();
 });
 syncDashSearchClear();
+
+/* ---------------- Live search: KB Articles / Public Docs ----------------
+Separate from the local tile-name/content filter above, which stays instant and
+synchronous. This only fires on Enter (not per keystroke) since KB is a live
+network call through a connector tool. Public Docs has no connector - the
+sandbox can't fetch docs.beyondtrust.com directly, so that mode just builds a
+search link to open. KB Articles uses the ServiceNow "Prod v2" connector's
+native Knowledge Management search (relevance-ranked, with match snippets) -
+this was switched from the older ServiceNow connector, which returned looser
+keyword matches without ranking. */
+var DASH_SEARCH_MODE = "kb";
+function setDashSearchMode(mode) {
+DASH_SEARCH_MODE = mode;
+["kb", "docs"].forEach(function (m) {
+var btn = qs("#dsm-" + m);
+if (btn) btn.classList.toggle("active", m === mode);
+});
+var input = qs("#dash-search");
+if (input && input.value.trim()) runDashLiveSearch(input.value.trim());
+}
+qs("#dsm-kb").addEventListener("click", function () { setDashSearchMode("kb"); });
+qs("#dsm-docs").addEventListener("click", function () { setDashSearchMode("docs"); });
+
+function unwrapMcpResult(r) {
+if (r && r.structuredContent) return r.structuredContent;
+if (r && r.content && r.content[0] && typeof r.content[0].text === "string") {
+try { return JSON.parse(r.content[0].text); } catch (e) { return r.content[0].text; }
+}
+return r;
+}
+
+function escapeHtmlForSearch(s) {
+return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+});
+}
+
+// Snippets from the KB search API include <strong> tags around matched
+// terms - escape everything else but keep those specific tags so the
+// highlighting still shows, without opening the door to arbitrary HTML.
+function escapeSnippetKeepStrong(s) {
+var placeholder1 = "", placeholder2 = "", placeholder3 = "", placeholder4 = "";
+var marked = String(s == null ? "" : s)
+.replace(/<strong>/g, placeholder1)
+.replace(/<\/strong>/g, placeholder2);
+var escaped = escapeHtmlForSearch(marked)
+.replace(new RegExp(placeholder1, "g"), "<strong style=\"color:var(--accent-gold);\">")
+.replace(new RegExp(placeholder2, "g"), "</strong>");
+return escaped;
+}
+
+function renderDashSearchPanel(html) {
+var panel = qs("#dash-search-live-panel");
+var body = qs("#dash-search-live-body");
+if (!panel || !body) return;
+body.innerHTML = html;
+panel.classList.add("open");
+}
+function closeDashSearchPanel() {
+var panel = qs("#dash-search-live-panel");
+if (panel) panel.classList.remove("open");
+}
+qs("#dash-search-live-close").addEventListener("click", function (e) {
+e.preventDefault();
+closeDashSearchPanel();
+});
+
+function runDashLiveSearch(query) {
+var panel = qs("#dash-search-live-panel");
+if (!query) { if (panel) panel.classList.remove("open"); return; }
+if (!window.cowork || typeof window.cowork.callMcpTool !== "function") {
+renderDashSearchPanel('<p class="dsl-error">Live search tools are not available in this view.</p>');
+return;
+}
+
+if (DASH_SEARCH_MODE === "docs") {
+var docsUrl = "https://www.google.com/search?q=" + encodeURIComponent("site:docs.beyondtrust.com " + query);
+renderDashSearchPanel(
+'<p>Search public docs for <strong style="color:var(--text-white);">"' + escapeHtmlForSearch(query) + '"</strong>:</p>' +
+'<p style="margin-top:6px;"><a class="dsl-docslink" href="' + docsUrl + '" target="_blank" rel="noopener">Open docs.beyondtrust.com search &rarr;</a></p>' +
+'<p class="dsl-meta" style="margin-top:8px;">Opens in a new tab - this view can\'t fetch that site\'s results directly.</p>'
+);
+return;
+}
+
+renderDashSearchPanel('<p class="dsl-loading">Searching&hellip;</p>');
+
+window.cowork.callMcpTool("mcp__fb2ae346-12b6-4cc6-ac2c-67d0c7df260d__servicenow_search_knowledge", { params: { query: query, limit: 8 } })
+.then(function (r) {
+if (r && r.isError) throw new Error("tool error");
+var payload = unwrapMcpResult(r);
+var inner = payload;
+if (payload && typeof payload.result === "string") {
+try { inner = JSON.parse(payload.result); } catch (e) { inner = payload; }
+}
+var articles = (inner && inner.articles) || [];
+if (!articles.length) {
+renderDashSearchPanel('<p class="dsl-empty">No KB articles found for "' + escapeHtmlForSearch(query) + '".</p>');
+return;
+}
+var html = articles.map(function (a) {
+var link = a.link || "";
+var url = link ? ("https://beyondtrustcorp.service-now.com/csm" + link) : ("https://beyondtrustcorp.service-now.com/csm?id=kb_article_view&sysparm_article=" + encodeURIComponent(a.number || ""));
+return '<div class="dsl-result"><a href="' + url + '" target="_blank" rel="noopener">' + escapeHtmlForSearch(a.number || "") + " - " + escapeHtmlForSearch(a.title || "") + '</a>' +
+(a.snippet ? '<div class="dsl-meta" style="margin-top:3px;">' + escapeSnippetKeepStrong(a.snippet) + '</div>' : '') +
+'</div>';
+}).join("");
+renderDashSearchPanel(html);
+})
+.catch(function () {
+renderDashSearchPanel('<p class="dsl-error">KB search failed - the ServiceNow connector may be unavailable right now.</p>');
+});
+}
+
+qs("#dash-search").addEventListener("keydown", function (e) {
+if (e.key === "Enter") {
+e.preventDefault();
+runDashLiveSearch(qs("#dash-search").value.trim());
+}
+});
 
 /* ---------------- Init ---------------- */
 function init() {
@@ -14052,5 +14312,5 @@ init();
 })();
 </script>
 
-
-</body></html>
+</body>
+</html>
